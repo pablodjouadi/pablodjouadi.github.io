@@ -5,525 +5,1259 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mon Portfolio CV</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color: #333;
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            line-height: 1.6; 
+            color: #000; 
+            background: #fff;
         }
 
         /* Navigation */
-        nav {
-            background: #2c3e50;
-            color: white;
-            padding: 1rem 0;
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        nav { 
+            background: #fff; 
+            color: #000; 
+            padding: 1rem 0; 
+            position: fixed; 
+            width: 100%; 
+            top: 0; 
+            z-index: 1000; 
+            border-bottom: 2px solid #000;
+        }
+        nav ul { list-style: none; display: flex; justify-content: center; gap: 2rem; }
+        nav ul li { 
+            cursor: pointer; 
+            padding: 0.5rem 1rem; 
+            transition: all 0.3s; 
+            border: 1px solid transparent;
+            position: relative; 
+        }
+        nav ul li:hover { 
+            border: 1px solid #000;
         }
 
-        nav ul {
-            list-style: none;
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
+        /* Menu déroulant */
+        .dropdown { position: relative; }
+        .dropdown-content { 
+            display: none; 
+            position: absolute; 
+            top: 100%; 
+            left: 0; 
+            background: #fff; 
+            min-width: 200px; 
+            border: 2px solid #000;
+            border-top: none;
+            margin-top: 0.5rem; 
+            z-index: 1001; 
         }
-
-        nav ul li {
-            cursor: pointer;
-            padding: 0.5rem 1rem;
-            transition: background 0.3s;
-            border-radius: 5px;
+        .dropdown.open .dropdown-content { display: block; }
+        .dropdown-content li { 
+            padding: 0.8rem 1rem; 
+            border-bottom: 1px solid #000;
         }
-
-        nav ul li:hover {
-            background: #34495e;
+        .dropdown-content li:last-child { border-bottom: none; }
+        .dropdown-content li:hover { 
+            background: rgba(0, 0, 0, 0.05);
         }
+        .dropdown-arrow { margin-left: 0.3rem; font-size: 0.8rem; }
 
         /* Container principal */
-        .container {
-            margin-top: 70px;
-            min-height: calc(100vh - 70px);
-        }
+        .container { margin-top: 70px; min-height: calc(100vh - 70px); }
 
         /* Pages */
-        .page {
-            display: none;
-            padding: 3rem 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
-            animation: fadeIn 0.5s;
+        .page { display: none; padding: 3rem 2rem; max-width: 1200px; margin: 0 auto; animation: fadeIn 0.5s; }
+        .page.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* Page Accueil */
+        #accueil { 
+            background: #fff;
+            padding: 4rem 2rem; 
+            min-height: calc(100vh - 70px); 
         }
 
-        .page.active {
+        /* Encarts blancs avec contours noirs */
+        .welcome-card, .about-card { 
+            background: rgba(255, 255, 255, 0.95); 
+            border: 2px solid #000;
+            padding: 3rem; 
+            margin-bottom: 2rem; 
+        }
+
+        /* Bienvenue */
+        .welcome-content { display: flex; align-items: center; gap: 3rem; }
+        .welcome-left { flex: 1; }
+        .welcome-title { 
+            font-size: 2.5rem; 
+            color: #000; 
+            margin-bottom: 1rem; 
+            font-weight: 300;
+        }
+        .welcome-divider { 
+            width: 100%; 
+            height: 2px; 
+            background: #000;
+            margin-bottom: 2rem; 
+        }
+        .welcome-name { 
+            font-size: 1.8rem; 
+            color: #000; 
+            font-weight: 300; 
+        }
+        .welcome-right { flex-shrink: 0; }
+        .profile-photo { 
+            width: 200px; 
+            height: 200px; 
+            border-radius: 50%; 
+            object-fit: cover; 
+            border: 3px solid #000;
+            filter: grayscale(20%);
+        }
+
+        /* À propos */
+        .about-content { display: flex; align-items: stretch; gap: 3rem; }
+        .about-left { flex: 1; display: flex; flex-direction: column; }
+        .about-title { 
+            font-size: 2rem; 
+            color: #000; 
+            margin-bottom: 1.5rem; 
+            font-weight: 300;
+        }
+        .about-text { 
+            font-size: 1.1rem; 
+            line-height: 1.8; 
+            color: #000; 
+        }
+        .about-right { 
+            flex: 1; 
+            min-height: 450px; 
+            max-height: 450px; 
+            position: relative; 
+            overflow: hidden; 
+            background: #fff; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            justify-content: center; 
+            border: 2px solid #000;
+        }
+        #globe-container { width: 100%; flex: 1; position: relative; }
+        #globe-container canvas { display: block !important; margin: 0 auto !important; }
+        .globe-title { 
+            padding: 0.5rem 1rem; 
+            background: rgba(0, 0, 0, 0.05);
+            width: 100%; 
+            text-align: center; 
+            border-top: 2px solid #000;
+        }
+        .globe-title h3 { 
+            margin: 0; 
+            color: #000; 
+            font-size: 0.9rem; 
+            font-weight: 400; 
+        }
+
+        /* Styles Portfolio - Projets avec vignettes */
+        .project-wrapper, .project-card {
+            position: relative;
+            padding: 2rem;
+            min-height: 200px;
+            overflow: hidden;
+        }
+
+        .project-text-section, .project-content {
+            /* Le texte s'adapte naturellement */
+        }
+
+        .project-text-section h3, .project-content h3 {
+            color: #000;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+            font-weight: 400;
+        }
+
+        .project-text-section p, .project-content p {
+            line-height: 1.8;
+            text-align: justify;
+            color: #000;
+        }
+
+        /* Style pour le sous-titre de niveau d'étude */
+        .academic-level {
+            font-style: italic;
+            color: #000;
+            opacity: 0.7;
+            font-size: 0.95rem;
             display: block;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* Page Accueil spécifique */
-        #accueil {
-            background-image: url('images/blanc.png');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-            padding: 4rem 2rem;
-            min-height: calc(100vh - 70px);
-        }
-
-        /* Encart blanc rectangulaire */
-        .welcome-card, .about-card {
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 15px;
-            padding: 3rem;
-            margin-bottom: 2rem;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-            backdrop-filter: blur(10px);
-        }
-
-        /* Premier encart - Bienvenue */
-        .welcome-content {
-            display: flex;
-            align-items: center;
-            gap: 3rem;
-        }
-
-        .welcome-left {
-            flex: 1;
-        }
-
-        .welcome-title {
-            font-size: 2.5rem;
-            color: #2c3e50;
             margin-bottom: 1rem;
         }
 
-        .welcome-divider {
+        /* Création d'un espace flottant pour que le texte contourne */
+        .project-text-section p::before, .project-content p::before {
+            content: "";
+            float: right;
+            width: 175px;
+            height: 237.5px;
+            margin-left: 1.5rem;
+        }
+
+        .project-image-section, .project-image {
+            position: absolute;
+            top: 2rem;
+            right: 2rem;
+            width: 150px;
+            height: 212.5px;
+            overflow: hidden;
+            border: 2px solid #000;
+        }
+
+        .project-image-section img, .project-image img {
             width: 100%;
-            height: 3px;
-            background: linear-gradient(to right, #3498db, transparent);
-            margin-bottom: 2rem;
-        }
-
-        .welcome-name {
-            font-size: 1.8rem;
-            color: #34495e;
-            font-weight: 300;
-        }
-
-        .welcome-right {
-            flex-shrink: 0;
-        }
-
-        .profile-photo {
-            width: 200px;
-            height: 200px;
-            border-radius: 50%;
+            height: 100%;
             object-fit: cover;
-            border: 5px solid #3498db;
-            box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
+            transition: transform 0.3s ease;
+            filter: grayscale(30%);
         }
 
-        .profile-placeholder {
-            width: 200px;
-            height: 200px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        .project-image-section img:hover, .project-image img:hover {
+            transform: scale(1.05);
+        }
+
+        .project-image-placeholder {
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.05);
             display: flex;
             align-items: center;
             justify-content: center;
-            color: white;
-            font-size: 4rem;
-            font-weight: bold;
-            border: 5px solid #3498db;
-            box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
+            color: #000;
+            font-size: 0.85rem;
+            text-align: center;
+            padding: 0.5rem;
+            font-style: italic;
         }
 
-        /* Second encart - À propos */
-        .about-title {
-            font-size: 2rem;
-            color: #3498db;
-            margin-bottom: 1.5rem;
+        /* Responsive Design Optimisé */
+        
+        /* Tablettes et petits écrans (768px - 1024px) */
+        @media (max-width: 1024px) and (min-width: 769px) {
+            nav ul { gap: 1.5rem; font-size: 0.95rem; }
+            .welcome-title { font-size: 2.2rem; }
+            .welcome-name { font-size: 1.6rem; }
+            .about-title { font-size: 1.8rem; }
+            .profile-photo { width: 180px; height: 180px; }
+            .page-header h1 { font-size: 2.2rem; }
         }
-
-        .about-text {
-            font-size: 1.1rem;
-            line-height: 1.8;
-            color: #555;
+        
+        /* Smartphones en paysage et petites tablettes (481px - 768px) */
+        @media (max-width: 768px) and (min-width: 481px) {
+            nav { padding: 0.8rem 0; }
+            nav ul { gap: 1rem; font-size: 0.9rem; }
+            nav ul li { padding: 0.4rem 0.8rem; }
+            
+            .welcome-content { gap: 2rem; }
+            .welcome-title { font-size: 2rem; }
+            .welcome-name { font-size: 1.5rem; }
+            .profile-photo { width: 160px; height: 160px; }
+            
+            .about-content { gap: 2rem; }
+            .about-title { font-size: 1.7rem; }
+            .about-text { font-size: 1rem; }
+            .about-right { min-height: 400px; max-height: 400px; }
+            
+            .contact-accordion-header { padding: 1.2rem 2rem; }
+            .contact-accordion-header h2 { font-size: 1.5rem; }
+            .contact-accordion-inner { padding: 1.5rem; }
+            .contact-section { padding: 1.5rem 2rem; }
+            
+            .page-header h1 { font-size: 2rem; }
+            .experience-item { padding: 2rem; }
+            .experience-item h3 { font-size: 1.3rem; }
+            
+            .skills-grid { grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 0.8rem; }
+            #languages-globe-container { height: 400px; }
+            
+            .project-text-section p::before, .project-content p::before {
+                width: 150px;
+                height: 201.25px;
+            }
+            
+            .project-image-section, .project-image {
+                width: 125px;
+                height: 176.25px;
+            }
+            
+            .project-text-section h3, .project-content h3 {
+                font-size: 1.3rem;
+            }
         }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .welcome-content {
-                flex-direction: column-reverse;
+        
+        /* Smartphones en portrait (320px - 480px) */
+        @media (max-width: 480px) {
+            nav { padding: 0.6rem 0; }
+            nav ul { flex-direction: row; gap: 0.5rem; font-size: 0.85rem; }
+            nav ul li { padding: 0.4rem 0.6rem; }
+            .dropdown-content { min-width: 160px; font-size: 0.85rem; }
+            .dropdown-content li { padding: 0.6rem 0.8rem; }
+            
+            .container { margin-top: 60px; }
+            .page { padding: 2rem 1rem; }
+            
+            #accueil { padding: 2rem 1rem; }
+            .welcome-card, .about-card { padding: 2rem 1.5rem; }
+            
+            .welcome-content { 
+                flex-direction: column-reverse; 
+                text-align: center; 
+                gap: 1.5rem;
+            }
+            .welcome-title { font-size: 1.8rem; }
+            .welcome-divider { margin-bottom: 1.5rem; }
+            .welcome-name { font-size: 1.3rem; }
+            .profile-photo { width: 140px; height: 140px; }
+            
+            .about-content { 
+                flex-direction: column; 
+                gap: 1.5rem;
+            }
+            .about-title { font-size: 1.6rem; text-align: center; }
+            .about-text { font-size: 0.95rem; text-align: justify; }
+            .about-right { 
+                min-height: 320px; 
+                max-height: 320px; 
+            }
+            #globe-container { height: 100%; }
+            .globe-title h3 { font-size: 0.85rem; }
+            
+            .contact-accordion-header { 
+                padding: 1rem 1.5rem; 
+                flex-direction: column;
+                gap: 0.5rem;
                 text-align: center;
             }
-
-            .welcome-divider {
-                background: linear-gradient(to right, transparent, #3498db, transparent);
+            .contact-accordion-header h2 { font-size: 1.4rem; }
+            .contact-accordion-inner { padding: 1rem; }
+            .contact-section { padding: 1.5rem; }
+            .contact-section h3 { font-size: 1.3rem; }
+            .form-group label { font-size: 0.95rem; }
+            .form-group input, .form-group textarea { font-size: 0.95rem; }
+            
+            .page-header { padding-bottom: 0.8rem; margin-bottom: 1.5rem; }
+            .page-header h1 { font-size: 1.7rem; }
+            .section { padding: 1.5rem; margin-bottom: 1.5rem; }
+            .section h2 { font-size: 1.4rem; margin-bottom: 1rem; }
+            .experience-grid { gap: 1.2rem; }
+            .experience-item { 
+                padding: 1.5rem; 
+                text-align: justify;
             }
-
-            .profile-photo, .profile-placeholder {
-                width: 150px;
+            .experience-item h3 { font-size: 1.2rem; }
+            .experience-date { font-size: 0.9rem; }
+            .experience-item p { font-size: 0.95rem; }
+            
+            .skills-grid { 
+                grid-template-columns: repeat(2, 1fr); 
+                gap: 0.6rem; 
+            }
+            .skill-item, .language-item { 
+                padding: 0.8rem 0.5rem; 
+                font-size: 0.9rem;
+            }
+            .language-name { font-size: 0.95rem; }
+            .language-level { font-size: 0.85rem; }
+            
+            .languages-container { gap: 1.5rem; }
+            .languages-globe { padding: 1.5rem; }
+            #languages-globe-container { height: 320px; }
+            .languages-globe-title { padding: 0.8rem; }
+            .languages-globe-title h3 { font-size: 0.95rem; }
+            
+            .project-wrapper, .project-card {
+                padding: 1.5rem;
+            }
+            
+            .project-text-section p::before, .project-content p::before {
+                width: 131.25px;
+                height: 175px;
+            }
+            
+            .project-image-section, .project-image {
+                width: 106.25px;
                 height: 150px;
+                top: 1.5rem;
+                right: 1.5rem;
             }
+            
+            .project-text-section h3, .project-content h3 {
+                font-size: 1.2rem;
+            }
+            
+            .project-text-section p, .project-content p {
+                font-size: 0.95rem;
+            }
+            
+            footer { padding: 0.8rem; font-size: 0.9rem; }
         }
-
-        /* En-tête de page */
-        .page-header {
-            border-bottom: 3px solid #3498db;
-            padding-bottom: 1rem;
-            margin-bottom: 2rem;
+        
+        /* Très petits écrans (moins de 320px) */
+        @media (max-width: 320px) {
+            nav ul { font-size: 0.75rem; }
+            .welcome-title { font-size: 1.5rem; }
+            .welcome-name { font-size: 1.1rem; }
+            .profile-photo { width: 120px; height: 120px; }
+            .about-title { font-size: 1.4rem; }
+            .about-text { font-size: 0.9rem; }
+            .about-right { min-height: 280px; max-height: 280px; }
+            .page-header h1 { font-size: 1.5rem; }
+            .experience-item h3 { font-size: 1.1rem; }
+            .skills-grid { grid-template-columns: 1fr; }
+            #languages-globe-container { height: 280px; }
         }
-
-        .page-header h1 {
-            color: #2c3e50;
-            font-size: 2.5rem;
-        }
-
-        /* Section */
-        .section {
-            background: #f8f9fa;
-            padding: 2rem;
-            margin-bottom: 2rem;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-
-        .section h2 {
-            color: #3498db;
-            margin-bottom: 1rem;
-        }
-
-        /* Grille pour expériences */
-        .experience-grid {
-            display: grid;
-            gap: 1.5rem;
-        }
-
-        .experience-item {
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 15px;
-            padding: 3rem;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-            backdrop-filter: blur(10px);
-            text-align: justify;
-        }
-
-        .experience-item h3 {
-            color: #2c3e50;
-            margin-bottom: 0.5rem;
-            font-size: 1.5rem;
-        }
-
-        .experience-date {
-            color: #7f8c8d;
-            font-style: italic;
-            margin-bottom: 1rem;
-        }
-
-        /* Compétences */
-        .skills-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1rem;
-        }
-
-        .skill-item {
-            background: white;
-            padding: 1rem;
-            border-radius: 4px;
-            text-align: center;
-        }
-
-        /* Compétences linguistiques avec niveaux */
-        .language-item {
-            background: white;
-            padding: 1.5rem 1rem;
-            border-radius: 4px;
-            text-align: center;
-        }
-
-        .language-name {
-            font-weight: 600;
-            color: #2c3e50;
-            margin-bottom: 0.3rem;
-        }
-
-        .language-level {
-            font-style: italic;
-            color: #7f8c8d;
-            font-size: 0.9rem;
-        }
-
-        /* Formulaire de contact */
-        .contact-form {
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            color: #2c3e50;
-            font-weight: 600;
-        }
-
-        .form-group input,
-        .form-group textarea {
-            width: 100%;
-            padding: 0.8rem;
-            border: 2px solid #ddd;
-            border-radius: 4px;
-            font-family: inherit;
-            font-size: 1rem;
-            transition: border-color 0.3s;
-        }
-
-        .form-group input:focus,
-        .form-group textarea:focus {
-            outline: none;
-            border-color: #3498db;
-        }
-
-        .form-group textarea {
-            resize: vertical;
-        }
-
-        .submit-btn {
-            background: #3498db;
-            color: white;
-            padding: 1rem 2rem;
-            border: none;
-            border-radius: 4px;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: background 0.3s;
-            width: 100%;
-        }
-
-        .submit-btn:hover {
-            background: #2980b9;
-        }
-
-        .submit-btn:active {
-            transform: scale(0.98);
+        
+        /* Mode paysage pour smartphones */
+        @media (max-height: 500px) and (orientation: landscape) {
+            .about-right { min-height: 280px; max-height: 280px; }
+            #languages-globe-container { height: 280px; }
+            .welcome-card, .about-card { padding: 1.5rem; }
         }
 
         /* Footer */
-        footer {
-            background: #2c3e50;
-            color: white;
-            text-align: center;
+        footer { 
+            background: #fff; 
+            color: #000; 
+            text-align: center; 
+            padding: 1rem; 
+            margin-top: 2rem; 
+            border-top: 2px solid #000;
+        }
+
+        /* Pages CV */
+        .page-header { 
+            border-bottom: 2px solid #000;
+            padding-bottom: 1rem; 
+            margin-bottom: 2rem; 
+        }
+        .page-header h1 { 
+            color: #000; 
+            font-size: 2.5rem; 
+            font-weight: 300;
+        }
+        .section { 
+            background: rgba(0, 0, 0, 0.02);
+            padding: 2rem; 
+            margin-bottom: 2rem; 
+            border: 2px solid #000;
+        }
+        .section h2 { 
+            color: #000; 
+            margin-bottom: 1rem; 
+            font-weight: 400;
+        }
+        .experience-grid { display: grid; gap: 1.5rem; }
+        .experience-item { 
+            background: rgba(255, 255, 255, 0.95);
+            border: 2px solid #000;
+            padding: 3rem; 
+            text-align: justify; 
+        }
+        .experience-item h3 { 
+            color: #000; 
+            margin-bottom: 0.5rem; 
+            font-size: 1.5rem; 
+            font-weight: 400;
+        }
+        .experience-date { 
+            color: #000; 
+            font-style: italic; 
+            margin-bottom: 1rem; 
+            opacity: 0.7;
+        }
+        .skills-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); 
+            gap: 1rem; 
+        }
+        .skill-item, .language-item { 
+            background: rgba(255, 255, 255, 0.9);
+            padding: 1rem; 
+            text-align: center; 
+            border: 1px solid #000;
+        }
+        .language-item { padding: 1.5rem 1rem; }
+        .language-name { 
+            font-weight: 600; 
+            color: #000; 
+            margin-bottom: 0.3rem; 
+        }
+        .language-level { 
+            font-style: italic; 
+            color: #000; 
+            font-size: 0.9rem; 
+            opacity: 0.7;
+        }
+
+        /* Globe linguistique */
+        .languages-container { display: flex; flex-direction: column; gap: 2rem; }
+        .languages-globe { 
+            background: rgba(255, 255, 255, 0.95);
+            border: 2px solid #000;
+            padding: 2rem; 
+            display: flex; 
+            flex-direction: column; 
+        }
+        #languages-globe-container { 
+            width: 100%; 
+            height: 500px; 
+            position: relative; 
+            overflow: hidden; 
+            border: 2px solid #000;
+        }
+        .languages-globe-title { 
+            padding: 1rem; 
+            text-align: center; 
+            border-top: 2px solid #000;
+            margin-top: 1rem; 
+            background: rgba(0, 0, 0, 0.02);
+        }
+        .languages-globe-title h3 { 
+            margin: 0; 
+            color: #000; 
+            font-size: 1.1rem; 
+            font-weight: 400;
+        }
+
+        /* Contact accordéon */
+        .contact-accordion { 
+            background: rgba(255, 255, 255, 0.95);
+            border: 2px solid #000;
+            margin-bottom: 2rem; 
+            overflow: hidden; 
+            transition: all 0.3s ease; 
+        }
+
+        .contact-accordion-header { 
+            background: rgba(0, 0, 0, 0.05);
+            color: #000; 
+            padding: 1.5rem 3rem; 
+            cursor: pointer; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            transition: background 0.3s; 
+            border-bottom: 2px solid #000;
+        }
+
+        .contact-accordion-header:hover { 
+            background: rgba(0, 0, 0, 0.1);
+        }
+
+        .contact-accordion-header h2 { 
+            margin: 0; 
+            font-size: 1.8rem; 
+            font-weight: 300;
+        }
+
+        .contact-accordion-icon { 
+            font-size: 1.5rem; 
+            transition: transform 0.3s; 
+        }
+
+        .contact-accordion.active .contact-accordion-icon { 
+            transform: rotate(180deg); 
+        }
+
+        .contact-accordion-content { 
+            max-height: 0; 
+            overflow: hidden; 
+            transition: max-height 0.5s ease; 
+        }
+
+        .contact-accordion.active .contact-accordion-content { 
+            max-height: 1500px; 
+        }
+
+        .contact-accordion-inner { 
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .contact-section { 
+            background: rgba(255, 255, 255, 0.95);
+            border: 2px solid #000;
+            padding: 3rem;
+        }
+
+        .contact-section h3 { 
+            color: #000; 
+            margin-bottom: 1rem; 
+            font-size: 1.5rem; 
+            font-weight: 400;
+        }
+
+        .contact-section p { 
+            margin-bottom: 0.5rem; 
+        }
+
+        .contact-section a {
+            color: #000;
+            text-decoration: none;
+        }
+
+        .contact-section a:hover {
+            text-decoration: underline;
+        }
+
+        .contact-form { 
+            max-width: 600px; 
+            margin: 0 auto; 
+        }
+
+        .form-group { 
+            margin-bottom: 1.5rem; 
+        }
+
+        .form-group label { 
+            display: block; 
+            margin-bottom: 0.5rem; 
+            color: #000; 
+            font-weight: 400;
+        }
+
+        .form-group input, 
+        .form-group textarea { 
+            width: 100%; 
+            padding: 0.8rem; 
+            border: 2px solid #000;
+            background: #fff;
+            font-family: inherit; 
+            font-size: 1rem; 
+            transition: all 0.3s; 
+        }
+
+        .form-group input:focus, 
+        .form-group textarea:focus { 
+            outline: none; 
+            background: rgba(0, 0, 0, 0.02);
+        }
+
+        .form-group textarea { 
+            resize: vertical; 
+        }
+
+        .submit-btn { 
+            background: rgba(0, 0, 0, 0.9);
+            color: #fff; 
+            padding: 1rem 2rem; 
+            border: 2px solid #000;
+            font-size: 1rem; 
+            font-weight: 400;
+            cursor: pointer; 
+            transition: all 0.3s; 
+            width: 100%; 
+        }
+
+        .submit-btn:hover { 
+            background: #000;
+        }
+
+        .submit-btn:active { 
+            transform: scale(0.98); 
+        }
+
+        /* Lightbox pour affichage en grand des images */
+        .lightbox {
+            display: none;
+            position: fixed;
+            z-index: 9999;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .lightbox.active {
+            display: flex;
+        }
+
+        .lightbox-content {
+            max-width: 90%;
+            max-height: 90%;
+            object-fit: contain;
+            border: 3px solid #fff;
+            box-shadow: 0 0 50px rgba(0, 0, 0, 0.8);
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 20px;
+            right: 40px;
+            font-size: 40px;
+            color: #fff;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .lightbox-close:hover {
+            color: #ccc;
+        }
+
+        /* Curseur pointer sur les images cliquables */
+        .project-image-section img, .project-image img {
+            cursor: pointer;
+        }
+
+        /* Bouton Consulter le PDF */
+        .pdf-button {
+            display: inline-block;
+            margin-top: 1rem;
+            padding: 0.8rem 1.5rem;
+            background: rgba(0, 0, 0, 0.9);
+            color: #fff;
+            border: 2px solid #000;
+            font-size: 0.95rem;
+            font-weight: 400;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+        }
+
+        .pdf-button:hover {
+            background: #000;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .pdf-button:active {
+            transform: translateY(0);
+        }
+
+        /* Lightbox PDF avec PDF.js */
+        .pdf-lightbox {
+            display: none;
+            position: fixed;
+            z-index: 9999;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.95);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .pdf-lightbox.active {
+            display: flex;
+        }
+
+        .pdf-lightbox-content {
+            width: 90%;
+            height: 90%;
+            background: #525252;
+            border: 3px solid #fff;
+            box-shadow: 0 0 50px rgba(0, 0, 0, 0.8);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .pdf-controls {
+            background: #323232;
             padding: 1rem;
-            margin-top: 2rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem;
+            border-bottom: 2px solid #fff;
+            flex-wrap: wrap;
+        }
+
+        .pdf-control-btn {
+            background: rgba(255, 255, 255, 0.9);
+            color: #000;
+            border: 2px solid #fff;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .pdf-control-btn:hover {
+            background: #fff;
+            transform: translateY(-2px);
+        }
+
+        .pdf-control-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .pdf-page-info {
+            color: #fff;
+            font-size: 0.9rem;
+            padding: 0.5rem 1rem;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 4px;
+        }
+
+        .pdf-canvas-container {
+            flex: 1;
+            overflow: auto;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 2rem;
+            background: #525252;
+        }
+
+        #pdf-canvas {
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+            max-width: 100%;
+            height: auto;
+        }
+
+        .pdf-lightbox-close {
+            position: absolute;
+            top: -50px;
+            right: 0;
+            font-size: 40px;
+            color: #fff;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.3s;
+            z-index: 10000;
+        }
+
+        .pdf-lightbox-close:hover {
+            color: #ccc;
+        }
+
+        @media (max-width: 768px) {
+            .pdf-controls {
+                padding: 0.5rem;
+                gap: 0.5rem;
+            }
+            
+            .pdf-control-btn {
+                padding: 0.4rem 0.8rem;
+                font-size: 0.85rem;
+            }
+            
+            .pdf-page-info {
+                font-size: 0.85rem;
+                padding: 0.4rem 0.8rem;
+            }
         }
     </style>
 </head>
 <body>
-    <!-- Navigation -->
-    <nav>
-        <ul>
-            <li onclick="showPage('accueil')">Accueil</li>
-            <li onclick="showPage('experiences')">Expériences</li>
-            <li onclick="showPage('formations')">Formations</li>
-            <li onclick="showPage('competences')">Compétences</li>
-            <li onclick="showPage('contact')">Contact</li>
-        </ul>
-    </nav>
 
-    <!-- Container -->
-    <div class="container">
-        <!-- Page Accueil -->
-        <div id="accueil" class="page active">
-            <!-- Premier encart - Bienvenue -->
-            <div class="welcome-card">
-                <div class="welcome-content">
-                    <div class="welcome-left">
-                        <h1 class="welcome-title">Djouadi Pablo</h1>
-                        <div class="welcome-divider"></div>
-                        <p class="welcome-name">Bienvenue sur mon Portfolio</p>
+<!-- Navigation -->
+<nav>
+    <ul>
+        <li onclick="showPage('accueil')">Accueil</li>
+        <li onclick="showPage('portfolio')">Portfolio</li>
+        <li class="dropdown">
+            <span class="dropdown-toggle" onclick="toggleDropdown(this)">
+                Curriculum Vitae <span class="dropdown-arrow">▼</span>
+            </span>
+            <ul class="dropdown-content">
+                <li onclick="showPage('experiences')">Expériences</li>
+                <li onclick="showPage('formations')">Formations</li>
+                <li onclick="showPage('competences')">Compétences</li>
+            </ul>
+        </li>
+    </ul>
+</nav>
+
+<!-- Container -->
+<div class="container">
+
+    <!-- Page Accueil -->
+    <div id="accueil" class="page active">
+        <div class="welcome-card">
+            <div class="welcome-content">
+                <div class="welcome-left">
+                    <h1 class="welcome-title">Djouadi Pablo</h1>
+                    <div class="welcome-divider"></div>
+                    <p class="welcome-name">Bienvenue sur mon Portfolio</p>
+                </div>
+                <div class="welcome-right">
+                    <img src="images/portrait.jpg" class="profile-photo" alt="Photo de profil">
+                </div>
+            </div>
+        </div>
+
+        <div class="about-card">
+            <div class="about-content">
+                <div class="about-left">
+                    <h2 class="about-title">À propos de moi</h2>
+                    <p class="about-text">
+                        Ingénieur géomaticien en formation dans le Master SIGMA, co-accrédité par l'INP ENSAT et 
+                        l'Université Toulouse Jean Jaurès. Passionné par la cartographie et la géomatique, mon 
+                        ambition est d'exercer cette discipline comme profession à temps plein.
+                        <br><br>
+                        Pour en savoir plus sur mon parcours et mes projets, explorez mon site.
+                    </p>
+                </div>
+                <div class="about-right">
+                    <div id="globe-container"></div>
+                    <div class="globe-title"><h3>Mes villes, mon histoire</h3></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="contact-accordion" id="contactAccordion">
+            <div class="contact-accordion-header" onclick="toggleContact()">
+                <h2>Me Contacter</h2>
+                <span class="contact-accordion-icon">▼</span>
+            </div>
+            <div class="contact-accordion-content">
+                <div class="contact-accordion-inner">
+                    <div class="contact-section">
+                        <h3>Coordonnées</h3>
+                        <p><strong>Email:</strong> <a href="/cdn-cgi/l/email-protection#fd8d9c9f9192999792889c99948e9288919c8f99bd9a909c9491d39e9290"><span class="__cf_email__" data-cfemail="9dedfcfff1f2f9f7f2e8fcf9f4eef2e8f1fceff9ddfaf0fcf4f1b3fef2f0">[email&#160;protected]</span></a></p>
+                        <p><strong>Téléphone:</strong> +33 623272609</p>
+                        <p><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/pablo-djouadi-399723352" target="_blank">www.linkedin.com/in/pablo-djouadi-399723352</a></p>
                     </div>
-                    <div class="welcome-right">
-                        <!-- Placeholder pour photo - remplacez par <img src="votre-photo.jpg" class="profile-photo" alt="Photo de profil"> -->
-                        <img src="images/portrait.jpg" class="profile-photo" alt="Photo de profil">
+                    <div class="contact-section">
+                        <h3>Me contacter directement</h3>
+                        <div class="contact-form">
+                            <div class="form-group">
+                                <label for="name">Nom complet *</label>
+                                <input type="text" id="name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email *</label>
+                                <input type="email" id="email" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="subject">Objet *</label>
+                                <input type="text" id="subject" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="message">Message *</label>
+                                <textarea id="message" rows="6" required></textarea>
+                            </div>
+                            <button onclick="sendEmail()" class="submit-btn">Envoyer le message</button>
+                        </div>
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
 
-            <!-- Second encart - À propos -->
-            <div class="about-card">
-                <h2 class="about-title">À propos de moi</h2>
-                <p class="about-text">
-                    Ingénieur géomaticien en formation dans le Master SIGMA, co-accrédité par l'INP ENSAT et 
-                    l'Université Toulouse Jean Jaurès. Passionné par la cartographie et la géomatique, mon 
-                    ambition est d'exercer cette discipline comme profession à temps plein.
+    <!-- Page Portfolio -->
+    <div id="portfolio" class="page">
+        <div class="page-header">
+            <h1>Portfolio</h1>
+        </div>
+        
+        <!-- Section Projets de Recherche -->
+        <div class="section">
+            <h2>Projets de Recherche</h2>
+            <div class="languages-container">
+                <div class="languages-globe">
+                    <div class="project-wrapper">
+                        <div class="project-text-section">
+                            <h3>Géopoint : 50 ans de géographie</h3>
+                            <p>
+                               À l'occasion de l'arrivée du colloque bisannuel Géopoint à Bordeaux en décembre 2026, j'ai été chargé de réaliser l'analyse cartographique et statistique de cet événement académique. Pour mener à bien ce projet, j'ai constitué une base de données exhaustive regroupant l'ensemble des auteurs ayant participé aux éditions précédentes du Géopoint, leurs articles publiés ainsi que leurs universités d'appartenance.
+                               
+                               <br><br>
+                               
+                               Cette base de données m'a permis de conduire des analyses approfondies à travers plusieurs approches complémentaires : cartographies d'évolution spatiale, cartographies animées et analyses statistiques avancées sur R. J'ai notamment mobilisé des bibliothèques comme ggplot2 pour la visualisation de données et visNetwork pour la création de graphiques de réseaux animés. Les analyses thématiques sur les mots-clés ont également permis d'identifier les évolutions conceptuelles et méthodologiques du colloque au fil des années.
+                                
+                               <br><br>
+                               
+                               Ce travail aboutira à une publication scientifique et à ma participation au colloque de 2026, où je présenterai la restitution de cette étude sur l'évolution du Géopoint.
+                            </p>
+                        </div>
+                        <div class="project-image-section">
+                            <img src="images/geopoint.png" alt="Projet de recherche 1" onclick="openLightbox('images/geopoint.png')">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="languages-globe">
+                    <div class="project-wrapper">
+                        <div class="project-text-section">
+                            <h3>Sphérographia</h3>
+                            <p>
+                                Dans le cadre de mon stage au CNRS UMR PASSAGES 5319, j'ai consacré une partie  de mon temps au projet Sphérographia, porté par Matthieu Noucher, chercheur spécialisé dans la géomatique et la géographie numérique. Ce projet ambitieux vise à constituer un corpus exhaustif et analysé des globes virtuels, outils de représentation géographique de plus en plus présents dans notre quotidien numérique.
+                               
+                               <br><br>
+                               
+                                Ma contribution s'est articulée autour de deux axes principaux : l'enrichissement du catalogue des globes virtuels et l'alimentation de la galerie du projet. Ce travail de saisie et de documentation a nécessité une méthodologie rigoureuse incluant un prétraitement approfondi de chaque globe analysé. J'ai ainsi procédé à une caractérisation thématique détaillée, identifiant les domaines d'application de chaque globe (géographie physique, géopolitique, tourisme, urbanisme, etc.).
+                                
+                                <br><br>
+                                
+                                L'analyse colorimétrique a également constitué un volet essentiel de ce travail, permettant d'identifier les choix sémiologiques et les conventions cartographiques adoptées par les différents concepteurs de globes virtuels. J'ai également documenté les fonctionnalités techniques de chaque interface (navigation 3D, superposition de couches thématiques, accès aux données sous-jacentes), les sources de données mobilisées, ainsi que les aspects d'ergonomie et d'accessibilité.
+                                
+                                <br><br>
+                                
+                                Cette expérience m'a permis de développer une expertise dans l'analyse critique des outils de géovisualisation et de contribuer à un projet de recherche innovant à l'intersection de la géographie, de l'informatique et de la sémiologie graphique.
+                            </p>
+                        </div>
+                        <div class="project-image-section">
+                            <img src="images/spherographia3.jpg" alt="Projet de recherche 2" onclick="openLightbox('images/spherographia3.jpg')">
+                        </div>
+                    </div>
+                </div>
+                <div class="languages-globe">
+                    <div class="project-wrapper">
+                        <div class="project-text-section">
+                            <h3>Étude préalable de l'érosion côtière à Mimizan Plage</h3>
+                            <p>
+                                Lors de mon stage au CNRS, j'ai collaboré avec Solnage Pupier sur une étude préalable portant sur l'érosion côtière à Mimizan Plage, dans le cadre d'un projet de recherche plus large sur l'impact de la houle infragravitaire sur le littoral atlantique français. 
+                                
+                                <br><br>
+                                
+                                Cette mission s'est articulée autour de deux journées de terrain intensives à Mimizan, durant lesquelles j'ai mené des entretiens avec différents acteurs clés du territoire : fonctionnaires municipaux responsables de l'aménagement du littoral, érudits locaux détenant la mémoire historique de la région, ainsi que Claire Steimer (Conservateur du patrimoine à la Région Nouvelle-Aquitaine). Ces échanges pluridisciplinaires m'ont permis de reconstituer l'historique détaillé de l'évolution du cours d'eau de Mimizan, un système aujourd'hui fortement anthropisé et dont les transformations successives ont considérablement modifié la dynamique côtière locale. Mimizan ayant été sélectionné comme site pilote pour valider les outils méthodologiques du projet, ce travail préparatoire était essentiel pour comprendre les interactions entre aménagements humains et processus naturels d'érosion. 
+                                
+                                <br><br>
+                                
+                                À l'issue de cette étude, j'ai eu l'opportunité de présenter une restitution des résultats de nos recherches devant l'ensemble des fonctionnaires locaux et des partenaires institutionnels du projet, permettant ainsi de partager nos conclusions et de contribuer à la réflexion collective sur la gestion du littoral.
+                            </p>
+                        </div>
+                        <div class="project-image-section">
+                            <img src="images/mimizan2.png" alt="Projet de recherche 3" onclick="openLightbox('images/mimizan2.png')">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Section Rendus Académiques -->
+        <div class="section">
+            <h2>Rendus Académiques</h2>
+            <div class="languages-container">
+                <div class="languages-globe">
+                    <div class="project-wrapper">
+                        <div class="project-text-section">
+                            <h3>Dynamique démographique et chômage dans le Tarn</h3>
+                            <p>
+                                <span class="academic-level">Niveau d'étude : Master 1</span>
+                                
+                                Ce travail de cartographie thématique réalisé dans le cadre du Master 1 SIGMA vise à mettre en évidence les dynamiques démographiques et économiques du département du Tarn en 2021 par une représentation bivariée croisant deux variables statistiques. La carte combine la population communale en valeur absolue, visualisée par des cercles proportionnels en surface, et le taux de chômage en valeur relative, représenté par une discrétisation colorimétrique en cinq classes selon la méthode de Jenks. 
+                                
+                                <br><br>
+                                
+                                Les données proviennent des bases de l'INSEE (recensement 2021 et base historique de population) et le fond de carte de l'IGN via Admin-express. La méthodologie a nécessité un travail de prétraitement des données dans Excel pour calculer le taux de chômage par commune, puis une intégration dans QGIS via une jointure attributaire basée sur le code communal. L'analyse de l'histogramme a révélé une distribution non normale avec une concentration majoritaire des valeurs entre 10 et 20% de taux de chômage, justifiant l'utilisation de la méthode de Jenks qui respecte les ruptures naturelles de densité. 
+                                
+                                <br><br>
+                                
+                                La mise en page cartographique a été finalisée dans Affinity Designer après export depuis QGIS, permettant d'affiner la légende et d'appliquer des effets graphiques, notamment l'ajout d'un fond de carte gris ESRI légèrement flouté pour améliorer l'esthétique générale et faire ressortir les couleurs vives des cercles proportionnels.
+                            </p>
+                            <button class="pdf-button" onclick="openPDFLightbox('pdfs/Dynamique_demographique_et_chomage_dans_le_Tarn.pdf')">📄 Consulter le PDF</button>
+                        </div>
+                        <div class="project-image-section">
+                            <img src="images/cartotarn.png" alt="Cartographie du Tarn" onclick="openLightbox('images/cartotarn.png')">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="languages-globe">
+                    <div class="project-wrapper">
+                        <div class="project-text-section">
+                            <h3>Cartographie de l'occupation des sols à Cadaujac :
+                                <br><br>
+                                Méthodologie mixte raster-vecteur</h3>
+                            <p>
+                                <span class="academic-level">Niveau d'étude : Licence 3</span>
+                            
+                                Cette étude vise à produire une cartographie haute résolution de l'occupation des sols de la commune de Cadaujac (Gironde) en mobilisant une approche méthodologique hybride combinant données raster et vectorielles. Les bases de données mobilisées sont l'OCS CesBio (raster, résolution 10m×10m) pour l'occupation du sol et la BD Topo IGN (vectorielle) pour les tronçons de route. 
+                                
+                                <br><br>
+                                
+                                Le travail repose sur la polygonisation de la couche raster OCS CesBio, suivie d'une soustraction des surfaces routières calculées à partir de la BD Topo pour corriger les erreurs de classification automatique. Les largeurs de routes non renseignées ont été estimées à 1,5 mètre de rayon par hypothèse. La superficie totale calculée de Cadaujac est de 15,36 km², proche de la valeur officielle INSEE (15,3 km²). L'occupation du sol révèle une dominance de trois catégories : les prairies (4,45 km²), l'urbain diffus (3,59 km²) et les forêts de feuillus (2,88 km²), caractérisant une commune à l'équilibre entre urbanisation résidentielle et espaces naturels. 
+                                
+                                <br><br>
+                                
+                                L'étude met en évidence les difficultés inhérentes aux données raster pour représenter les continuités linéaires (routes, infrastructures). La classification automatique confond fréquemment routes, zones industrielles et urbain diffus en raison de signatures spectrales similaires. De plus, la résolution pixellaire (10m×10m) attribue l'occupation majoritaire au pixel, masquant ainsi les occupations minoritaires présentes sur les bordures de routes (haies, végétation). 
+                                
+                                <br><br>
+                                
+                                Cette méthodologie démontre l'intérêt d'une approche multi-sources pour affiner la cartographie d'occupation des sols tout en soulignant les limites techniques des classifications automatiques raster pour les éléments linéaires et les zones à occupation mixte.
+                            </p>
+                            <button class="pdf-button" onclick="openPDFLightbox('pdfs/Cartographie_de_l\'occupation_des_sols_à_Cadaujac_ méthodologie_mixte_raster_vecteur.pdf')">📄 Consulter le PDF</button>
+                        </div>
+                        <div class="project-image-section">
+                            <img src="images/Cartographie_de_loccupation_des_sols_à_Cadaujac_ méthodologie_mixte_raster_vecteur.png" alt="Rendu académique 2" onclick="openLightbox('images/Cartographie_de_loccupation_des_sols_à_Cadaujac_ méthodologie_mixte_raster_vecteur.png')">
+                        </div>
+                    </div>
+                </div>
+                <div class="languages-globe">
+                    <div class="project-wrapper">
+                        <div class="project-text-section">
+                            <h3>Analyse comparative des BDD d'occupation des sols en Gironde</h3>
+                            <p>
+                                <span class="academic-level">Niveau d'étude : Licence 3</span>
+                                Cette étude compare deux bases de données d'occupation des sols en Gironde : PIGMA (régionale, résolution 1 hectare) et Corine Land Cover (européenne, résolution 25 hectares). 
+                                
+                                <br><br>
+                                
+                                L'analyse porte sur le tissu urbain discontinu, les vignobles et les forêts de feuillus. Les résultats révèlent des écarts significatifs : CLC affiche des surfaces supérieures pour l'urbain (67 967 ha contre 52 018) et les vignobles (156 076 ha contre 130 595), tandis que PIGMA détecte plus du double de forêts de feuillus (125 053 ha contre 60 170). Ces divergences s'expliquent par la différence de résolution spatiale. La généralisation importante de CLC (25 hectares minimum) englobe davantage de territoires adjacents, surestimant l'urbain et les vignobles. À l'inverse, PIGMA capture les petites forêts de moins de 25 hectares que CLC ne peut isoler. 
+                                
+                                <br><br>
+                                
+                                L'étude de cas sur Ludon-Médoc illustre ces différences : CLC produit une carte homogène et lisible, tandis que PIGMA révèle un découpage précis et fragmenté. Cette analyse démontre que le choix de la base de données doit correspondre à l'échelle d'étude : CLC pour les analyses régionales ou européennes, PIGMA pour les études locales nécessitant une haute précision.
+                            </p>
+                            <button class="pdf-button" onclick="openPDFLightbox('pdfs/Analyse_comparative_des_BDD_doccupation_des_sols_en_Gironde.pdf')">📄 Consulter le PDF</button>
+                        </div>
+                        <div class="project-image-section">
+                            <img src="images/Analyse_comparative_des_BDD_doccupation_des_sols_en_Gironde.png" alt="Description du rendu" onclick="openLightbox('images/Analyse_comparative_des_BDD_doccupation_des_sols_en_Gironde.png')">
+                        </div>
+                    </div>
+                </div>
+                <div class="languages-globe">
+                    <div class="project-wrapper">
+                        <div class="project-text-section">
+                            <h3>Analyse spatiale de la dépendance économique en Moselle</h3>
+                            <p>
+                                <span class="academic-level">Niveau d'étude : Licence 2</span>
+                                Cette étude cartographique analyse la répartition des populations inactives (moins de 14 ans et plus de 60 ans) dans le département de la Moselle à partir des données du recensement INSEE 2021. 
+                                
+                                <br><br>
+                                
+                                Trois types de représentations ont été mobilisés : cartes choroplèthes de ratio, carte du taux de dépendance économique et carte en quadrant. Les résultats révèlent une forte polarisation territoriale selon un axe ouest-est. La population de moins de 14 ans se concentre dans un axe vertical nord-ouest, autour des grandes agglomérations de Metz, Thionville et Forbach, zones attractives pour les actifs. Le nord-ouest bénéficie également de la proximité luxembourgeoise, générant d'importantes migrations pendulaires transfrontalières. À l'inverse, la population de plus de 60 ans se concentre dans l'est et le sud-est du département, zones rurales éloignées des pôles urbains et proches du Parc régional des Vosges et de l'Allemagne. La carte du taux de dépendance économique confirme cette dichotomie : l'ouest présente un taux faible (territoire dynamique) grâce à la concentration d'actifs, tandis que l'est affiche un taux élevé, signe d'un territoire moins dynamique économiquement. 
+                                
+                                <br><br>
+                                
+                                La carte en quadrant synthétise ces observations en révélant que l'axe nord-ouest concentre les communes avec des surreprésentations des deux classes d'âge par rapport à la moyenne départementale. Cette étude conclut que la Moselle est un département polarisé par l'agglomération messine et les villes transfrontalières, avec une répartition inégale des populations inactives selon une fracture ouest-est marquée.
+                            </p>
+                            <button class="pdf-button" onclick="openPDFLightbox('pdfs/Analyse_spatiale_de_la_dépendance_économique_en_Moselle.pdf')">📄 Consulter le PDF</button>
+                        </div>
+                        <div class="project-image-section">
+                            <img src="images/Analyse_spatiale_de_la_dépendance_économique_en_Moselle.png" alt="Description du rendu" onclick="openLightbox('images/Analyse_spatiale_de_la_dépendance_économique_en_Moselle.png')">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-                    <br><br>
+    <!-- Page Expériences -->
+    <div id="experiences" class="page">
+        <div class="page-header">
+            <h1>Mes Expériences Professionnelles</h1>
+        </div>
+        <div class="experience-grid">
+            <div class="experience-item">
+                <h3>Opérateur SIG - CNRS UMR PASSAGES 5319 – Pôle ARD</h3>
+                <p class="experience-date">Juin 2025 - Août 2025</p>
+                <p>J'ai effectué un stage d'Opérateur SIG au sein du CNRS UMR PASSAGES 5319, spécifiquement
+                   au pôle ARD (Analyse et Représentation des Données). Sous la supervision d'experts tels
+                   qu'Olivier Pissoat (Cartographe) et Grégoire Lecampion (Statisticien), j'ai contribué à plusieurs
+                   projets de recherche. Mes missions principales incluaient une étude statistique approfondie sur R
+                   pour le colloque de géographie Géopoint, aboutissant à des rapports cartographiques et
+                   statistiques. J'ai également participé au projet Sphérographia du CNRS, axé sur l'étude et
+                   l'analyse des globes virtuels. Enfin, j'ai collaboré avec Solange Pupiers sur une étude de terrain
+                   concernant l'impact et l'analyse spatiale de l'érosion côtière à Mimizan Plage.
+                   
+                   <br><br>
 
-                    Pour en savoir plus sur mon parcours et mes projets, explorez mon site.
+                   Projet Sphérographia : https://spherographia.cnrs.fr/?Projet
+            
+                </p>
+            </div>
+            <div class="experience-item">
+                <h3>Accompagnement de délégations européennes - ANAA</h3>
+                <p class="experience-date">Juin 2024</p>
+                <p>Dans le cadre du projet Erasmus consacré à la transition agroécologique en viticulture, j'ai eu
+                   l'opportunité d'accompagner plusieurs délégations européennes. Cette expérience m'a permis de
+                   favoriser les échanges interculturels, de valoriser les pratiques durables dans le secteur viticole et
+                   de contribuer à la diffusion de connaissances sur les enjeux de la transition écologique.
+                    
+                </p>
+            </div>
+            <div class="experience-item">
+                <h3>Soutien logistique - ANAA</h3>
+                <p class="experience-date">Mai 2021</p>
+                <p>Lors de l'édition 2021 de Bordeaux Fête le Vin, j'ai apporté un appui logistique au Marché local de
+                   producteurs. Cette mission m'a permis de contribuer à la mise en valeur des produits du terroir et
+                   de soutenir l'organisation d'un événement d'envergure régionale.
+                </p>
+            </div>
+            <div class="experience-item">
+                <h3>Accompagnement de projets - Acto (Actions et Territoires – Lisbonne)</h3>
+                <p class="experience-date">2016 – 2017</p>
+                <p>Entre 2016 et 2017, j'ai participé de manière récurrente à l'accompagnement de projets de
+                   coopération européenne et de délégations internationales.
+                   
+                   <br><br>
+                   
+                   J'ai également assuré des missions de traduction entre le français et le portugais,
+                   facilitant la communication entre les acteurs européens et renforçant le bon déroulement des échanges.
                 </p>
             </div>
         </div>
+    </div>
 
-        <!-- Page Expériences -->
-        <div id="experiences" class="page">
-            <div class="page-header">
-                <h1>Mes Expériences Professionnelles</h1>
+    <!-- Page Formations -->
+    <div id="formations" class="page">
+        <div class="page-header">
+            <h1>Mes Formations</h1>
+        </div>
+        <div class="experience-grid">
+            <div class="experience-item">
+                <h3>Master 1 - SIGMA - INP ENSAT, Université Jean Jaurès</h3>
+                <p class="experience-date">2025 - 2026</p>
+                <p>Actuellement en première année du Master SIGMA (Systèmes d'Information Géographique et Métiers de l'Aménagement), j'acquiers des compétences solides dans le traitement, l'analyse et la valorisation des données spatiales. Ma formation me permet de développer une expertise technique en ingénierie de bases de données spatiales, télédétection, algorithmique et programmation (SQL, HTML, Python). J'approfondis également mes connaissances en programmation SIG avancée, en visualisation de données et en webmapping, dans une perspective d'application pluridisciplinaire.</p>
             </div>
-            <div class="experience-grid">
-                <div class="experience-item">
-                    <h3>Opérateur SIG - CNRS UMR PASSAGES 5319 – Pôle ARD</h3>
-                    <p class="experience-date">Juin 2025 - Août 2025</p>
-                    <p>J'ai effectué un stage d'Opérateur SIG au sein du CNRS UMR PASSAGES 5319, spécifiquement
-                       au pôle ARD (Analyse et Représentation des Données). Sous la supervision d'experts tels
-                       qu'Olivier Pissoat (Cartographe) et Grégoire Lecampion (Statisticien), j'ai contribué à plusieurs
-                       projets de recherche. Mes missions principales incluaient une étude statistique approfondie sur R
-                       pour le colloque de géographie Géopoint, aboutissant à des rapports cartographiques et
-                       statistiques. J'ai également participé au projet Sphérographia du CNRS, axé sur l'étude et
-                       l'analyse des globes virtuels. Enfin, j'ai collaboré avec Solange Pupiers sur une étude de terrain
-                       concernant l'impact et l'analyse spatiale de l'érosion côtière à Mimizan Plage.
-                       
-                       <br><br>
 
-                       Projet Sphérographia : https://spherographia.cnrs.fr/?Projet
-                
-                    </p>
-                </div>
-                <div class="experience-item">
-                    <h3>Accompagnement de délégations européennes - ANAA</h3>
-                    <p class="experience-date">Juin 2024</p>
-                    <p>Dans le cadre du projet Erasmus consacré à la transition agroécologique en viticulture, j'ai eu
-                       l'opportunité d'accompagner plusieurs délégations européennes. Cette expérience m'a permis de
-                       favoriser les échanges interculturels, de valoriser les pratiques durables dans le secteur viticole et
-                       de contribuer à la diffusion de connaissances sur les enjeux de la transition écologique.
-                        
-                    </p>
-                </div>
-                <div class="experience-item">
-                    <h3>Soutien logistique - ANAA</h3>
-                    <p class="experience-date">Mai 2021</p>
-                    <p>Lors de l'édition 2021 de Bordeaux Fête le Vin, j'ai apporté un appui logistique au Marché local de
-                       producteurs. Cette mission m'a permis de contribuer à la mise en valeur des produits du terroir et
-                       de soutenir l'organisation d'un événement d'envergure régionale.
-                    </p>
-                 </div>
-                <div class="experience-item">
-                    <h3>Accompagnement de projets - Acto (Actions et Territoires – Lisbonne)</h3>
-                    <p class="experience-date">2016 – 2017</p>
-                    <p>Entre 2016 et 2017, j'ai participé de manière récurrente à l'accompagnement de projets de
-                       coopération européenne et de délégations internationales.
-                       
-                       <br><br>
-                       
-                       J'ai également assuré des missions de traduction entre le français et le portugais,
-                       facilitant la communication entre les acteurs européens et renforçant le bon déroulement des échanges.
-                    </p>
+            <div class="experience-item">
+                <h3>Licence 3 GAER - Université Bordeaux Montaigne</h3>
+                <p class="experience-date">2022 - 2025</p>
+                <p>La formation Géographie, Aménagement, Environnement et Ressources m'a permis d'acquérir une compréhension approfondie des dynamiques territoriales et environnementales, en combinant une approche théorique rigoureuse à des méthodes d'analyse appliquée. J'y ai développé des compétences solides en géographie numérique, en cartographie et en géomatique (SIG), ainsi qu'une maîtrise des analyses statistiques bi et multivariées pour le traitement et l'interprétation des données spatiales.
+
+                    <br><br>
+
+                   La formation m'a également permis d'aborder la géographie sociale et physique, les diagnostics de risques environnementaux, et la gestion de données quantitatives et qualitatives, dans une logique pluridisciplinaire liant aménagement du territoire, observation des milieux et appui à la décision.</p>
             </div>
+
+            <div class="experience-item">
+                <h3>Licence 2 Droit - Université Bordeaux Montesquieu</h3>
+                <p class="experience-date">2019 - 2022</p>
+                <p>Cette formation m'a permis d'acquérir une solide culture juridique et une compréhension approfondie du fonctionnement politique, économique et administratif de l'État. Elle m'a également apporté une rigueur méthodologique essentielle, tant dans la recherche et l'analyse de textes juridiques que dans la rédaction argumentée.
+
+                    <br><br>
+
+                   J'y ai développé des compétences en organisation du travail, en gestion du temps et en esprit de synthèse, des qualités transférables à la conduite de projets et à la gestion de données dans des contextes administratifs et territoriaux complexes.</p>
+            </div>
+
+            <div class="experience-item">
+                <h3>Baccalauréat économique et social - Lycée Français Charles Lepierre - Lisbonne</h3>
+                <p class="experience-date">2010 - 2019</p>
+                <p>Mention Bien. Spécialité science politique, option DNL.
+
+                    <br><br>
+
+                   Ayant suivi ma scolarité au sein du lycée et du collège français de Lisbonne, j'ai évolué dans un environnement multiculturel et plurilingue. Cette expérience m'a permis de maîtriser couramment le français, le portugais, l'espagnol et l'anglais, et de développer une forte capacité d'adaptation ainsi qu'une ouverture internationale dans ma manière de communiquer et de travailler.
+                   </p>
             </div>
         </div>
+    </div>
 
-        <!-- Page Formations -->
-        <div id="formations" class="page">
-            <div class="page-header">
-                <h1>Mes Formations</h1>
-            </div>
-            <div class="experience-grid">
-                <div class="experience-item">
-                    <h3>Master 1 - SIGMA - INP ENSAT, Université Jean Jaurès</h3>
-                    <p class="experience-date">2025 - 2026</p>
-                    <p>Actuellement en première année du Master SIGMA (Systèmes d'Information Géographique et Métiers de l'Aménagement), j'acquiers des compétences solides dans le traitement, l'analyse et la valorisation des données spatiales. Ma formation me permet de développer une expertise technique en ingénierie de bases de données spatiales, télédétection, algorithmique et programmation (SQL, HTML, Python). J'approfondis également mes connaissances en programmation SIG avancée, en visualisation de données et en webmapping, dans une perspective d'application pluridisciplinaire.</p>
-                </div>
-    
-            <div class="experience-item">
-                    <h3>Licence 3 GAER - Université Bordeaux Montaigne</h3>
-                    <p class="experience-date">2022 - 2025</p>
-                    <p>La formation Géographie, Aménagement, Environnement et Ressources m'a permis d'acquérir une compréhension approfondie des dynamiques territoriales et environnementales, en combinant une approche théorique rigoureuse à des méthodes d'analyse appliquée. J'y ai développé des compétences solides en géographie numérique, en cartographie et en géomatique (SIG), ainsi qu'une maîtrise des analyses statistiques bi et multivariées pour le traitement et l'interprétation des données spatiales.
-
-                        <br><br>
-
-                       La formation m'a également permis d'aborder la géographie sociale et physique, les diagnostics de risques environnementaux, et la gestion de données quantitatives et qualitatives, dans une logique pluridisciplinaire liant aménagement du territoire, observation des milieux et appui à la décision.</p>
-                </div>
-
-            <div class="experience-item">
-                    <h3>Licence 2 Droit - Université Bordeaux Montesquieu</h3>
-                    <p class="experience-date">2019 - 2022</p>
-                    <p>Cette formation m'a permis d'acquérir une solide culture juridique et une compréhension approfondie du fonctionnement politique, économique et administratif de l'État. Elle m'a également apporté une rigueur méthodologique essentielle, tant dans la recherche et l'analyse de textes juridiques que dans la rédaction argumentée.
-
-                        <br><br>
-
-                       J'y ai développé des compétences en organisation du travail, en gestion du temps et en esprit de synthèse, des qualités transférables à la conduite de projets et à la gestion de données dans des contextes administratifs et territoriaux complexes.</p>
-                </div>
-
-            <div class="experience-item">
-                    <h3>Baccalauréat économique et social - Lycée Français Charles Lepierre - Lisbonne</h3>
-                    <p class="experience-date">2010 - 2019</p>
-                    <p>Mention Bien. Spécialité science politique, option DNL.
-
-                        <br><br>
-
-                       Ayant suivi ma scolarité au sein du lycée et du collège français de Lisbonne, j'ai évolué dans un environnement multiculturel et plurilingue. Cette expérience m'a permis de maîtriser couramment le français, le portugais, l'espagnol et l'anglais, et de développer une forte capacité d'adaptation ainsi qu'une ouverture internationale dans ma manière de communiquer et de travailler.
-                       </p>
-                </div>
-            </div>
+    <!-- Page Compétences -->
+    <div id="competences" class="page">
+        <div class="page-header">
+            <h1>Mes Compétences</h1>
         </div>
-
-        <!-- Page Compétences -->
-        <div id="competences" class="page">
-            <div class="page-header">
-                <h1>Mes Compétences</h1>
-            </div>
-            <div class="section">
-                <h2>Compétences techniques</h2>
-                <div class="skills-grid">
-                    <div class="skill-item">HTML/CSS</div>
-                    <div class="skill-item">SQL</div>
-                    <div class="skill-item">Python</div>
-                    <div class="skill-item">QGIS</div>
-                    <div class="skill-item">SGBD</div>
-                    <div class="skill-item">PgAdim4</div>
-                    <div class="skill-item">Magrit</div>
-                    <div class="skill-item">Webmapping</div>
-                    <div class="skill-item">ArcGis Online / Pro</div>
-                    <div class="skill-item">Adobe Illustrator</div>
-                    <div class="skill-item">Affinity</div>
-                    <div class="skill-item">Rstudio</div>
-                    <div class="skill-item">Télédétection</div>
-                    <div class="skill-item">OTB</div>
-                    <div class="skill-item">Analyse statistique</div>
-                    <div class="skill-item">Diagnostics de risques</div>
+        <div class="section">
+            <h2>Compétences linguistiques</h2>
+            <div class="languages-container">
+                <div class="languages-globe">
+                    <div id="languages-globe-container"></div>
+                    <div class="languages-globe-title"><h3>Zones linguistiques maîtrisées</h3></div>
                 </div>
-            </div>
-            <div class="section">
-                <h2>Compétences humaines</h2>
-                <div class="skills-grid">
-                    <div class="skill-item">Polyvalent</div>
-                    <div class="skill-item">Autonome</div>
-                    <div class="skill-item">Organisé</div>
-                    <div class="skill-item">Travail en équipe</div>
-                    <div class="skill-item">Adaptation</div>
-                    <div class="skill-item">Esprit d'équipe</div>
-                    <div class="skill-item">Rigueur</div>
-                    <div class="skill-item">Volonté d'apprendre</div>
-                </div>
-            </div>
-            <div class="section">
-                <h2>Compétences linguistiques</h2>
                 <div class="skills-grid">
                     <div class="language-item">
                         <div class="language-name">Français</div>
@@ -544,99 +1278,439 @@
                 </div>
             </div>
         </div>
-
-        <!-- Page Contact -->
-        <div id="contact" class="page">
-            <div class="page-header">
-                <h1>Me Contacter</h1>
+        <div class="section">
+            <h2>Compétences techniques</h2>
+            <div class="skills-grid">
+                <div class="skill-item">HTML/CSS</div>
+                <div class="skill-item">SQL</div>
+                <div class="skill-item">Python</div>
+                <div class="skill-item">QGIS</div>
+                <div class="skill-item">SGBD</div>
+                <div class="skill-item">PgAdim4</div>
+                <div class="skill-item">Magrit</div>
+                <div class="skill-item">Webmapping</div>
+                <div class="skill-item">ArcGis Online / Pro</div>
+                <div class="skill-item">Adobe Illustrator</div>
+                <div class="skill-item">Affinity</div>
+                <div class="skill-item">Rstudio</div>
+                <div class="skill-item">Télédétection</div>
+                <div class="skill-item">OTB</div>
+                <div class="skill-item">Analyse statistique</div>
+                <div class="skill-item">Diagnostics de risques</div>
             </div>
-            <div class="section">
-                <h2>Coordonnées</h2>
-                <p><strong>Email:</strong> pablodjouadisoulard@gmail.com</p>
-                <p><strong>Téléphone:</strong> +33 623272609</p>
-                <p><strong>LinkedIn:</strong> www.linkedin.com/in/pablo-djouadi-399723352</p>
-            </div>
-            
-            <div class="section">
-                <h2>Me contacter directement</h2>
-                <div class="contact-form">
-                    <div class="form-group">
-                        <label for="name">Nom complet *</label>
-                        <input type="text" id="name" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="email">Email *</label>
-                        <input type="email" id="email" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="subject">Objet *</label>
-                        <input type="text" id="subject" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="message">Message *</label>
-                        <textarea id="message" rows="6" required></textarea>
-                    </div>
-                    <button onclick="sendEmail()" class="submit-btn">Envoyer le message</button>
-                </div>
+        </div>
+        <div class="section">
+            <h2>Compétences humaines</h2>
+            <div class="skills-grid">
+                <div class="skill-item">Polyvalent</div>
+                <div class="skill-item">Autonome</div>
+                <div class="skill-item">Organisé</div>
+                <div class="skill-item">Travail en équipe</div>
+                <div class="skill-item">Adaptation</div>
+                <div class="skill-item">Esprit d'équipe</div>
+                <div class="skill-item">Rigueur</div>
+                <div class="skill-item">Volonté d'apprendre</div>
             </div>
         </div>
     </div>
+</div>
 
-    <!-- Footer -->
-    <footer>
-        <p>&copy; 2025 Mon Portfolio - Tous droits réservés</p>
-    </footer>
+<!-- Lightbox pour affichage en grand des images -->
+<div id="lightbox" class="lightbox" onclick="closeLightbox()">
+    <span class="lightbox-close">&times;</span>
+    <img class="lightbox-content" id="lightbox-img">
+</div>
 
-    <script>
-        // Fonction pour afficher une page spécifique
-        function showPage(pageId) {
-            // Masquer toutes les pages
-            const pages = document.querySelectorAll('.page');
-            pages.forEach(page => {
-                page.classList.remove('active');
-            });
+<!-- Lightbox pour affichage des PDF avec contrôles personnalisés -->
+<div id="pdf-lightbox" class="pdf-lightbox" onclick="closePDFLightbox()">
+    <div class="pdf-lightbox-content" onclick="event.stopPropagation()">
+        <span class="pdf-lightbox-close" onclick="closePDFLightbox()">&times;</span>
+        <div class="pdf-controls">
+            <button class="pdf-control-btn" onclick="zoomOut()">🔍− Zoom -</button>
+            <button class="pdf-control-btn" onclick="zoomIn()">🔍+ Zoom +</button>
+            <button class="pdf-control-btn" onclick="resetZoom()">↻ Réinitialiser</button>
+            <span class="pdf-page-info">
+                Page <span id="page-num">1</span> / <span id="page-count">1</span>
+            </span>
+            <button class="pdf-control-btn" id="prev-page" onclick="previousPage()">◀ Précédent</button>
+            <button class="pdf-control-btn" id="next-page" onclick="nextPage()">Suivant ▶</button>
+        </div>
+        <div class="pdf-canvas-container">
+            <canvas id="pdf-canvas"></canvas>
+        </div>
+    </div>
+</div>
 
-            // Afficher la page sélectionnée
-            const selectedPage = document.getElementById(pageId);
-            if (selectedPage) {
-                selectedPage.classList.add('active');
+<!-- Footer -->
+<footer>
+    <p>&copy; 2025 Djouadi Pablo - Tous droits réservés</p>
+</footer>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script src="https://unpkg.com/globe.gl"></script>
+<script src="https://unpkg.com/topojson-client@3"></script>
+<script>
+    // MENU DÉROULANT
+    function toggleDropdown(element) {
+        const dropdown = element.parentElement;
+        dropdown.classList.toggle('open');
+    }
+    document.addEventListener('click', function(event) {
+        const dropdowns = document.querySelectorAll('.dropdown');
+        dropdowns.forEach(dropdown => {
+            if (!dropdown.contains(event.target)) {
+                dropdown.classList.remove('open');
             }
+        });
+    });
 
-            // Scroll vers le haut
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+    // AFFICHAGE DES PAGES
+    function showPage(pageId) {
+        const pages = document.querySelectorAll('.page');
+        pages.forEach(page => page.classList.remove('active'));
+        const selectedPage = document.getElementById(pageId);
+        if (selectedPage) selectedPage.classList.add('active');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // GLOBE ACCUEIL
+    function initGlobe() {
+        if (typeof Globe === 'undefined') { setTimeout(initGlobe, 100); return; }
+        const container = document.getElementById('globe-container');
+        if (!container) return;
+        const cities = {
+            pertuis:  { lat: 43.6936, lng: 5.5020,  name: "Pertuis",   visible: true,  labelOffset: -0.5 },
+            lisbonne: { lat: 38.7223, lng: -9.1393, name: "Lisbonne", visible: false, labelOffset: 0 },
+            bordeaux: { lat: 44.8378, lng: -0.5792, name: "Bordeaux", visible: false, labelOffset: 3.3 },
+            toulouse: { lat: 43.6045, lng: 1.4442,  name: "Toulouse", visible: false, labelOffset: 0 }
+        };
+        const flows = [
+            { start: cities.pertuis,  end: cities.lisbonne },
+            { start: cities.lisbonne, end: cities.bordeaux },
+            { start: cities.bordeaux, end: cities.toulouse }
+        ];
+        const cityArray = () => Object.values(cities);
+        const globe = Globe()
+            .width(container.offsetWidth)
+            .height(container.offsetHeight)
+            .globeImageUrl('https://unpkg.com/three-globe/example/img/earth-dark.jpg')
+            .backgroundColor('#ffffff')
+            .arcsData([])
+            .arcColor(() => ['white','white'])
+            .arcDashLength(0.7)
+            .arcDashGap(0.3)
+            .arcDashAnimateTime(2000)
+            .arcStroke(0.6)
+            .labelsData(cityArray())
+            .labelLat(d => d.lat + (d.labelOffset || 0))
+            .labelLng(d => d.lng)
+            .labelText(d => d.name)
+            .labelColor(d => d.visible ? 'white' : 'rgba(255,255,255,0)')
+            .labelSize(1.6)
+            .labelResolution(4)
+            .pointsData(cityArray())
+            .pointLat(d => d.lat)
+            .pointLng(d => d.lng)
+            .pointColor(d => d.visible ? 'white' : 'rgba(255,255,255,0)')
+            .pointRadius(d => d.visible ? 0.4 : 0)
+            (container);
+        globe.pointOfView({ lat: cities.pertuis.lat, lng: cities.pertuis.lng, altitude: 1.6 });
+        function refreshLabelsAndPoints() {
+            globe.labelsData(cityArray());
+            globe.pointsData(cityArray());
         }
+        function showLabelFor(cityObj, show = true) { cityObj.visible = show; refreshLabelsAndPoints(); }
+        showLabelFor(cities.pertuis, true);
+        let index = 0;
+        function playAnimation() {
+            const f = flows[index];
+            globe.arcsData([{ startLat: f.start.lat, startLng: f.start.lng, endLat: f.end.lat, endLng: f.end.lng }]);
+            const midLat = (f.start.lat + f.end.lat) / 2;
+            const midLng = (f.start.lng + f.end.lng) / 2;
+            globe.pointOfView({ lat: midLat, lng: midLng, altitude: 1.8 }, 1200);
+            Object.values(cities).forEach(c => c.visible = false);
+            f.start.visible = true; f.end.visible = true;
+            refreshLabelsAndPoints();
+            index = (index + 1) % flows.length;
+            setTimeout(playAnimation, 2500);
+        }
+        setTimeout(playAnimation, 900);
+    }
 
-        // Initialisation au chargement de la page
-        document.addEventListener('DOMContentLoaded', function() {
-            console.log('Portfolio chargé avec succès!');
-            showPage('accueil');
+    // GLOBE LINGUISTIQUE
+    function initLanguagesGlobe() {
+        if (typeof Globe === 'undefined' || typeof topojson === 'undefined') { 
+            setTimeout(initLanguagesGlobe, 100); 
+            return; 
+        }
+        const container = document.getElementById('languages-globe-container');
+        if (!container) return;
+
+        const redCountries = new Set([
+            // Francophonie
+            '056','204','854','108','120','124','174','178','180','384','262','250','266',
+            '324','332','442','450','466','492','562','140','646','686','690','756','148',
+            '768','548',
+            // Lusophonie
+            '024','076','132','624','508','620','678','626',
+            // Commonwealth
+            '710','028','036','044','052','084','072','212','748','242','270','288','308',
+            '328','356','372','388','404','296','426','430','454','470','480','583','516',
+            '520','554','566','800','586','585','598','608','662','659','670','090','882',
+            '694','702','728','834','776','780','798','826','894','716','840',
+            // Hispanophonie
+            '032','068','152','170','188','192','214','218','724','320','340','484','558',
+            '591','600','604','222','858','862',
+            // Maghreb
+            '504','012','788'
+        ]);
+
+        const topoURL = "https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json";
+
+        const languagesGlobe = Globe()
+            .width(container.offsetWidth)
+            .height(container.offsetHeight)
+            .globeImageUrl('https://unpkg.com/three-globe/example/img/earth-dark.jpg')
+            .backgroundColor('#ffffff')
+            .arcsData([])
+            .labelsData([])
+            .pointsData([])
+            (container);
+
+        languagesGlobe.pointOfView({ lat: 20, lng: 0, altitude: 1.7 });
+
+        fetch(topoURL)
+            .then(r => r.json())
+            .then(topo => {
+                const countries = topojson.feature(topo, topo.objects.countries).features;
+                languagesGlobe
+                    .polygonsData(countries)
+                    .polygonCapColor(f => redCountries.has(f.id) ? "rgba(200,0,0,0.85)" : "rgba(40,40,40,0.55)")
+                    .polygonSideColor(() => "rgba(0,0,0,0.25)")
+                    .polygonStrokeColor(() => "rgba(255,255,255,0.4)")
+                    .polygonAltitude(0.01)
+                    .polygonsTransitionDuration(0)
+                    .polygonLabel(f => `${f.properties?.name || "Inconnu"} (ID: ${f.id})`);
+            });
+    }
+
+    // ACCORDÉON CONTACT
+    function toggleContact() { document.getElementById('contactAccordion').classList.toggle('active'); }
+
+    // EMAIL
+    function sendEmail() {
+        const name = document.getElementById('name').value;
+        const email = document.getElementById('email').value;
+        const subject = document.getElementById('subject').value;
+        const message = document.getElementById('message').value;
+        if (!name || !email || !subject || !message) { alert('Veuillez remplir tous les champs obligatoires.'); return; }
+        const body = `Nom: ${name}%0D%0AEmail: ${email}%0D%0A%0D%0AMessage:%0D%0A${message}`;
+        const mailtoLink = `mailto:pablodjouadisoulard@gmail.com?subject=${encodeURIComponent(subject)}&body=${body}`;
+        window.location.href = mailtoLink;
+        alert('Votre client mail va s\'ouvrir. Veuillez vérifier et envoyer le message.');
+    }
+
+    // LIGHTBOX pour affichage en grand des images
+    function openLightbox(imageSrc) {
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightbox-img');
+        lightboxImg.src = imageSrc;
+        lightbox.classList.add('active');
+        document.body.style.overflow = 'hidden'; // Empêche le scroll
+    }
+
+    function closeLightbox() {
+        const lightbox = document.getElementById('lightbox');
+        lightbox.classList.remove('active');
+        document.body.style.overflow = 'auto'; // Réactive le scroll
+    }
+
+    // Fermer la lightbox avec la touche Échap
+    document.addEventListener('keydown', function(event) {
+        if (event.key === 'Escape') {
+            closeLightbox();
+            closePDFLightbox();
+        }
+    });
+
+    // LIGHTBOX PDF avec PDF.js - Variables globales
+    let pdfDoc = null;
+    let pageNum = 1;
+    let pageRendering = false;
+    let pageNumPending = null;
+    let scale = 2.5; // Augmenté à 2.5 pour haute qualité
+    const canvas = document.getElementById('pdf-canvas');
+    const ctx = canvas.getContext('2d');
+
+    // Configuration de PDF.js
+    if (typeof pdfjsLib !== 'undefined') {
+        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+    }
+
+    // Fonction pour rendre une page
+    function renderPage(num) {
+        pageRendering = true;
+        pdfDoc.getPage(num).then(function(page) {
+            // Augmenter la résolution pour améliorer la qualité
+            const viewport = page.getViewport({ scale: scale });
+            
+            // Utiliser devicePixelRatio pour un rendu haute résolution
+            const outputScale = window.devicePixelRatio || 1;
+            
+            canvas.width = Math.floor(viewport.width * outputScale);
+            canvas.height = Math.floor(viewport.height * outputScale);
+            canvas.style.width = Math.floor(viewport.width) + "px";
+            canvas.style.height = Math.floor(viewport.height) + "px";
+
+            const transform = outputScale !== 1 
+                ? [outputScale, 0, 0, outputScale, 0, 0] 
+                : null;
+
+            const renderContext = {
+                canvasContext: ctx,
+                viewport: viewport,
+                transform: transform
+            };
+
+            const renderTask = page.render(renderContext);
+            renderTask.promise.then(function() {
+                pageRendering = false;
+                if (pageNumPending !== null) {
+                    renderPage(pageNumPending);
+                    pageNumPending = null;
+                }
+            });
         });
 
-        // Fonction pour envoyer un email
-        function sendEmail() {
-            const name = document.getElementById('name').value;
-            const email = document.getElementById('email').value;
-            const subject = document.getElementById('subject').value;
-            const message = document.getElementById('message').value;
+        document.getElementById('page-num').textContent = num;
+        updateNavigationButtons();
+    }
 
-            // Vérification que tous les champs sont remplis
-            if (!name || !email || !subject || !message) {
-                alert('Veuillez remplir tous les champs obligatoires.');
-                return;
-            }
+    // Mettre à jour l'état des boutons de navigation
+    function updateNavigationButtons() {
+        document.getElementById('prev-page').disabled = (pageNum <= 1);
+        document.getElementById('next-page').disabled = (pageNum >= pdfDoc.numPages);
+    }
 
-            // Construction du corps du mail
-            const body = `Nom: ${name}%0D%0AEmail: ${email}%0D%0A%0D%0AMessage:%0D%0A${message}`;
-
-            // Création du lien mailto
-            const mailtoLink = `mailto:pablodjouadisoulard@gmail.com?subject=${encodeURIComponent(subject)}&body=${body}`;
-
-            // Ouverture du client mail
-            window.location.href = mailtoLink;
-
-            // Message de confirmation
-            alert('Votre client mail va s\'ouvrir. Veuillez vérifier et envoyer le message.');
+    // Fonction pour afficher la page suivante
+    function queueRenderPage(num) {
+        if (pageRendering) {
+            pageNumPending = num;
+        } else {
+            renderPage(num);
         }
-    </script>
+    }
+
+    // Page précédente
+    function previousPage() {
+        if (pageNum <= 1) return;
+        pageNum--;
+        queueRenderPage(pageNum);
+    }
+
+    // Page suivante
+    function nextPage() {
+        if (pageNum >= pdfDoc.numPages) return;
+        pageNum++;
+        queueRenderPage(pageNum);
+    }
+
+    // Zoom +
+    function zoomIn() {
+        scale += 0.25;
+        queueRenderPage(pageNum);
+    }
+
+    // Zoom -
+    function zoomOut() {
+        if (scale <= 0.75) return; // Limite minimale augmentée
+        scale -= 0.25;
+        queueRenderPage(pageNum);
+    }
+
+    // Réinitialiser le zoom
+    function resetZoom() {
+        scale = 2.5; // Augmenté pour meilleure qualité
+        queueRenderPage(pageNum);
+    }
+
+    // Ouvrir la lightbox PDF
+    function openPDFLightbox(pdfPath) {
+        const pdfLightbox = document.getElementById('pdf-lightbox');
+        
+        // Vérifier si on est en file:// (local)
+        const isLocal = window.location.protocol === 'file:';
+        
+        if (isLocal) {
+            // En local, utiliser une iframe à la place
+            alert('Mode local détecté.\n\nPDF.js ne fonctionne pas en local (file://).\n\nVeuillez utiliser un serveur local (ex: Live Server) ou héberger votre site.\n\nOuverture du PDF dans un nouvel onglet...');
+            window.open(pdfPath, '_blank');
+            return;
+        }
+        
+        if (typeof pdfjsLib === 'undefined') {
+            alert('Erreur : La bibliothèque PDF.js n\'est pas chargée.');
+            console.error('PDF.js n\'est pas disponible');
+            return;
+        }
+
+        console.log('Tentative de chargement du PDF:', pdfPath);
+
+        // Options de chargement avec désactivation de CORS si nécessaire
+        const loadingTask = pdfjsLib.getDocument({
+            url: pdfPath,
+            cMapUrl: 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/cmaps/',
+            cMapPacked: true,
+        });
+
+        loadingTask.promise.then(function(pdfDoc_) {
+            console.log('PDF chargé avec succès, nombre de pages:', pdfDoc_.numPages);
+            pdfDoc = pdfDoc_;
+            document.getElementById('page-count').textContent = pdfDoc.numPages;
+            pageNum = 1;
+            scale = 2.5; // Meilleure qualité par défaut
+            renderPage(pageNum);
+            pdfLightbox.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }).catch(function(error) {
+            console.error('Erreur détaillée lors du chargement du PDF:', error);
+            alert('Impossible de charger le PDF.\n\nChemin: ' + pdfPath + '\n\nErreur: ' + error.message + '\n\nVérifiez:\n1. Que le fichier existe\n2. Que le chemin est correct\n3. La console (F12) pour plus de détails\n\nOuverture dans un nouvel onglet...');
+            window.open(pdfPath, '_blank');
+        });
+    }
+
+    // Fermer la lightbox PDF
+    function closePDFLightbox() {
+        const pdfLightbox = document.getElementById('pdf-lightbox');
+        pdfLightbox.classList.remove('active');
+        document.body.style.overflow = 'auto';
+        
+        // Réinitialiser
+        if (ctx) {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+        }
+        pdfDoc = null;
+        pageNum = 1;
+        scale = 2.5; // Réinitialisé à 2.5
+    }
+
+    // INITIALISATION
+    document.addEventListener('DOMContentLoaded', function() {
+        showPage('accueil');
+        setTimeout(initGlobe, 500);
+        
+        const observer = new MutationObserver(function() {
+            const competencesPage = document.getElementById('competences');
+            if (competencesPage && competencesPage.classList.contains('active')) {
+                setTimeout(initLanguagesGlobe, 300);
+            }
+        });
+        
+        observer.observe(document.getElementById('competences'), {
+            attributes: true,
+            attributeFilter: ['class']
+        });
+    });
+</script>
 </body>
 </html>
