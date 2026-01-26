@@ -1,0 +1,884 @@
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { 
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+    line-height: 1.6; 
+    color: #000; 
+    background: #fff;
+}
+
+/* Navigation */
+nav { 
+    background: #fff; 
+    color: #000; 
+    padding: 1rem 0; 
+    position: fixed; 
+    width: 100%; 
+    top: 0; 
+    z-index: 1000; 
+    border-bottom: 2px solid #000;
+}
+nav ul { list-style: none; display: flex; justify-content: center; gap: 2rem; }
+nav ul li { 
+    cursor: pointer; 
+    padding: 0.5rem 1rem; 
+    transition: all 0.3s; 
+    border: 1px solid transparent;
+    position: relative; 
+}
+nav ul li:hover { 
+    border: 1px solid #000;
+}
+
+/* Menu déroulant */
+.dropdown { position: relative; }
+.dropdown-content { 
+    display: none; 
+    position: absolute; 
+    top: 100%; 
+    left: 0; 
+    background: #fff; 
+    min-width: 200px; 
+    border: 2px solid #000;
+    border-top: none;
+    margin-top: 0.5rem; 
+    z-index: 1001; 
+}
+.dropdown.open .dropdown-content { display: block; }
+.dropdown-content li { 
+    padding: 0.8rem 1rem; 
+    border-bottom: 1px solid #000;
+}
+.dropdown-content li:last-child { border-bottom: none; }
+.dropdown-content li:hover { 
+    background: rgba(0, 0, 0, 0.05);
+}
+.dropdown-arrow { margin-left: 0.3rem; font-size: 0.8rem; }
+
+/* Container principal */
+.container { margin-top: 70px; min-height: calc(100vh - 70px); }
+
+/* Pages */
+.page { display: none; padding: 3rem 2rem; max-width: 1200px; margin: 0 auto; animation: fadeIn 0.5s; }
+.page.active { display: block; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+/* Page Accueil */
+#accueil { 
+    background: #fff;
+    padding: 4rem 2rem; 
+    min-height: calc(100vh - 70px); 
+}
+
+/* Encarts blancs avec contours noirs */
+.welcome-card, .about-card { 
+    background: rgba(255, 255, 255, 0.95); 
+    border: 2px solid #000;
+    padding: 3rem; 
+    margin-bottom: 2rem; 
+    text-align: justify;
+}
+
+/* Bienvenue */
+.welcome-content { display: flex; align-items: center; gap: 3rem; }
+.welcome-left { flex: 1; }
+.welcome-title { 
+    font-size: 2.5rem; 
+    color: #000; 
+    margin-bottom: 1rem; 
+    font-weight: 300;
+}
+.welcome-divider { 
+    width: 100%; 
+    height: 2px; 
+    background: #000;
+    margin-bottom: 2rem; 
+}
+.welcome-name { 
+    font-size: 1.8rem; 
+    color: #000; 
+    font-weight: 300; 
+}
+.welcome-right { flex-shrink: 0; }
+.profile-photo { 
+    width: 200px; 
+    height: 200px; 
+    border-radius: 50%; 
+    object-fit: cover; 
+    border: 3px solid #000;
+    filter: grayscale(20%);
+}
+
+/* À propos */
+.about-content { display: flex; align-items: stretch; gap: 3rem; }
+.about-left { flex: 1; display: flex; flex-direction: column; }
+.about-title { 
+    font-size: 2rem; 
+    color: #000; 
+    margin-bottom: 1.5rem; 
+    font-weight: 300;
+}
+.about-text { 
+    font-size: 1.1rem; 
+    line-height: 1.8; 
+    color: #000; 
+}
+.about-right { 
+    flex: 1; 
+    min-height: 450px; 
+    max-height: 450px; 
+    position: relative; 
+    overflow: hidden; 
+    background: #fff; 
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    justify-content: center; 
+    border: 2px solid #000;
+}
+#globe-container { width: 100%; flex: 1; position: relative; }
+#globe-container canvas { display: block !important; margin: 0 auto !important; }
+.globe-title { 
+    padding: 0.5rem 1rem; 
+    background: rgba(0, 0, 0, 0.05);
+    width: 100%; 
+    text-align: center; 
+    border-top: 2px solid #000;
+}
+.globe-title h3 { 
+    margin: 0; 
+    color: #000; 
+    font-size: 0.9rem; 
+    font-weight: 400; 
+}
+
+/* Styles Portfolio - Projets avec vignettes */
+.project-wrapper, .project-card {
+    position: relative;
+    padding: 2rem;
+    min-height: 200px;
+    overflow: hidden;
+}
+
+.project-text-section h3, .project-content h3 {
+    color: #000;
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+    font-weight: 400;
+}
+
+.project-text-section p, .project-content p {
+    line-height: 1.8;
+    text-align: justify;
+    color: #000;
+}
+
+/* Style pour le sous-titre de niveau d'étude */
+.academic-level {
+    font-style: italic;
+    color: #000;
+    opacity: 0.7;
+    font-size: 0.95rem;
+    display: block;
+    margin-bottom: 1rem;
+}
+
+/* Création d'un espace flottant pour que le texte contourne */
+.project-text-section p::before, .project-content p::before {
+    content: "";
+    float: right;
+    width: 175px;
+    height: 237.5px;
+    margin-left: 1.5rem;
+}
+
+.project-image-section, .project-image {
+    position: absolute;
+    top: 2rem;
+    right: 2rem;
+    width: 150px;
+    height: 212.5px;
+    overflow: hidden;
+    border: 2px solid #000;
+}
+
+.project-image-section img, .project-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+    filter: grayscale(30%);
+}
+
+.project-image-section img:hover, .project-image img:hover {
+    transform: scale(1.05);
+}
+
+.project-image-placeholder {
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.05);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #000;
+    font-size: 0.85rem;
+    text-align: center;
+    padding: 0.5rem;
+    font-style: italic;
+}
+
+/* Responsive Design Optimisé */
+
+/* Tablettes et petits écrans (768px - 1024px) */
+@media (max-width: 1024px) and (min-width: 769px) {
+    nav ul { gap: 1.5rem; font-size: 0.95rem; }
+    .welcome-title { font-size: 2.2rem; }
+    .welcome-name { font-size: 1.6rem; }
+    .about-title { font-size: 1.8rem; }
+    .profile-photo { width: 180px; height: 180px; }
+    .page-header h1 { font-size: 2.2rem; }
+}
+
+/* Smartphones en paysage et petites tablettes (481px - 768px) */
+@media (max-width: 768px) and (min-width: 481px) {
+    nav { padding: 0.8rem 0; }
+    nav ul { gap: 1rem; font-size: 0.9rem; }
+    nav ul li { padding: 0.4rem 0.8rem; }
+    
+    .welcome-content { gap: 2rem; }
+    .welcome-title { font-size: 2rem; }
+    .welcome-name { font-size: 1.5rem; }
+    .profile-photo { width: 160px; height: 160px; }
+    
+    .about-content { gap: 2rem; }
+    .about-title { font-size: 1.7rem; }
+    .about-text { font-size: 1rem; }
+    .about-right { min-height: 400px; max-height: 400px; }
+    
+    .contact-accordion-header { padding: 1.2rem 2rem; }
+    .contact-accordion-header h2 { font-size: 1.5rem; }
+    .contact-accordion-inner { padding: 1.5rem; }
+    .contact-section { padding: 1.5rem 2rem; }
+    
+    .page-header h1 { font-size: 2rem; }
+    .experience-item { padding: 2rem; }
+    .experience-item h3 { font-size: 1.3rem; }
+    
+    .skills-grid { grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 0.8rem; }
+    #languages-globe-container { height: 400px; }
+    
+    .project-text-section p::before, .project-content p::before {
+        width: 150px;
+        height: 201.25px;
+    }
+    
+    .project-image-section, .project-image {
+        width: 125px;
+        height: 176.25px;
+    }
+    
+    .project-text-section h3, .project-content h3 {
+        font-size: 1.3rem;
+    }
+}
+
+/* Smartphones en portrait (320px - 480px) */
+@media (max-width: 480px) {
+    nav { padding: 0.6rem 0; }
+    nav ul { flex-direction: row; gap: 0.5rem; font-size: 0.85rem; }
+    nav ul li { padding: 0.4rem 0.6rem; }
+    .dropdown-content { min-width: 160px; font-size: 0.85rem; }
+    .dropdown-content li { padding: 0.6rem 0.8rem; }
+    
+    .container { margin-top: 60px; }
+    .page { padding: 2rem 1rem; }
+    
+    #accueil { padding: 2rem 1rem; }
+    .welcome-card, .about-card { padding: 2rem 1.5rem; }
+    
+    .welcome-content { 
+        flex-direction: column-reverse; 
+        text-align: center; 
+        gap: 1.5rem;
+    }
+    .welcome-title { font-size: 1.8rem; }
+    .welcome-divider { margin-bottom: 1.5rem; }
+    .welcome-name { font-size: 1.3rem; }
+    .profile-photo { width: 140px; height: 140px; }
+    
+    .about-content { 
+        flex-direction: column; 
+        gap: 1.5rem;
+    }
+    .about-title { font-size: 1.6rem; text-align: center; }
+    .about-text { font-size: 0.95rem; text-align: justify; }
+    .about-right { 
+        min-height: 320px; 
+        max-height: 320px; 
+    }
+    #globe-container { height: 100%; }
+    .globe-title h3 { font-size: 0.85rem; }
+    
+    .contact-accordion-header { 
+        padding: 1rem 1.5rem; 
+        flex-direction: column;
+        gap: 0.5rem;
+        text-align: center;
+    }
+    .contact-accordion-header h2 { font-size: 1.4rem; }
+    .contact-accordion-inner { padding: 1rem; }
+    .contact-section { padding: 1.5rem; }
+    .contact-section h3 { font-size: 1.3rem; }
+    .form-group label { font-size: 0.95rem; }
+    .form-group input, .form-group textarea { font-size: 0.95rem; }
+    
+    .page-header { padding-bottom: 0.8rem; margin-bottom: 1.5rem; }
+    .page-header h1 { font-size: 1.7rem; }
+    .section { padding: 1.5rem; margin-bottom: 1.5rem; }
+    .section h2 { font-size: 1.4rem; margin-bottom: 1rem; }
+    .experience-grid { gap: 1.2rem; }
+    .experience-item { 
+        padding: 1.5rem; 
+        text-align: justify;
+    }
+    .experience-item h3 { font-size: 1.2rem; }
+    .experience-date { font-size: 0.9rem; }
+    .experience-item p { font-size: 0.95rem; }
+    
+    /* Compétences : 2 par 2 sur téléphone */
+    .skills-grid { 
+        grid-template-columns: repeat(2, 1fr); 
+        gap: 0.6rem; 
+    }
+    .skill-item, .language-item { 
+        padding: 0.8rem 0.5rem; 
+        font-size: 0.9rem;
+    }
+    .language-name { font-size: 0.95rem; }
+    .language-level { font-size: 0.85rem; }
+    
+    .languages-container { gap: 1.5rem; }
+    .languages-globe { padding: 1.5rem; }
+    #languages-globe-container { height: 320px; }
+    .languages-globe-title { padding: 0.8rem; }
+    .languages-globe-title h3 { font-size: 0.95rem; }
+    
+    /* Projets : titre en haut, image en bas, texte à la suite */
+    .project-wrapper, .project-card {
+        padding: 1.5rem;
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .project-text-section, .project-content {
+        order: 1;
+    }
+    
+    .project-text-section p::before, .project-content p::before {
+        display: none; /* Supprime l'espace flottant */
+    }
+    
+    .project-text-section h3, .project-content h3 {
+        font-size: 1.2rem;
+        order: 1;
+    }
+    
+    .project-text-section p, .project-content p {
+        font-size: 0.95rem;
+        order: 3;
+    }
+    
+    .project-image-section, .project-image {
+        position: static; /* Plus de position absolue */
+        width: 100%;
+        height: auto;
+        max-width: 300px;
+        aspect-ratio: 150 / 212.5;
+        margin: 1rem auto;
+        order: 2;
+    }
+    
+    .academic-level {
+        order: 1;
+    }
+    
+    .pdf-button {
+        order: 4;
+        margin-top: 1rem;
+    }
+
+    /* Boutons côte à côte sur grand écran */
+    .project-text-section .pdf-button {
+        margin-right: 0.5rem;
+    }
+
+    /* Sur mobile, boutons empilés */
+    @media (max-width: 768px) {
+        .project-text-section .pdf-button {
+            display: block;
+            width: 100%;
+            margin-right: 0;
+            margin-bottom: 0.5rem;
+        }
+    }
+    footer { padding: 0.8rem; font-size: 0.9rem; }
+}
+
+/* Très petits écrans (moins de 320px) */
+@media (max-width: 320px) {
+    nav ul { font-size: 0.75rem; }
+    .welcome-title { font-size: 1.5rem; }
+    .welcome-name { font-size: 1.1rem; }
+    .profile-photo { width: 120px; height: 120px; }
+    .about-title { font-size: 1.4rem; }
+    .about-text { font-size: 0.9rem; }
+    .about-right { min-height: 280px; max-height: 280px; }
+    .page-header h1 { font-size: 1.5rem; }
+    .experience-item h3 { font-size: 1.1rem; }
+    .skills-grid { grid-template-columns: 1fr; }
+    #languages-globe-container { height: 280px; }
+}
+
+/* Mode paysage pour smartphones */
+@media (max-height: 500px) and (orientation: landscape) {
+    .about-right { min-height: 280px; max-height: 280px; }
+    #languages-globe-container { height: 280px; }
+    .welcome-card, .about-card { padding: 1.5rem; }
+}
+
+/* Footer */
+footer { 
+    background: #fff; 
+    color: #000; 
+    text-align: center; 
+    padding: 1rem; 
+    margin-top: 2rem; 
+    border-top: 2px solid #000;
+}
+
+/* Pages CV */
+.page-header { 
+    border-bottom: 2px solid #000;
+    padding-bottom: 1rem; 
+    margin-bottom: 2rem; 
+}
+.page-header h1 { 
+    color: #000; 
+    font-size: 2.5rem; 
+    font-weight: 300;
+}
+.section { 
+    background: rgba(0, 0, 0, 0.02);
+    padding: 2rem; 
+    margin-bottom: 2rem; 
+    border: 2px solid #000;
+}
+.section h2 { 
+    color: #000; 
+    margin-bottom: 1rem; 
+    font-weight: 400;
+}
+.experience-grid { display: grid; gap: 1.5rem; }
+.experience-item { 
+    background: rgba(255, 255, 255, 0.95);
+    border: 2px solid #000;
+    padding: 3rem; 
+    text-align: justify; 
+}
+.experience-item h3 { 
+    color: #000; 
+    margin-bottom: 0.5rem; 
+    font-size: 1.5rem; 
+    font-weight: 400;
+}
+.experience-date { 
+    color: #000; 
+    font-style: italic; 
+    margin-bottom: 1rem; 
+    opacity: 0.7;
+}
+.skills-grid { 
+    display: grid; 
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); 
+    gap: 1rem; 
+}
+.skill-item, .language-item { 
+    background: rgba(255, 255, 255, 0.9);
+    padding: 1rem; 
+    text-align: center; 
+    border: 1px solid #000;
+}
+.language-item { padding: 1.5rem 1rem; }
+.language-name { 
+    font-weight: 600; 
+    color: #000; 
+    margin-bottom: 0.3rem; 
+}
+.language-level { 
+    font-style: italic; 
+    color: #000; 
+    font-size: 0.9rem; 
+    opacity: 0.7;
+}
+
+/* Globe linguistique */
+.languages-container { display: flex; flex-direction: column; gap: 2rem; }
+.languages-globe { 
+    background: rgba(255, 255, 255, 0.95);
+    border: 2px solid #000;
+    padding: 2rem; 
+    display: flex; 
+    flex-direction: column; 
+}
+#languages-globe-container { 
+    width: 100%; 
+    height: 500px; 
+    position: relative; 
+    overflow: hidden; 
+    border: 2px solid #000;
+}
+.languages-globe-title { 
+    padding: 1rem; 
+    text-align: center; 
+    border-top: 2px solid #000;
+    margin-top: 1rem; 
+    background: rgba(0, 0, 0, 0.02);
+}
+.languages-globe-title h3 { 
+    margin: 0; 
+    color: #000; 
+    font-size: 1.1rem; 
+    font-weight: 400;
+}
+
+/* Contact accordéon */
+.contact-accordion { 
+    background: rgba(255, 255, 255, 0.95);
+    border: 2px solid #000;
+    margin-bottom: 2rem; 
+    overflow: hidden; 
+    transition: all 0.3s ease; 
+}
+
+.contact-accordion-header { 
+    background: rgba(0, 0, 0, 0.05);
+    color: #000; 
+    padding: 1.5rem 3rem; 
+    cursor: pointer; 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    transition: background 0.3s; 
+    border-bottom: 2px solid #000;
+}
+
+.contact-accordion-header:hover { 
+    background: rgba(0, 0, 0, 0.1);
+}
+
+.contact-accordion-header h2 { 
+    margin: 0; 
+    font-size: 1.8rem; 
+    font-weight: 300;
+}
+
+.contact-accordion-icon { 
+    font-size: 1.5rem; 
+    transition: transform 0.3s; 
+}
+
+.contact-accordion.active .contact-accordion-icon { 
+    transform: rotate(180deg); 
+}
+
+.contact-accordion-content { 
+    max-height: 0; 
+    overflow: hidden; 
+    transition: max-height 0.5s ease; 
+}
+
+.contact-accordion.active .contact-accordion-content { 
+    max-height: 1500px; 
+}
+
+.contact-accordion-inner { 
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.contact-section { 
+    background: rgba(255, 255, 255, 0.95);
+    border: 2px solid #000;
+    padding: 3rem;
+}
+
+.contact-section h3 { 
+    color: #000; 
+    margin-bottom: 1rem; 
+    font-size: 1.5rem; 
+    font-weight: 400;
+}
+
+.contact-section p { 
+    margin-bottom: 0.5rem; 
+}
+
+.contact-section a {
+    color: #000;
+    text-decoration: none;
+}
+
+.contact-section a:hover {
+    text-decoration: underline;
+}
+
+.contact-form { 
+    max-width: 600px; 
+    margin: 0 auto; 
+}
+
+.form-group { 
+    margin-bottom: 1.5rem; 
+}
+
+.form-group label { 
+    display: block; 
+    margin-bottom: 0.5rem; 
+    color: #000; 
+    font-weight: 400;
+}
+
+.form-group input, 
+.form-group textarea { 
+    width: 100%; 
+    padding: 0.8rem; 
+    border: 2px solid #000;
+    background: #fff;
+    font-family: inherit; 
+    font-size: 1rem; 
+    transition: all 0.3s; 
+}
+
+.form-group input:focus, 
+.form-group textarea:focus { 
+    outline: none; 
+    background: rgba(0, 0, 0, 0.02);
+}
+
+.form-group textarea { 
+    resize: vertical; 
+}
+
+.submit-btn { 
+    background: rgba(0, 0, 0, 0.9);
+    color: #fff; 
+    padding: 1rem 2rem; 
+    border: 2px solid #000;
+    font-size: 1rem; 
+    font-weight: 400;
+    cursor: pointer; 
+    transition: all 0.3s; 
+    width: 100%; 
+}
+
+.submit-btn:hover { 
+    background: #000;
+}
+
+.submit-btn:active { 
+    transform: scale(0.98); 
+}
+
+/* Lightbox pour affichage en grand des images */
+.lightbox {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.9);
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.lightbox.active {
+    display: flex;
+}
+
+.lightbox-content {
+    max-width: 90%;
+    max-height: 90%;
+    object-fit: contain;
+    border: 3px solid #fff;
+    box-shadow: 0 0 50px rgba(0, 0, 0, 0.8);
+}
+
+.lightbox-close {
+    position: absolute;
+    top: 20px;
+    right: 40px;
+    font-size: 40px;
+    color: #fff;
+    font-weight: bold;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.lightbox-close:hover {
+    color: #ccc;
+}
+
+/* Curseur pointer sur les images cliquables */
+.project-image-section img, .project-image img {
+    cursor: pointer;
+}
+
+/* Bouton Consulter le PDF */
+.pdf-button {
+    display: inline-block;
+    margin-top: 1rem;
+    padding: 0.8rem 1.5rem;
+    background: rgba(0, 0, 0, 0.9);
+    color: #fff;
+    border: 2px solid #000;
+    font-size: 0.95rem;
+    font-weight: 400;
+    cursor: pointer;
+    transition: all 0.3s;
+    text-decoration: none;
+}
+
+.pdf-button:hover {
+    background: #000;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.pdf-button:active {
+    transform: translateY(0);
+}
+
+/* Lightbox PDF avec PDF.js */
+.pdf-lightbox {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.95);
+    justify-content: center;
+    align-items: center;
+}
+
+.pdf-lightbox.active {
+    display: flex;
+}
+
+.pdf-lightbox-content {
+    width: 90%;
+    height: 90%;
+    background: #525252;
+    border: 3px solid #fff;
+    box-shadow: 0 0 50px rgba(0, 0, 0, 0.8);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.pdf-controls {
+    background: #323232;
+    padding: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    border-bottom: 2px solid #fff;
+    flex-wrap: wrap;
+}
+
+.pdf-control-btn {
+    background: rgba(255, 255, 255, 0.9);
+    color: #000;
+    border: 2px solid #fff;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.pdf-control-btn:hover {
+    background: #fff;
+    transform: translateY(-2px);
+}
+
+.pdf-control-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.pdf-page-info {
+    color: #fff;
+    font-size: 0.9rem;
+    padding: 0.5rem 1rem;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 4px;
+}
+
+.pdf-canvas-container {
+    flex: 1;
+    overflow: auto;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 2rem;
+    background: #525252;
+}
+
+#pdf-canvas {
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    max-width: 100%;
+    height: auto;
+}
+
+.pdf-lightbox-close {
+    position: absolute;
+    top: -50px;
+    right: 0;
+    font-size: 40px;
+    color: #fff;
+    font-weight: bold;
+    cursor: pointer;
+    transition: color 0.3s;
+    z-index: 10000;
+}
+
+.pdf-lightbox-close:hover {
+    color: #ccc;
+}
+
+@media (max-width: 768px) {
+    .pdf-controls {
+        padding: 0.5rem;
+        gap: 0.5rem;
+    }
+    
+    .pdf-control-btn {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.85rem;
+    }
+    
+    .pdf-page-info {
+        font-size: 0.85rem;
+        padding: 0.4rem 0.8rem;
+    }
+}
+
+

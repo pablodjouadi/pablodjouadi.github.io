@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mon Portfolio CV</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- Navigation -->
+<nav>
+    <ul>
+        <li onclick="showPage('accueil')">Accueil</li>
+        <li onclick="showPage('portfolio')">Portfolio</li>
+        <li class="dropdown">
+            <span class="dropdown-toggle" onclick="toggleDropdown(this)">
+                Curriculum Vitae <span class="dropdown-arrow">▼</span>
+            </span>
+            <ul class="dropdown-content">
+                <li onclick="showPage('experiences')">Expériences</li>
+                <li onclick="showPage('formations')">Formations</li>
+                <li onclick="showPage('competences')">Compétences</li>
+            </ul>
+        </li>
+    </ul>
+</nav>
+
+<!-- Container -->
+<div class="container">
+
+    <!-- Page Accueil -->
+    <div id="accueil" class="page active">
+        <div class="welcome-card">
+            <div class="welcome-content">
+                <div class="welcome-left">
+                    <h1 class="welcome-title">Djouadi Pablo</h1>
+                    <div class="welcome-divider"></div>
+                    <p class="welcome-name">Bienvenue sur mon Portfolio</p>
+                </div>
+                <div class="welcome-right">
+                    <img src="images/portrait.jpg" class="profile-photo" alt="Photo de profil">
+                </div>
+            </div>
+        </div>
+
+        <div class="about-card">
+            <div class="about-content">
+                <div class="about-left">
+                    <h2 class="about-title">À propos de moi</h2>
+                    <p class="about-text">
+                        Ingénieur géomaticien en formation dans le Master SIGMA, co-accrédité par l'INP ENSAT et 
+                        l'Université Toulouse Jean Jaurès. Passionné par la cartographie et la géomatique, mon 
+                        ambition est d'exercer cette discipline comme profession à temps plein.
+                        <br><br>
+
+                        Mon parcours reflète une évolution progressive vers la géomatique : après des études en droit à l'Université Bordeaux Montesquieu, j'ai trouvé ma véritable vocation dans la géographie et l'analyse spatiale à travers la licence GAER à Bordeaux Montaigne. Aujourd'hui, je me spécialise dans le traitement et la valorisation des données géospatiales.
+
+                        <br><br>
+                        Pour en savoir plus explorez mon site!
+                    </p>
+                </div>
+                <div class="about-right">
+                    <div id="globe-container"></div>
+                    <div class="globe-title"><h3>Mes villes, mon histoire</h3></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="contact-accordion" id="contactAccordion">
+            <div class="contact-accordion-header" onclick="toggleContact()">
+                <h2>Me Contacter</h2>
+                <span class="contact-accordion-icon">▼</span>
+            </div>
+            <div class="contact-accordion-content">
+                <div class="contact-accordion-inner">
+                    <div class="contact-section">
+                        <h3>Coordonnées</h3>
+                        <p><strong>Email:</strong> <a href="mailto:pablodjouadisoulard@gmail.com">pablodjouadisoulard@gmail.com</a></p>
+                        <p><strong>Téléphone:</strong> +33 623272609</p>
+                        <p><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/pablo-djouadi-399723352" target="_blank">www.linkedin.com/in/pablo-djouadi-399723352</a></p>
+                    </div>
+                    <div class="contact-section">
+                        <h3>Me contacter directement</h3>
+                        <div class="contact-form">
+                            <div class="form-group">
+                                <label for="name">Nom complet *</label>
+                                <input type="text" id="name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email *</label>
+                                <input type="email" id="email" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="subject">Objet *</label>
+                                <input type="text" id="subject" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="message">Message *</label>
+                                <textarea id="message" rows="6" required></textarea>
+                            </div>
+                            <button onclick="sendEmail()" class="submit-btn">Envoyer le message</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Page Portfolio -->
+    <div id="portfolio" class="page">
+        <div class="page-header">
+            <h1>Portfolio</h1>
+        </div>
+        
+        <!-- Section Projets de Recherche -->
+        <div class="section">
+            <h2>Projets de Recherche</h2>
+            <div class="languages-container">
+                <div class="languages-globe">
+                    <div class="project-wrapper">
+                        <div class="project-text-section">
+                            <h3>Géopoint : 50 ans de géographie</h3>
+                            <p>
+                               À l'occasion de l'arrivée du colloque bisannuel Géopoint à Bordeaux en décembre 2026, j'ai été chargé de réaliser l'analyse cartographique et statistique de cet événement académique. Pour mener à bien ce projet, j'ai constitué une base de données exhaustive regroupant l'ensemble des auteurs ayant participé aux éditions précédentes du Géopoint, leurs articles publiés ainsi que leurs universités d'appartenance.
+                               
+                               <br><br>
+                               
+                               Cette base de données m'a permis de conduire des analyses approfondies à travers plusieurs approches complémentaires : cartographies d'évolution spatiale, cartographies animées et analyses statistiques avancées sur R. J'ai notamment mobilisé des bibliothèques comme ggplot2 pour la visualisation de données et visNetwork pour la création de graphiques de réseaux animés. Les analyses thématiques sur les mots-clés ont également permis d'identifier les évolutions conceptuelles et méthodologiques du colloque au fil des années.
+                                
+                               <br><br>
+                               
+                               Ce travail aboutira à une publication scientifique et à ma participation au colloque de 2026, où je présenterai la restitution de cette étude sur l'évolution du Géopoint.
+                            </p>
+                        </div>
+                        <div class="project-image-section">
+                            <img src="images/geopoint.png" alt="Projet de recherche 1" onclick="openLightbox('images/geopoint.png')">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="languages-globe">
+                    <div class="project-wrapper">
+                        <div class="project-text-section">
+                            <h3>Sphérographia</h3>
+                            <p>
+                                Dans le cadre de mon stage au CNRS UMR PASSAGES 5319, j'ai consacré une partie  de mon temps au projet Sphérographia, porté par Matthieu Noucher, chercheur spécialisé dans la géomatique et la géographie numérique. Ce projet ambitieux vise à constituer un corpus exhaustif et analysé des globes virtuels, outils de représentation géographique de plus en plus présents dans notre quotidien numérique.
+                               
+                               <br><br>
+                               
+                                Ma contribution s'est articulée autour de deux axes principaux : l'enrichissement du catalogue des globes virtuels et l'alimentation de la galerie du projet. Ce travail de saisie et de documentation a nécessité une méthodologie rigoureuse incluant un prétraitement approfondi de chaque globe analysé. J'ai ainsi procédé à une caractérisation thématique détaillée, identifiant les domaines d'application de chaque globe (géographie physique, géopolitique, tourisme, urbanisme, etc.).
+                                
+                                <br><br>
+                                
+                                L'analyse colorimétrique a également constitué un volet essentiel de ce travail, permettant d'identifier les choix sémiologiques et les conventions cartographiques adoptées par les différents concepteurs de globes virtuels. J'ai également documenté les fonctionnalités techniques de chaque interface (navigation 3D, superposition de couches thématiques, accès aux données sous-jacentes), les sources de données mobilisées, ainsi que les aspects d'ergonomie et d'accessibilité.
+                                
+                                <br><br>
+                                
+                                Cette expérience m'a permis de développer une expertise dans l'analyse critique des outils de géovisualisation et de contribuer à un projet de recherche innovant à l'intersection de la géographie, de l'informatique et de la sémiologie graphique.
+                            </p>
+                        </div>
+                        <div class="project-image-section">
+                            <img src="images/spherographia3.jpg" alt="Projet de recherche 2" onclick="openLightbox('images/spherographia3.jpg')">
+                        </div>
+                    </div>
+                </div>
+                <div class="languages-globe">
+                    <div class="project-wrapper">
+                        <div class="project-text-section">
+                            <h3>Étude préalable de l'érosion côtière à Mimizan Plage</h3>
+                            <p>
+                                Lors de mon stage au CNRS, j'ai collaboré avec Solnage Pupier sur une étude préalable portant sur l'érosion côtière à Mimizan Plage, dans le cadre d'un projet de recherche plus large sur l'impact de la houle infragravitaire sur le littoral atlantique français. 
+                                
+                                <br><br>
+                                
+                                Cette mission s'est articulée autour de deux journées de terrain intensives à Mimizan, durant lesquelles j'ai mené des entretiens avec différents acteurs clés du territoire : fonctionnaires municipaux responsables de l'aménagement du littoral, érudits locaux détenant la mémoire historique de la région, ainsi que Claire Steimer (Conservateur du patrimoine à la Région Nouvelle-Aquitaine). Ces échanges pluridisciplinaires m'ont permis de reconstituer l'historique détaillé de l'évolution du cours d'eau de Mimizan, un système aujourd'hui fortement anthropisé et dont les transformations successives ont considérablement modifié la dynamique côtière locale. Mimizan ayant été sélectionné comme site pilote pour valider les outils méthodologiques du projet, ce travail préparatoire était essentiel pour comprendre les interactions entre aménagements humains et processus naturels d'érosion. 
+                                
+                                <br><br>
+                                
+                                À l'issue de cette étude, j'ai eu l'opportunité de présenter une restitution des résultats de nos recherches devant l'ensemble des fonctionnaires locaux et des partenaires institutionnels du projet, permettant ainsi de partager nos conclusions et de contribuer à la réflexion collective sur la gestion du littoral.
+                            </p>
+                        </div>
+                        <div class="project-image-section">
+                            <img src="images/mimizan2.png" alt="Projet de recherche 3" onclick="openLightbox('images/mimizan2.png')">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Section Rendus Académiques -->
+        <div class="section">
+            <h2>Rendus Académiques</h2>
+            <div class="languages-container">
+                <div class="languages-globe">
+                    <div class="project-wrapper">
+                        <div class="project-text-section">
+                            <h3>Cartographie de la vulnérabilité urbaine face aux ICU dans le Tarn</h3>
+                            <p>
+                                <span class="academic-level">Niveau d'étude : Master 1</span>
+                                
+                                 Ce projet a été réalisé dans le cadre d'une commande pour l'entreprise BAWSALA, représentée par Madame Hanan Jemmal, enseignante tutrice du projet. Développé collectivement par Maria Achour, Lucie Delaperche, Jérémie Nougier et moi-même, ce travail de Master 1 SIGMA vise à identifier et cartographier les zones urbaines du département du Tarn les plus exposées aux îlots de chaleur urbains, tout en analysant la vulnérabilité des populations sensibles.
+
+                                <br><br>
+                                
+                                 L'enjeu de cette étude est double : d'une part, modéliser l'intensité thermique des zones urbanisées grâce à des données satellitaires Landsat 8-9 et des variables morphologiques (densité bâtie, couverture végétale, surfaces en eau) ; d'autre part, croiser ces données avec des indicateurs démographiques INSEE pour identifier les populations les plus fragiles face aux canicules (jeunes enfants, personnes âgées, densité de population).
+                                
+                                <br><br>
+                                
+                                Ma contribution au projet s'est concentrée sur deux axes techniques essentiels : En duo, nous avons défini l’architecture en étoile de la base de données, établi les tables d’association entre les différentes couches géographiques et amélioré les performances des requêtes spatiales via la création d’index. Parallèlement, j'ai pris en charge l'intégralité du développement web : de la génération initiale avec QGIS2Web à la personnalisation avancée du code HTML/CSS/JavaScript, en passant par l'intégration de la bibliothèque Leaflet.js, la création de légendes dynamiques, et l'implémentation des fonctionnalités interactives (filtres communaux, accordéon de couches, mode plein écran).
+                                
+                                <br><br>
+                                
+                                Le résultat final se présente sous la forme d'un site web cartographique permettant d'explorer visuellement les données thermiques, démographiques et les zones à risque pour les communes d'Albi, Castres et Puylaurens. Cet outil d'aide à la décision offre aux élus et acteurs territoriaux une vision claire des priorités d'intervention en matière d'adaptation climatique.
+
+                                 <br><br>
+
+                                Venez explorer l'application de webmapping interactive directement ci-dessous et découvrir les résultats de cette étude approfondie sur les îlots de chaleur urbains du Tarn.
+
+                            </p>
+                            <button class="pdf-button" onclick="openPDFLightbox('pdfs/Rapport projet tutoré.pdf')">📄 Consulter le PDF</button>
+                            <button class="pdf-button" onclick="window.open('https://pablodjouadi.github.io/ICU-Tarn-Webmapping/', '_blank')">🌐 Accéder au webmapping</button>
+                        </div>
+                        <div class="project-image-section">
+                            <img src="images/ICU_Tarn.png" alt="Cartographie de l'Ardèche" onclick="openLightbox('images/ICU_Tarn.png')">
+                        </div>
+                    </div>
+                </div>
+                <div class="languages-globe">
+                    <div class="project-wrapper">
+                        <div class="project-text-section">
+                            <h3>Dynamique démographique et chômage de l'Ardèche</h3>
+                            <p>
+                                <span class="academic-level">Niveau d'étude : Master 1</span>
+                                
+                                Ce travail de cartographie thématique réalisé dans le cadre du Master 1 SIGMA vise à mettre en évidence les dynamiques démographiques et économiques du département de l'Ardèche en 2021 par une représentation bivariée croisant deux variables statistiques. La carte combine la population communale en valeur absolue, visualisée par des cercles proportionnels en surface, et le taux de chômage en valeur relative, représenté par une discrétisation colorimétrique en cinq classes selon la méthode de Jenks. 
+                                <br><br>
+                                
+                                Les données proviennent des bases de l'INSEE (recensement 2021 et base historique de population) et le fond de carte de l'IGN via Admin-express. La méthodologie a nécessité un travail de prétraitement des données dans Excel pour calculer le taux de chômage par commune, puis une intégration dans QGIS via une jointure attributaire basée sur le code communal. L'analyse de l'histogramme a révélé une distribution non normale avec une concentration majoritaire des valeurs entre 10 et 20% de taux de chômage, justifiant l'utilisation de la méthode de Jenks qui respecte les ruptures naturelles de densité. 
+                                
+                                <br><br>
+                                
+                                La mise en page cartographique a été finalisée dans Affinity Designer après export depuis QGIS, permettant d'affiner la légende et d'appliquer des effets graphiques, notamment l'ajout d'un fond de carte gris ESRI légèrement flouté pour améliorer l'esthétique générale et faire ressortir les couleurs vives des cercles proportionnels.
+                            </p>
+                            <button class="pdf-button" onclick="openPDFLightbox('pdfs/carto_ardeche.pdf')">📄 Consulter le PDF</button>
+                        </div>
+                        <div class="project-image-section">
+                            <img src="images/carto_ardeche.png" alt="Cartographie de l'Ardèche" onclick="openLightbox('images/carto_ardeche.png')">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="languages-globe">
+                    <div class="project-wrapper">
+                        <div class="project-text-section">
+                            <h3>Cartographie de l'occupation des sols à Cadaujac :
+                                <br><br>
+                                Méthodologie mixte raster-vecteur</h3>
+                            <p>
+                                <span class="academic-level">Niveau d'étude : Licence 3</span>
+                            
+                                Cette étude vise à produire une cartographie haute résolution de l'occupation des sols de la commune de Cadaujac (Gironde) en mobilisant une approche méthodologique hybride combinant données raster et vectorielles. Les bases de données mobilisées sont l'OCS CesBio (raster, résolution 10m×10m) pour l'occupation du sol et la BD Topo IGN (vectorielle) pour les tronçons de route. 
+                                
+                                <br><br>
+                                
+                                Le travail repose sur la polygonisation de la couche raster OCS CesBio, suivie d'une soustraction des surfaces routières calculées à partir de la BD Topo pour corriger les erreurs de classification automatique. Les largeurs de routes non renseignées ont été estimées à 1,5 mètre de rayon par hypothèse. La superficie totale calculée de Cadaujac est de 15,36 km², proche de la valeur officielle INSEE (15,3 km²). L'occupation du sol révèle une dominance de trois catégories : les prairies (4,45 km²), l'urbain diffus (3,59 km²) et les forêts de feuillus (2,88 km²), caractérisant une commune à l'équilibre entre urbanisation résidentielle et espaces naturels. 
+                                
+                                <br><br>
+                                
+                                L'étude met en évidence les difficultés inhérentes aux données raster pour représenter les continuités linéaires (routes, infrastructures). La classification automatique confond fréquemment routes, zones industrielles et urbain diffus en raison de signatures spectrales similaires. De plus, la résolution pixellaire (10m×10m) attribue l'occupation majoritaire au pixel, masquant ainsi les occupations minoritaires présentes sur les bordures de routes (haies, végétation). 
+                                
+                                <br><br>
+                                
+                                Cette méthodologie démontre l'intérêt d'une approche multi-sources pour affiner la cartographie d'occupation des sols tout en soulignant les limites techniques des classifications automatiques raster pour les éléments linéaires et les zones à occupation mixte.
+                            </p>
+                            <button class="pdf-button" onclick="openPDFLightbox('pdfs/Cartographie_de_l\'occupation_des_sols_à_Cadaujac_ méthodologie_mixte_raster_vecteur.pdf')">📄 Consulter le PDF</button>
+                        </div>
+                        <div class="project-image-section">
+                            <img src="images/Cartographie_de_loccupation_des_sols_à_Cadaujac_ méthodologie_mixte_raster_vecteur.png" alt="Rendu académique 2" onclick="openLightbox('images/Cartographie_de_loccupation_des_sols_à_Cadaujac_ méthodologie_mixte_raster_vecteur.png')">
+                        </div>
+                    </div>
+                </div>
+                <div class="languages-globe">
+                    <div class="project-wrapper">
+                        <div class="project-text-section">
+                            <h3>Analyse comparative des BDD d'occupation des sols en Gironde</h3>
+                            <p>
+                                <span class="academic-level">Niveau d'étude : Licence 3</span>
+                                Cette étude compare deux bases de données d'occupation des sols en Gironde : PIGMA (régionale, résolution 1 hectare) et Corine Land Cover (européenne, résolution 25 hectares). 
+                                
+                                <br><br>
+                                
+                                L'analyse porte sur le tissu urbain discontinu, les vignobles et les forêts de feuillus. Les résultats révèlent des écarts significatifs : CLC affiche des surfaces supérieures pour l'urbain (67 967 ha contre 52 018) et les vignobles (156 076 ha contre 130 595), tandis que PIGMA détecte plus du double de forêts de feuillus (125 053 ha contre 60 170). Ces divergences s'expliquent par la différence de résolution spatiale. La généralisation importante de CLC (25 hectares minimum) englobe davantage de territoires adjacents, surestimant l'urbain et les vignobles. À l'inverse, PIGMA capture les petites forêts de moins de 25 hectares que CLC ne peut isoler. 
+                                
+                                <br><br>
+                                
+                                L'étude de cas sur Ludon-Médoc illustre ces différences : CLC produit une carte homogène et lisible, tandis que PIGMA révèle un découpage précis et fragmenté. Cette analyse démontre que le choix de la base de données doit correspondre à l'échelle d'étude : CLC pour les analyses régionales ou européennes, PIGMA pour les études locales nécessitant une haute précision.
+                            </p>
+                            <button class="pdf-button" onclick="openPDFLightbox('pdfs/Analyse_comparative_des_BDD_doccupation_des_sols_en_Gironde.pdf')">📄 Consulter le PDF</button>
+                        </div>
+                        <div class="project-image-section">
+                            <img src="images/Analyse_comparative_des_BDD_doccupation_des_sols_en_Gironde.png" alt="Description du rendu" onclick="openLightbox('images/Analyse_comparative_des_BDD_doccupation_des_sols_en_Gironde.png')">
+                        </div>
+                    </div>
+                </div>
+                <div class="languages-globe">
+                    <div class="project-wrapper">
+                        <div class="project-text-section">
+                            <h3>Analyse spatiale de la dépendance économique en Moselle</h3>
+                            <p>
+                                <span class="academic-level">Niveau d'étude : Licence 2</span>
+                                Cette étude cartographique analyse la répartition des populations inactives (moins de 14 ans et plus de 60 ans) dans le département de la Moselle à partir des données du recensement INSEE 2021. 
+                                
+                                <br><br>
+                                
+                                Trois types de représentations ont été mobilisés : cartes choroplèthes de ratio, carte du taux de dépendance économique et carte en quadrant. Les résultats révèlent une forte polarisation territoriale selon un axe ouest-est. La population de moins de 14 ans se concentre dans un axe vertical nord-ouest, autour des grandes agglomérations de Metz, Thionville et Forbach, zones attractives pour les actifs. Le nord-ouest bénéficie également de la proximité luxembourgeoise, générant d'importantes migrations pendulaires transfrontalières. À l'inverse, la population de plus de 60 ans se concentre dans l'est et le sud-est du département, zones rurales éloignées des pôles urbains et proches du Parc régional des Vosges et de l'Allemagne. La carte du taux de dépendance économique confirme cette dichotomie : l'ouest présente un taux faible (territoire dynamique) grâce à la concentration d'actifs, tandis que l'est affiche un taux élevé, signe d'un territoire moins dynamique économiquement. 
+                                
+                                <br><br>
+                                
+                                La carte en quadrant synthétise ces observations en révélant que l'axe nord-ouest concentre les communes avec des surreprésentations des deux classes d'âge par rapport à la moyenne départementale. Cette étude conclut que la Moselle est un département polarisé par l'agglomération messine et les villes transfrontalières, avec une répartition inégale des populations inactives selon une fracture ouest-est marquée.
+                            </p>
+                            <button class="pdf-button" onclick="openPDFLightbox('pdfs/Analyse_spatiale_de_la_dépendance_économique_en_Moselle.pdf')">📄 Consulter le PDF</button>
+                        </div>
+                        <div class="project-image-section">
+                            <img src="images/Analyse_spatiale_de_la_dépendance_économique_en_Moselle.png" alt="Description du rendu" onclick="openLightbox('images/Analyse_spatiale_de_la_dépendance_économique_en_Moselle.png')">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Page Expériences -->
+    <div id="experiences" class="page">
+        <div class="page-header">
+            <h1>Mes Expériences Professionnelles</h1>
+        </div>
+        <div class="experience-grid">
+            <div class="experience-item">
+                <h3>Opérateur SIG - CNRS UMR PASSAGES 5319 – Pôle ARD</h3>
+                <p class="experience-date">Juin 2025 - Août 2025</p>
+                <p>J'ai effectué un stage d'Opérateur SIG au sein du CNRS UMR PASSAGES 5319, spécifiquement
+                   au pôle ARD (Analyse et Représentation des Données). Sous la supervision d'experts tels
+                   qu'Olivier Pissoat (Cartographe) et Grégoire Lecampion (Statisticien), j'ai contribué à plusieurs
+                   projets de recherche. Mes missions principales incluaient une étude statistique approfondie sur R
+                   pour le colloque de géographie Géopoint, aboutissant à des rapports cartographiques et
+                   statistiques. J'ai également participé au projet Sphérographia du CNRS, axé sur l'étude et
+                   l'analyse des globes virtuels. Enfin, j'ai collaboré avec Solange Pupiers sur une étude de terrain
+                   concernant l'impact et l'analyse spatiale de l'érosion côtière à Mimizan Plage.
+                   
+                   <br><br>
+
+                   Projet Sphérographia : https://spherographia.cnrs.fr/?Projet
+            
+                </p>
+            </div>
+            <div class="experience-item">
+                <h3>Accompagnement de délégations européennes - ANAA</h3>
+                <p class="experience-date">Juin 2024</p>
+                <p>Dans le cadre du projet Erasmus consacré à la transition agroécologique en viticulture, j'ai eu
+                   l'opportunité d'accompagner plusieurs délégations européennes. Cette expérience m'a permis de
+                   favoriser les échanges interculturels, de valoriser les pratiques durables dans le secteur viticole et
+                   de contribuer à la diffusion de connaissances sur les enjeux de la transition écologique.
+                    
+                </p>
+            </div>
+            <div class="experience-item">
+                <h3>Soutien logistique - ANAA</h3>
+                <p class="experience-date">Mai 2021</p>
+                <p>Lors de l'édition 2021 de Bordeaux Fête le Vin, j'ai apporté un appui logistique au Marché local de
+                   producteurs. Cette mission m'a permis de contribuer à la mise en valeur des produits du terroir et
+                   de soutenir l'organisation d'un événement d'envergure régionale.
+                </p>
+            </div>
+            <div class="experience-item">
+                <h3>Accompagnement de projets - Acto (Actions et Territoires – Lisbonne)</h3>
+                <p class="experience-date">2016 – 2017</p>
+                <p>Entre 2016 et 2017, j'ai participé de manière récurrente à l'accompagnement de projets de
+                   coopération européenne et de délégations internationales.
+                   
+                   <br><br>
+                   
+                   J'ai également assuré des missions de traduction entre le français et le portugais,
+                   facilitant la communication entre les acteurs européens et renforçant le bon déroulement des échanges.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Page Formations -->
+    <div id="formations" class="page">
+        <div class="page-header">
+            <h1>Mes Formations</h1>
+        </div>
+        <div class="experience-grid">
+            <div class="experience-item">
+                <h3>Master 1 - SIGMA - INP ENSAT, Université Jean Jaurès</h3>
+                <p class="experience-date">2025 - 2026</p>
+                <p>Actuellement en première année du Master SIGMA (Systèmes d'Information Géographique et Métiers de l'Aménagement), j'acquiers des compétences solides dans le traitement, l'analyse et la valorisation des données spatiales. Ma formation me permet de développer une expertise technique en ingénierie de bases de données spatiales, télédétection, algorithmique et programmation (SQL, HTML, Python). J'approfondis également mes connaissances en programmation SIG avancée, en visualisation de données et en webmapping, dans une perspective d'application pluridisciplinaire.</p>
+            </div>
+
+            <div class="experience-item">
+                <h3>Licence 3 GAER - Université Bordeaux Montaigne</h3>
+                <p class="experience-date">2022 - 2025</p>
+                <p>La formation Géographie, Aménagement, Environnement et Ressources m'a permis d'acquérir une compréhension approfondie des dynamiques territoriales et environnementales, en combinant une approche théorique rigoureuse à des méthodes d'analyse appliquée. J'y ai développé des compétences solides en géographie numérique, en cartographie et en géomatique (SIG), ainsi qu'une maîtrise des analyses statistiques bi et multivariées pour le traitement et l'interprétation des données spatiales.
+
+                    <br><br>
+
+                   La formation m'a également permis d'aborder la géographie sociale et physique, les diagnostics de risques environnementaux, et la gestion de données quantitatives et qualitatives, dans une logique pluridisciplinaire liant aménagement du territoire, observation des milieux et appui à la décision.</p>
+            </div>
+
+            <div class="experience-item">
+                <h3>Licence 2 Droit - Université Bordeaux Montesquieu</h3>
+                <p class="experience-date">2019 - 2022</p>
+                <p>Cette formation m'a permis d'acquérir une solide culture juridique et une compréhension approfondie du fonctionnement politique, économique et administratif de l'État. Elle m'a également apporté une rigueur méthodologique essentielle, tant dans la recherche et l'analyse de textes juridiques que dans la rédaction argumentée.
+
+                    <br><br>
+
+                   J'y ai développé des compétences en organisation du travail, en gestion du temps et en esprit de synthèse, des qualités transférables à la conduite de projets et à la gestion de données dans des contextes administratifs et territoriaux complexes.</p>
+            </div>
+
+            <div class="experience-item">
+                <h3>Baccalauréat économique et social - Lycée Français Charles Lepierre - Lisbonne</h3>
+                <p class="experience-date">2010 - 2019</p>
+                <p>Mention Bien. Spécialité science politique, option DNL.
+
+                    <br><br>
+
+                   Ayant suivi ma scolarité au sein du lycée et du collège français de Lisbonne, j'ai évolué dans un environnement multiculturel et plurilingue. Cette expérience m'a permis de maîtriser couramment le français, le portugais, l'espagnol et l'anglais, et de développer une forte capacité d'adaptation ainsi qu'une ouverture internationale dans ma manière de communiquer et de travailler.
+                   </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Page Compétences -->
+    <div id="competences" class="page">
+        <div class="page-header">
+            <h1>Mes Compétences</h1>
+        </div>
+        <div class="section">
+            <h2>Compétences linguistiques</h2>
+            <div class="languages-container">
+                <div class="languages-globe">
+                    <div id="languages-globe-container"></div>
+                    <div class="languages-globe-title"><h3>Zones linguistiques maîtrisées</h3></div>
+                </div>
+                <div class="skills-grid">
+                    <div class="language-item">
+                        <div class="language-name">Français</div>
+                        <div class="language-level">Langue maternelle</div>
+                    </div>
+                    <div class="language-item">
+                        <div class="language-name">Portugais</div>
+                        <div class="language-level">Langue maternelle</div>
+                    </div>
+                    <div class="language-item">
+                        <div class="language-name">Anglais</div>
+                        <div class="language-level">Bilingue</div>
+                    </div>
+                    <div class="language-item">
+                        <div class="language-name">Espagnol</div>
+                        <div class="language-level">Courant</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="section">
+            <h2>Compétences techniques</h2>
+            <div class="skills-grid">
+                <div class="skill-item">HTML/CSS</div>
+                <div class="skill-item">SQL</div>
+                <div class="skill-item">Python</div>
+                <div class="skill-item">QGIS</div>
+                <div class="skill-item">SGBD</div>
+                <div class="skill-item">PgAdim4</div>
+                <div class="skill-item">Magrit</div>
+                <div class="skill-item">Webmapping</div>
+                <div class="skill-item">ArcGis Online / Pro</div>
+                <div class="skill-item">Adobe Illustrator</div>
+                <div class="skill-item">Affinity</div>
+                <div class="skill-item">Rstudio</div>
+                <div class="skill-item">Télédétection</div>
+                <div class="skill-item">OTB</div>
+                <div class="skill-item">Analyse statistique</div>
+                <div class="skill-item">Diagnostics de risques</div>
+            </div>
+        </div>
+        <div class="section">
+            <h2>Compétences humaines</h2>
+            <div class="skills-grid">
+                <div class="skill-item">Polyvalent</div>
+                <div class="skill-item">Autonome</div>
+                <div class="skill-item">Organisé</div>
+                <div class="skill-item">Travail en équipe</div>
+                <div class="skill-item">Adaptation</div>
+                <div class="skill-item">Esprit d'équipe</div>
+                <div class="skill-item">Rigueur</div>
+                <div class="skill-item">Volonté d'apprendre</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Lightbox pour affichage en grand des images -->
+<div id="lightbox" class="lightbox" onclick="closeLightbox()">
+    <span class="lightbox-close">&times;</span>
+    <img class="lightbox-content" id="lightbox-img">
+</div>
+
+<!-- Lightbox pour affichage des PDF avec contrôles personnalisés -->
+<div id="pdf-lightbox" class="pdf-lightbox" onclick="closePDFLightbox()">
+    <div class="pdf-lightbox-content" onclick="event.stopPropagation()">
+        <span class="pdf-lightbox-close" onclick="closePDFLightbox()">&times;</span>
+        <div class="pdf-controls">
+            <button class="pdf-control-btn" onclick="zoomOut()">🔍− Zoom -</button>
+            <button class="pdf-control-btn" onclick="zoomIn()">🔍+ Zoom +</button>
+            <button class="pdf-control-btn" onclick="resetZoom()">↻ Réinitialiser</button>
+            <span class="pdf-page-info">
+                Page <span id="page-num">1</span> / <span id="page-count">1</span>
+            </span>
+            <button class="pdf-control-btn" id="prev-page" onclick="previousPage()">◀ Précédent</button>
+            <button class="pdf-control-btn" id="next-page" onclick="nextPage()">Suivant ▶</button>
+        </div>
+        <div class="pdf-canvas-container">
+            <canvas id="pdf-canvas"></canvas>
+        </div>
+    </div>
+</div>
+
+<!-- Footer -->
+<footer>
+    <p>&copy; 2026 Djouadi Pablo - Tous droits réservés</p>
+</footer>
+
+<!-- Scripts externes -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script src="https://unpkg.com/globe.gl"></script>
+<script src="https://unpkg.com/topojson-client@3"></script>
+<script src="script.js"></script>
+</body>
+</html>
