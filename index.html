@@ -61,7 +61,7 @@
                     </p>
                 </div>
                 <div class="about-right">
-                    <div id="globe-container"></div>
+                    <div id="villes-globe-container"></div>
                     <div class="globe-title"><h3>Mes villes, mon histoire</h3></div>
                 </div>
             </div>
@@ -226,6 +226,27 @@
                         </div>
                     </div>
                 </div>
+
+                <div class="languages-globe">
+                    <div class="project-wrapper">
+                        <div class="project-text-section">
+                            <h3>Cartographie des infrastructures hydrauliques </h3>
+                            <p>
+                                <span class="academic-level">Niveau d'étude : Master 1</span>
+                                
+                                Cette cartographie des infrastructures hydrauliques et de l'hydrographie du Cœur de Brenne en Indre, réalisée dans le cadre d'un exercice pédagogique de cartographie technique visant à traiter un jeu de données spécifique issu de la BD TOPO de l'IGN.                                 
+                                <br><br>
+                                
+                                Le travail consiste en une représentation synthétique du réseau hydrographique et des équipements de gestion de l'eau sur le territoire de la Communauté de Communes du Cœur de Brenne, mettant en évidence quatre bassins versants principaux (Indre, Claise, Creuse et Suin) à travers une palette de couleurs différenciée. La carte intègre l'ensemble des composantes du système hydraulique incluant les tronçons et surfaces hydrographiques, les nœuds de confluence, ainsi que les infrastructures de gestion (barrages, réservoirs, sources et équipements divers), tout en situant ces éléments dans leur contexte territorial par la délimitation des communes. La légende structurée en trois thématiques (organisation territoriale, réseau hydrographique et éléments hydrographiques) permet une lecture hiérarchisée de l'information, démontrant la capacité à produire une cartographie technique professionnelle répondant aux standards de la géomatique appliquée à la gestion de la ressource en eau.                                
+                            </p>
+                            <button class="pdf-button" onclick="openPDFLightbox('pdfs/Djouadi Pablo - Cartographie Indre.pdf')">📄 Consulter le PDF</button>
+                        </div>
+                        <div class="project-image-section">
+                            <img src="images/carto_indre.png" alt="Description du rendu" onclick="openLightbox('images/carto_indre.png')">
+                        </div>
+                    </div>
+                </div>
+
                 <div class="languages-globe">
                     <div class="project-wrapper">
                         <div class="project-text-section">
@@ -512,8 +533,8 @@
     <div class="pdf-lightbox-content" onclick="event.stopPropagation()">
         <span class="pdf-lightbox-close" onclick="closePDFLightbox()">&times;</span>
         <div class="pdf-controls">
-            <button class="pdf-control-btn" onclick="zoomOut()">🔍− Zoom -</button>
-            <button class="pdf-control-btn" onclick="zoomIn()">🔍+ Zoom +</button>
+            <button class="pdf-control-btn" onclick="zoomOut()"> − Zoom </button>
+            <button class="pdf-control-btn" onclick="zoomIn()"> + Zoom </button>
             <button class="pdf-control-btn" onclick="resetZoom()">↻ Réinitialiser</button>
             <span class="pdf-page-info">
                 Page <span id="page-num">1</span> / <span id="page-count">1</span>
