@@ -135,8 +135,8 @@ nav ul li:hover {
     justify-content: center; 
     border: 2px solid #000;
 }
-#globe-container { width: 100%; flex: 1; position: relative; }
-#globe-container canvas { display: block !important; margin: 0 auto !important; }
+#villes-globe-container { width: 100%; flex: 1; position: relative; }
+#villes-globe-container canvas { display: block !important; margin: 0 auto !important; }
 .globe-title { 
     padding: 0.5rem 1rem; 
     background: rgba(0, 0, 0, 0.05);
@@ -316,7 +316,7 @@ nav ul li:hover {
         min-height: 320px; 
         max-height: 320px; 
     }
-    #globe-container { height: 100%; }
+    #villes-globe-container { height: 100%; }
     .globe-title h3 { font-size: 0.85rem; }
     
     .contact-accordion-header { 
