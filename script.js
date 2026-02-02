@@ -22,14 +22,14 @@ function showPage(pageId) {
     window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-// GLOBE ACCUEIL
+// GLOBE ACCUEIL - VILLES
 function initGlobe() {
     if (typeof Globe === 'undefined') { 
         setTimeout(initGlobe, 100); 
         return; 
     }
     
-    const container = document.getElementById('globe-container');
+    const container = document.getElementById('villes-globe-container');
     if (!container) return;
     
     const cities = {
