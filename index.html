@@ -3,24 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mon Portfolio CV</title>
+    <title data-i18n="site_title">Mon Portfolio CV</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
+<!-- Sélecteur de langue -->
+<div class="language-selector">
+    <button class="lang-btn active" data-lang="fr" onclick="changeLanguage('fr')" title="Français">
+        <img src="https://flagcdn.com/w40/fr.png" alt="Français">
+    </button>
+    <button class="lang-btn" data-lang="en" onclick="changeLanguage('en')" title="English">
+        <img src="https://flagcdn.com/w40/gb.png" alt="English">
+    </button>
+    <button class="lang-btn" data-lang="pt" onclick="changeLanguage('pt')" title="Português">
+        <img src="https://flagcdn.com/w40/pt.png" alt="Português">
+    </button>
+    <button class="lang-btn" data-lang="es" onclick="changeLanguage('es')" title="Español">
+        <img src="https://flagcdn.com/w40/es.png" alt="Español">
+    </button>
+</div>
+
 <!-- Navigation -->
 <nav>
     <ul>
-        <li onclick="showPage('accueil')">Accueil</li>
-        <li onclick="showPage('portfolio')">Portfolio</li>
+        <li onclick="showPage('accueil')" data-i18n="nav_accueil">Accueil</li>
+        <li onclick="showPage('portfolio')" data-i18n="nav_portfolio">Portfolio</li>
         <li class="dropdown">
             <span class="dropdown-toggle" onclick="toggleDropdown(this)">
-                Curriculum Vitae <span class="dropdown-arrow">▼</span>
+                <span data-i18n="nav_cv">Curriculum Vitae</span> <span class="dropdown-arrow" data-i18n="nav_cv_arrow">▼</span>
             </span>
             <ul class="dropdown-content">
-                <li onclick="showPage('experiences')">Expériences</li>
-                <li onclick="showPage('formations')">Formations</li>
-                <li onclick="showPage('competences')">Compétences</li>
+                <li onclick="showPage('experiences')" data-i18n="nav_experiences">Expériences</li>
+                <li onclick="showPage('formations')" data-i18n="nav_formations">Formations</li>
+                <li onclick="showPage('competences')" data-i18n="nav_competences">Compétences</li>
             </ul>
         </li>
     </ul>
@@ -34,9 +50,9 @@
         <div class="welcome-card">
             <div class="welcome-content">
                 <div class="welcome-left">
-                    <h1 class="welcome-title">Djouadi Pablo</h1>
+                    <h1 class="welcome-title" data-i18n="welcome_title">Djouadi Pablo</h1>
                     <div class="welcome-divider"></div>
-                    <p class="welcome-name">Bienvenue sur mon Portfolio</p>
+                    <p class="welcome-name" data-i18n="welcome_subtitle">Bienvenue sur mon Portfolio</p>
                 </div>
                 <div class="welcome-right">
                     <img src="images/portrait.jpg" class="profile-photo" alt="Photo de profil">
@@ -47,8 +63,8 @@
         <div class="about-card">
             <div class="about-content">
                 <div class="about-left">
-                    <h2 class="about-title">À propos de moi</h2>
-                    <p class="about-text">
+                    <h2 class="about-title" data-i18n="about_title">À propos de moi</h2>
+                    <p class="about-text" data-i18n="about_text">
                         Ingénieur géomaticien en formation dans le Master SIGMA, co-accrédité par l'INP ENSAT et 
                         l'Université Toulouse Jean Jaurès. Passionné par la cartographie et la géomatique, mon 
                         ambition est d'exercer cette discipline comme profession à temps plein.
@@ -62,44 +78,44 @@
                 </div>
                 <div class="about-right">
                     <div id="villes-globe-container"></div>
-                    <div class="globe-title"><h3>Mes villes, mon histoire</h3></div>
+                    <div class="globe-title"><h3 data-i18n="globe_title">Mes villes, mon histoire</h3></div>
                 </div>
             </div>
         </div>
 
         <div class="contact-accordion" id="contactAccordion">
             <div class="contact-accordion-header" onclick="toggleContact()">
-                <h2>Me Contacter</h2>
-                <span class="contact-accordion-icon">▼</span>
+                <h2 data-i18n="contact_title">Me Contacter</h2>
+                <span class="contact-accordion-icon" data-i18n="contact_accordion_icon">▼</span>
             </div>
             <div class="contact-accordion-content">
                 <div class="contact-accordion-inner">
                     <div class="contact-section">
-                        <h3>Coordonnées</h3>
-                        <p><strong>Email:</strong> <a href="mailto:pablodjouadisoulard@gmail.com">pablodjouadisoulard@gmail.com</a></p>
-                        <p><strong>Téléphone:</strong> +33 623272609</p>
-                        <p><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/pablo-djouadi-399723352" target="_blank">www.linkedin.com/in/pablo-djouadi-399723352</a></p>
+                        <h3 data-i18n="contact_coords_title">Coordonnées</h3>
+                        <p><strong data-i18n="contact_coords_email">Email:</strong> <a href="mailto:pablodjouadisoulard@gmail.com"> pablodjouadisoulard@gmail.com </a>
+                        <p><strong data-i18n="contact_coords_phone">Téléphone:</strong> +33 623272609</p>
+                        <p><strong data-i18n="contact_coords_linkedin">LinkedIn:</strong> <a href="https://www.linkedin.com/in/pablo-djouadi-399723352" target="_blank">www.linkedin.com/in/pablo-djouadi-399723352</a></p>
                     </div>
                     <div class="contact-section">
-                        <h3>Me contacter directement</h3>
+                        <h3 data-i18n="contact_form_title">Me contacter directement</h3>
                         <div class="contact-form">
                             <div class="form-group">
-                                <label for="name">Nom complet *</label>
+                                <label for="name" data-i18n="contact_form_name">Nom complet *</label>
                                 <input type="text" id="name" required>
                             </div>
                             <div class="form-group">
-                                <label for="email">Email *</label>
+                                <label for="email" data-i18n="contact_form_email">Email *</label>
                                 <input type="email" id="email" required>
                             </div>
                             <div class="form-group">
-                                <label for="subject">Objet *</label>
+                                <label for="subject" data-i18n="contact_form_subject">Objet *</label>
                                 <input type="text" id="subject" required>
                             </div>
                             <div class="form-group">
-                                <label for="message">Message *</label>
+                                <label for="message" data-i18n="contact_form_message">Message *</label>
                                 <textarea id="message" rows="6" required></textarea>
                             </div>
-                            <button onclick="sendEmail()" class="submit-btn">Envoyer le message</button>
+                            <button onclick="sendEmail()" class="submit-btn" data-i18n="contact_form_submit">Envoyer le message</button>
                         </div>
                     </div>
                 </div>
@@ -110,18 +126,18 @@
     <!-- Page Portfolio -->
     <div id="portfolio" class="page">
         <div class="page-header">
-            <h1>Portfolio</h1>
+            <h1 data-i18n="portfolio_title">Portfolio</h1>
         </div>
         
         <!-- Section Projets de Recherche -->
         <div class="section">
-            <h2>Projets de Recherche</h2>
+            <h2 data-i18n="portfolio_research_title">Projets de Recherche</h2>
             <div class="languages-container">
                 <div class="languages-globe">
                     <div class="project-wrapper">
                         <div class="project-text-section">
-                            <h3>Géopoint : 50 ans de géographie</h3>
-                            <p>
+                            <h3 data-i18n="project_geopoint_title">Géopoint : 50 ans de géographie</h3>
+                            <p data-i18n="project_geopoint_text">
                                À l'occasion de l'arrivée du colloque bisannuel Géopoint à Bordeaux en décembre 2026, j'ai été chargé de réaliser l'analyse cartographique et statistique de cet événement académique. Pour mener à bien ce projet, j'ai constitué une base de données exhaustive regroupant l'ensemble des auteurs ayant participé aux éditions précédentes du Géopoint, leurs articles publiés ainsi que leurs universités d'appartenance.
                                
                                <br><br>
@@ -142,13 +158,13 @@
                 <div class="languages-globe">
                     <div class="project-wrapper">
                         <div class="project-text-section">
-                            <h3>Sphérographia</h3>
-                            <p>
+                            <h3 data-i18n="project_spherographia_title">Sphérographia</h3>
+                            <p data-i18n="project_spherographia_text">
                                 Dans le cadre de mon stage au CNRS UMR PASSAGES 5319, j'ai consacré une partie  de mon temps au projet Sphérographia, porté par Matthieu Noucher, chercheur spécialisé dans la géomatique et la géographie numérique. Ce projet ambitieux vise à constituer un corpus exhaustif et analysé des globes virtuels, outils de représentation géographique de plus en plus présents dans notre quotidien numérique.
                                
                                <br><br>
                                
-                                Ma contribution s'est articulée autour de deux axes principaux : l'enrichissement du catalogue des globes virtuels et l'alimentation de la galerie du projet. Ce travail de saisie et de documentation a nécessité une méthodologie rigoureuse incluant un prétraitement approfondi de chaque globe analysé. J'ai ainsi procédé à une caractérisation thématique détaillée, identifiant les domaines d'application de chaque globe (géographie physique, géopolitique, tourisme, urbanisme, etc.).
+                                Ma contribution s'est articulée autour de deux axes principaux : l'enrichissement du catalogue des globes virtuels et l'alimentation de la galerie du projet. Ce travail de saisie et de documentation a nécessité une méthodologie rigoureuse incluant un prétraitement approfondir de chaque globe analysé. J'ai ainsi procédé à une caractérisation thématique détaillée, identifiant les domaines d'application de chaque globe (géographie physique, géopolitique, tourisme, urbanisme, etc.).
                                 
                                 <br><br>
                                 
@@ -167,8 +183,8 @@
                 <div class="languages-globe">
                     <div class="project-wrapper">
                         <div class="project-text-section">
-                            <h3>Étude préalable de l'érosion côtière à Mimizan Plage</h3>
-                            <p>
+                            <h3 data-i18n="project_mimizan_title">Étude préalable de l'érosion côtière à Mimizan Plage</h3>
+                            <p data-i18n="project_mimizan_text">
                                 Lors de mon stage au CNRS, j'ai collaboré avec Solnage Pupier sur une étude préalable portant sur l'érosion côtière à Mimizan Plage, dans le cadre d'un projet de recherche plus large sur l'impact de la houle infragravitaire sur le littoral atlantique français. 
                                 
                                 <br><br>
@@ -190,14 +206,14 @@
         
         <!-- Section Rendus Académiques -->
         <div class="section">
-            <h2>Rendus Académiques</h2>
+            <h2 data-i18n="portfolio_academic_title">Rendus Académiques</h2>
             <div class="languages-container">
                 <div class="languages-globe">
                     <div class="project-wrapper">
                         <div class="project-text-section">
-                            <h3>Cartographie de la vulnérabilité urbaine face aux ICU dans le Tarn</h3>
-                            <p>
-                                <span class="academic-level">Niveau d'étude : Master 1</span>
+                            <h3 data-i18n="academic_icu_title">Cartographie de la vulnérabilité urbaine face aux ICU dans le Tarn</h3>
+                            <p data-i18n="academic_icu_text">
+                                <span class="academic-level" data-i18n="academic_level_master1">Niveau d'étude : Master 1</span>
                                 
                                  Ce projet a été réalisé dans le cadre d'une commande pour l'entreprise BAWSALA, représentée par Madame Hanan Jemmal, enseignante tutrice du projet. Développé collectivement par Maria Achour, Lucie Delaperche, Jérémie Nougier et moi-même, ce travail de Master 1 SIGMA vise à identifier et cartographier les zones urbaines du département du Tarn les plus exposées aux îlots de chaleur urbains, tout en analysant la vulnérabilité des populations sensibles.
 
@@ -207,7 +223,7 @@
                                 
                                 <br><br>
                                 
-                                Ma contribution au projet s'est concentrée sur deux axes techniques essentiels : En duo, nous avons défini l’architecture en étoile de la base de données, établi les tables d’association entre les différentes couches géographiques et amélioré les performances des requêtes spatiales via la création d’index. Parallèlement, j'ai pris en charge l'intégralité du développement web : de la génération initiale avec QGIS2Web à la personnalisation avancée du code HTML/CSS/JavaScript, en passant par l'intégration de la bibliothèque Leaflet.js, la création de légendes dynamiques, et l'implémentation des fonctionnalités interactives (filtres communaux, accordéon de couches, mode plein écran).
+                                Ma contribution au projet s'est concentrée sur deux axes techniques essentiels : En duo, nous avons défini l'architecture en étoile de la base de données, établi les tables d'association entre les différentes couches géographiques et amélioré les performances des requêtes spatiales via la création d'index. Parallèlement, j'ai pris en charge l'intégralité du développement web : de la génération initiale avec QGIS2Web à la personnalisation avancée du code HTML/CSS/JavaScript, en passant par l'intégration de la bibliothèque Leaflet.js, la création de légendes dynamiques, et l'implémentation des fonctionnalités interactives (filtres communaux, accordéon de couches, mode plein écran).
                                 
                                 <br><br>
                                 
@@ -218,8 +234,8 @@
                                 Venez explorer l'application de webmapping interactive directement ci-dessous et découvrir les résultats de cette étude approfondie sur les îlots de chaleur urbains du Tarn.
 
                             </p>
-                            <button class="pdf-button" onclick="openPDFLightbox('pdfs/Rapport projet tutoré.pdf')">📄 Consulter le PDF</button>
-                            <button class="pdf-button" onclick="window.open('https://pablodjouadi.github.io/ICU-Tarn-Webmapping/', '_blank')">🌐 Accéder au webmapping</button>
+                            <button class="pdf-button" onclick="openPDFLightbox('pdfs/Rapport projet tutoré.pdf')" data-i18n="button_pdf">📄 Consulter le PDF</button>
+                            <button class="pdf-button" onclick="window.open('https://pablodjouadi.github.io/ICU-Tarn-Webmapping/', '_blank')" data-i18n="button_webmapping">🌐 Accéder au webmapping</button>
                         </div>
                         <div class="project-image-section">
                             <img src="images/ICU_Tarn.png" alt="Cartographie de l'Ardèche" onclick="openLightbox('images/ICU_Tarn.png')">
@@ -230,16 +246,16 @@
                 <div class="languages-globe">
                     <div class="project-wrapper">
                         <div class="project-text-section">
-                            <h3>Cartographie des infrastructures hydrauliques </h3>
-                            <p>
-                                <span class="academic-level">Niveau d'étude : Master 1</span>
+                            <h3 data-i18n="academic_indre_title">Cartographie des infrastructures hydrauliques </h3>
+                            <p data-i18n="academic_indre_text">
+                                <span class="academic-level" data-i18n="academic_level_master1">Niveau d'étude : Master 1</span>
                                 
                                 Cette cartographie des infrastructures hydrauliques et de l'hydrographie du Cœur de Brenne en Indre, réalisée dans le cadre d'un exercice pédagogique de cartographie technique visant à traiter un jeu de données spécifique issu de la BD TOPO de l'IGN.                                 
                                 <br><br>
                                 
                                 Le travail consiste en une représentation synthétique du réseau hydrographique et des équipements de gestion de l'eau sur le territoire de la Communauté de Communes du Cœur de Brenne, mettant en évidence quatre bassins versants principaux (Indre, Claise, Creuse et Suin) à travers une palette de couleurs différenciée. La carte intègre l'ensemble des composantes du système hydraulique incluant les tronçons et surfaces hydrographiques, les nœuds de confluence, ainsi que les infrastructures de gestion (barrages, réservoirs, sources et équipements divers), tout en situant ces éléments dans leur contexte territorial par la délimitation des communes. La légende structurée en trois thématiques (organisation territoriale, réseau hydrographique et éléments hydrographiques) permet une lecture hiérarchisée de l'information, démontrant la capacité à produire une cartographie technique professionnelle répondant aux standards de la géomatique appliquée à la gestion de la ressource en eau.                                
                             </p>
-                            <button class="pdf-button" onclick="openPDFLightbox('pdfs/Djouadi Pablo - Cartographie Indre.pdf')">📄 Consulter le PDF</button>
+                            <button class="pdf-button" onclick="openPDFLightbox('pdfs/Djouadi Pablo - Cartographie Indre.pdf')" data-i18n="button_pdf">📄 Consulter le PDF</button>
                         </div>
                         <div class="project-image-section">
                             <img src="images/carto_indre.png" alt="Description du rendu" onclick="openLightbox('images/carto_indre.png')">
@@ -250,9 +266,9 @@
                 <div class="languages-globe">
                     <div class="project-wrapper">
                         <div class="project-text-section">
-                            <h3>Dynamique démographique et chômage de l'Ardèche</h3>
-                            <p>
-                                <span class="academic-level">Niveau d'étude : Master 1</span>
+                            <h3 data-i18n="academic_ardeche_title">Dynamique démographique et chômage de l'Ardèche</h3>
+                            <p data-i18n="academic_ardeche_text">
+                                <span class="academic-level" data-i18n="academic_level_master1">Niveau d'étude : Master 1</span>
                                 
                                 Ce travail de cartographie thématique réalisé dans le cadre du Master 1 SIGMA vise à mettre en évidence les dynamiques démographiques et économiques du département de l'Ardèche en 2021 par une représentation bivariée croisant deux variables statistiques. La carte combine la population communale en valeur absolue, visualisée par des cercles proportionnels en surface, et le taux de chômage en valeur relative, représenté par une discrétisation colorimétrique en cinq classes selon la méthode de Jenks. 
                                 <br><br>
@@ -263,7 +279,7 @@
                                 
                                 La mise en page cartographique a été finalisée dans Affinity Designer après export depuis QGIS, permettant d'affiner la légende et d'appliquer des effets graphiques, notamment l'ajout d'un fond de carte gris ESRI légèrement flouté pour améliorer l'esthétique générale et faire ressortir les couleurs vives des cercles proportionnels.
                             </p>
-                            <button class="pdf-button" onclick="openPDFLightbox('pdfs/carto_ardeche.pdf')">📄 Consulter le PDF</button>
+                            <button class="pdf-button" onclick="openPDFLightbox('pdfs/carto_ardeche.pdf')" data-i18n="button_pdf">📄 Consulter le PDF</button>
                         </div>
                         <div class="project-image-section">
                             <img src="images/carto_ardeche.png" alt="Cartographie de l'Ardèche" onclick="openLightbox('images/carto_ardeche.png')">
@@ -274,11 +290,11 @@
                 <div class="languages-globe">
                     <div class="project-wrapper">
                         <div class="project-text-section">
-                            <h3>Cartographie de l'occupation des sols à Cadaujac :
+                            <h3 data-i18n="academic_cadaujac_title">Cartographie de l'occupation des sols à Cadaujac :
                                 <br><br>
                                 Méthodologie mixte raster-vecteur</h3>
-                            <p>
-                                <span class="academic-level">Niveau d'étude : Licence 3</span>
+                            <p data-i18n="academic_cadaujac_text">
+                                <span class="academic-level" data-i18n="academic_level_license3">Niveau d'étude : Licence 3</span>
                             
                                 Cette étude vise à produire une cartographie haute résolution de l'occupation des sols de la commune de Cadaujac (Gironde) en mobilisant une approche méthodologique hybride combinant données raster et vectorielles. Les bases de données mobilisées sont l'OCS CesBio (raster, résolution 10m×10m) pour l'occupation du sol et la BD Topo IGN (vectorielle) pour les tronçons de route. 
                                 
@@ -294,7 +310,7 @@
                                 
                                 Cette méthodologie démontre l'intérêt d'une approche multi-sources pour affiner la cartographie d'occupation des sols tout en soulignant les limites techniques des classifications automatiques raster pour les éléments linéaires et les zones à occupation mixte.
                             </p>
-                            <button class="pdf-button" onclick="openPDFLightbox('pdfs/Cartographie_de_l\'occupation_des_sols_à_Cadaujac_ méthodologie_mixte_raster_vecteur.pdf')">📄 Consulter le PDF</button>
+                            <button class="pdf-button" onclick="openPDFLightbox('pdfs/Cartographie_de_l\'occupation_des_sols_à_Cadaujac_ méthodologie_mixte_raster_vecteur.pdf')" data-i18n="button_pdf">📄 Consulter le PDF</button>
                         </div>
                         <div class="project-image-section">
                             <img src="images/Cartographie_de_loccupation_des_sols_à_Cadaujac_ méthodologie_mixte_raster_vecteur.png" alt="Rendu académique 2" onclick="openLightbox('images/Cartographie_de_loccupation_des_sols_à_Cadaujac_ méthodologie_mixte_raster_vecteur.png')">
@@ -304,9 +320,9 @@
                 <div class="languages-globe">
                     <div class="project-wrapper">
                         <div class="project-text-section">
-                            <h3>Analyse comparative des BDD d'occupation des sols en Gironde</h3>
-                            <p>
-                                <span class="academic-level">Niveau d'étude : Licence 3</span>
+                            <h3 data-i18n="academic_gironde_title">Analyse comparative des BDD d'occupation des sols en Gironde</h3>
+                            <p data-i18n="academic_gironde_text">
+                                <span class="academic-level" data-i18n="academic_level_license3">Niveau d'étude : Licence 3</span>
                                 Cette étude compare deux bases de données d'occupation des sols en Gironde : PIGMA (régionale, résolution 1 hectare) et Corine Land Cover (européenne, résolution 25 hectares). 
                                 
                                 <br><br>
@@ -317,7 +333,7 @@
                                 
                                 L'étude de cas sur Ludon-Médoc illustre ces différences : CLC produit une carte homogène et lisible, tandis que PIGMA révèle un découpage précis et fragmenté. Cette analyse démontre que le choix de la base de données doit correspondre à l'échelle d'étude : CLC pour les analyses régionales ou européennes, PIGMA pour les études locales nécessitant une haute précision.
                             </p>
-                            <button class="pdf-button" onclick="openPDFLightbox('pdfs/Analyse_comparative_des_BDD_doccupation_des_sols_en_Gironde.pdf')">📄 Consulter le PDF</button>
+                            <button class="pdf-button" onclick="openPDFLightbox('pdfs/Analyse_comparative_des_BDD_doccupation_des_sols_en_Gironde.pdf')" data-i18n="button_pdf">📄 Consulter le PDF</button>
                         </div>
                         <div class="project-image-section">
                             <img src="images/Analyse_comparative_des_BDD_doccupation_des_sols_en_Gironde.png" alt="Description du rendu" onclick="openLightbox('images/Analyse_comparative_des_BDD_doccupation_des_sols_en_Gironde.png')">
@@ -327,9 +343,9 @@
                 <div class="languages-globe">
                     <div class="project-wrapper">
                         <div class="project-text-section">
-                            <h3>Analyse spatiale de la dépendance économique en Moselle</h3>
-                            <p>
-                                <span class="academic-level">Niveau d'étude : Licence 2</span>
+                            <h3 data-i18n="academic_moselle_title">Analyse spatiale de la dépendance économique en Moselle</h3>
+                            <p data-i18n="academic_moselle_text">
+                                <span class="academic-level" data-i18n="academic_level_license2">Niveau d'étude : Licence 2</span>
                                 Cette étude cartographique analyse la répartition des populations inactives (moins de 14 ans et plus de 60 ans) dans le département de la Moselle à partir des données du recensement INSEE 2021. 
                                 
                                 <br><br>
@@ -340,7 +356,7 @@
                                 
                                 La carte en quadrant synthétise ces observations en révélant que l'axe nord-ouest concentre les communes avec des surreprésentations des deux classes d'âge par rapport à la moyenne départementale. Cette étude conclut que la Moselle est un département polarisé par l'agglomération messine et les villes transfrontalières, avec une répartition inégale des populations inactives selon une fracture ouest-est marquée.
                             </p>
-                            <button class="pdf-button" onclick="openPDFLightbox('pdfs/Analyse_spatiale_de_la_dépendance_économique_en_Moselle.pdf')">📄 Consulter le PDF</button>
+                            <button class="pdf-button" onclick="openPDFLightbox('pdfs/Analyse_spatiale_de_la_dépendance_économique_en_Moselle.pdf')" data-i18n="button_pdf">📄 Consulter le PDF</button>
                         </div>
                         <div class="project-image-section">
                             <img src="images/Analyse_spatiale_de_la_dépendance_économique_en_Moselle.png" alt="Description du rendu" onclick="openLightbox('images/Analyse_spatiale_de_la_dépendance_économique_en_Moselle.png')">
@@ -354,13 +370,13 @@
     <!-- Page Expériences -->
     <div id="experiences" class="page">
         <div class="page-header">
-            <h1>Mes Expériences Professionnelles</h1>
+            <h1 data-i18n="experiences_title">Mes Expériences Professionnelles</h1>
         </div>
         <div class="experience-grid">
             <div class="experience-item">
-                <h3>Opérateur SIG - CNRS UMR PASSAGES 5319 – Pôle ARD</h3>
-                <p class="experience-date">Juin 2025 - Août 2025</p>
-                <p>J'ai effectué un stage d'Opérateur SIG au sein du CNRS UMR PASSAGES 5319, spécifiquement
+                <h3 data-i18n="exp_cnrs_title">Opérateur SIG - CNRS UMR PASSAGES 5319 – Pôle ARD</h3>
+                <p class="experience-date" data-i18n="exp_cnrs_date">Juin 2025 - Août 2025</p>
+                <p data-i18n="exp_cnrs_text">J'ai effectué un stage d'Opérateur SIG au sein du CNRS UMR PASSAGES 5319, spécifiquement
                    au pôle ARD (Analyse et Représentation des Données). Sous la supervision d'experts tels
                    qu'Olivier Pissoat (Cartographe) et Grégoire Lecampion (Statisticien), j'ai contribué à plusieurs
                    projets de recherche. Mes missions principales incluaient une étude statistique approfondie sur R
@@ -371,14 +387,14 @@
                    
                    <br><br>
 
-                   Projet Sphérographia : <a href="https://spherographia.cnrs.fr/?Projet" target="_blank">Découvrir le projet</a>
+                   Projet Sphérographia : <a href="https://spherographia.cnrs.fr/?Projet" target="_blank" data-i18n="link_discover_project">Découvrir le projet</a>
             
                 </p>
             </div>
             <div class="experience-item">
-                <h3>Accompagnement de délégations européennes - ANAA</h3>
-                <p class="experience-date">Juin 2024</p>
-                <p>Dans le cadre du projet Erasmus consacré à la transition agroécologique en viticulture, j'ai eu
+                <h3 data-i18n="exp_anaa1_title">Accompagnement de délégations européennes - ANAA</h3>
+                <p class="experience-date" data-i18n="exp_anaa1_date">Juin 2024</p>
+                <p data-i18n="exp_anaa1_text">Dans le cadre du projet Erasmus consacré à la transition agroécologique en viticulture, j'ai eu
                    l'opportunité d'accompagner plusieurs délégations européennes. Cette expérience m'a permis de
                    favoriser les échanges interculturels, de valoriser les pratiques durables dans le secteur viticole et
                    de contribuer à la diffusion de connaissances sur les enjeux de la transition écologique.
@@ -386,17 +402,17 @@
                 </p>
             </div>
             <div class="experience-item">
-                <h3>Soutien logistique - ANAA</h3>
-                <p class="experience-date">Mai 2021</p>
-                <p>Lors de l'édition 2021 de Bordeaux Fête le Vin, j'ai apporté un appui logistique au Marché local de
+                <h3 data-i18n="exp_anaa2_title">Soutien logistique - ANAA</h3>
+                <p class="experience-date" data-i18n="exp_anaa2_date">Mai 2021</p>
+                <p data-i18n="exp_anaa2_text">Lors de l'édition 2021 de Bordeaux Fête le Vin, j'ai apporté un appui logistique au Marché local de
                    producteurs. Cette mission m'a permis de contribuer à la mise en valeur des produits du terroir et
                    de soutenir l'organisation d'un événement d'envergure régionale.
                 </p>
             </div>
             <div class="experience-item">
-                <h3>Accompagnement de projets - Acto (Actions et Territoires – Lisbonne)</h3>
-                <p class="experience-date">2016 – 2017</p>
-                <p>Entre 2016 et 2017, j'ai participé de manière récurrente à l'accompagnement de projets de
+                <h3 data-i18n="exp_acto_title">Accompagnement de projets - Acto (Actions et Territoires – Lisbonne)</h3>
+                <p class="experience-date" data-i18n="exp_acto_date">2016 – 2017</p>
+                <p data-i18n="exp_acto_text">Entre 2016 et 2017, j'ai participé de manière récurrente à l'accompagnement de projets de
                    coopération européenne et de délégations internationales.
                    
                    <br><br>
@@ -405,25 +421,90 @@
                    facilitant la communication entre les acteurs européens et renforçant le bon déroulement des échanges.
                 </p>
             </div>
+            <div class="experience-item">
+                <h3 data-i18n="exp_student_title">Emplois étudiants (France - Portugal)</h3>
+                <p class="experience-date" data-i18n="exp_student_date">2017 – 2025</p>
+                <p data-i18n="exp_student_text"><strong data-i18n="exp_student_job1">Employé libre-service – U Express, Bordeaux</strong>
+                   <br>
+                   <em>(Début 2024 – août 2025, week-ends)</em>
+                   <br><br>
+                   <span data-i18n="exp_student_objective">Objectif :</span> <span data-i18n="exp_student_job1_objective">financer les études tout en développant autonomie, rigueur et sens du service.</span>
+                   <br>
+                   <span data-i18n="exp_student_tasks">Missions :</span> <span data-i18n="exp_student_job1_tasks">mise en rayon, gestion des stocks, accueil et orientation des clients, respect des procédures et des délais.</span>
+                   
+                   <br><br>
+                   
+                   <strong data-i18n="exp_student_job2">Employé polyvalent – Carrefour City, Bordeaux</strong>
+                   <br>
+                   <em>(Été 2023 – Quai de Bacalan / Été 2022 – Victoire)</em>
+                   <br><br>
+                   <span data-i18n="exp_student_objective">Objectif :</span> <span data-i18n="exp_student_job2_objective">acquérir une expérience polyvalente en grande distribution et renforcer la relation client.</span>
+                   <br>
+                   <span data-i18n="exp_student_tasks">Missions :</span> <span data-i18n="exp_student_job2_tasks">mise en rayon, tenue de caisse, inventaire, organisation de l'espace de vente.</span>
+                   
+                   <br><br>
+
+                   <strong data-i18n="exp_student_job3">Employé saisonnier – La Nouvelle Librairie Française, Lisbonne</strong>
+                   <br>
+                   <em>(Chaque été de 2016 à 2020)</em>
+                   <br><br>
+                   <span data-i18n="exp_student_objective">Objectif :</span> <span data-i18n="exp_student_job3_objective">participer à la gestion quotidienne d'un commerce culturel et développer un sens aigu de l'accueil client.</span>
+                   <br>
+                   <span data-i18n="exp_student_tasks">Missions :</span> <span data-i18n="exp_student_job3_tasks">accueil et conseil clientèle, caisse, gestion des commandes, organisation et fonctionnement du magasin.</span>
+                   
+                   <br><br>
+
+                   <strong data-i18n="exp_student_job4">Manœuvre sur chantier – Société FBTECH (Carottage et démolition)</strong>
+                   <br>
+                   <em>(Été 2020)</em>
+                   <br><br>
+                   <span data-i18n="exp_student_objective">Objectif :</span> <span data-i18n="exp_student_job4_objective">acquérir une expérience technique dans un environnement exigeant et physique.</span>
+                   <br>
+                   <span data-i18n="exp_student_tasks">Missions :</span> <span data-i18n="exp_student_job4_tasks">assistance sur chantier, carottage, démolition, manutention.</span>
+                   
+                   <br><br>
+
+                   <strong data-i18n="exp_student_job5">Manœuvre sur chantier – Société Tangente Proeza</strong>
+                   <br>
+                   <em>(Étés 2019)</em>
+                   <br><br>
+                   <span data-i18n="exp_student_objective">Objectif :</span> <span data-i18n="exp_student_job5_objective">découvrir le milieu du bâtiment et développer des compétences de travail en équipe sur chantier.</span>
+                   <br>
+                   <span data-i18n="exp_student_tasks">Missions :</span> <span data-i18n="exp_student_job5_tasks">nettoyage de chantier, aide aux différents corps de métier, respect des consignes de sécurité.</span>
+                   
+                   <br><br>
+
+                   <strong data-i18n="exp_student_job6">Employé polyvalent – Intermarché</strong>
+                   <br>
+                   <em>(Été 2017)</em>
+                   <br><br>
+                   <span data-i18n="exp_student_objective">Objectif :</span> <span data-i18n="exp_student_job6_objective">première expérience professionnelle, apprentissage des bases du travail en commerce.</span>
+                   <br>
+                   <span data-i18n="exp_student_tasks">Missions :</span> <span data-i18n="exp_student_job6_tasks">mise en rayon, caisse, inventaire.</span>
+                   
+                   <br><br>
+                   
+                </p>
+            </div>
         </div>
     </div>
 
     <!-- Page Formations -->
     <div id="formations" class="page">
         <div class="page-header">
-            <h1>Mes Formations</h1>
+            <h1 data-i18n="formations_title">Mes Formations</h1>
         </div>
         <div class="experience-grid">
             <div class="experience-item">
-                <h3>Master 1 - SIGMA - INP ENSAT, Université Jean Jaurès</h3>
-                <p class="experience-date">2025 - 2026</p>
-                <p>Actuellement en première année du Master SIGMA (Systèmes d'Information Géographique et Métiers de l'Aménagement), j'acquiers des compétences solides dans le traitement, l'analyse et la valorisation des données spatiales. Ma formation me permet de développer une expertise technique en ingénierie de bases de données spatiales, télédétection, algorithmique et programmation (SQL, HTML, Python). J'approfondis également mes connaissances en programmation SIG avancée, en visualisation de données et en webmapping, dans une perspective d'application pluridisciplinaire.</p>
+                <h3 data-i18n="form_master_title">Master 1 - SIGMA - INP ENSAT, Université Jean Jaurès</h3>
+                <p class="experience-date" data-i18n="form_master_date">2025 - 2026</p>
+                <p data-i18n="form_master_text">Actuellement en première année du Master SIGMA (Systèmes d'Information Géographique et Métiers de l'Aménagement), j'acquiers des compétences solides dans le traitement, l'analyse et la valorisation des données spatiales. Ma formation me permet de développer une expertise technique en ingénierie de bases de données spatiales, télédétection, algorithmique et programmation (SQL, HTML, Python). J'approfondis également mes connaissances en programmation SIG avancée, en visualisation de données et en webmapping, dans une perspective d'application pluridisciplinaire.</p>
             </div>
 
             <div class="experience-item">
-                <h3>Licence 3 GAER - Université Bordeaux Montaigne</h3>
-                <p class="experience-date">2022 - 2025</p>
-                <p>La formation Géographie, Aménagement, Environnement et Ressources m'a permis d'acquérir une compréhension approfondie des dynamiques territoriales et environnementales, en combinant une approche théorique rigoureuse à des méthodes d'analyse appliquée. J'y ai développé des compétences solides en géographie numérique, en cartographie et en géomatique (SIG), ainsi qu'une maîtrise des analyses statistiques bi et multivariées pour le traitement et l'interprétation des données spatiales.
+                <h3 data-i18n="form_gaer_title">Licence 3 GAER - Université Bordeaux Montaigne</h3>
+                <p class="experience-date" data-i18n="form_gaer_date">2022 - 2025</p>
+                <p data-i18n="form_gaer_text">La formation Géographie, Aménagement, Environnement et Ressources m'a permis d'acquérir une compréhension approfondie des dynamiques territoriales et environnementales, en combinant une approche théorique rigoureuse à des méthodes d'analyse appliquée. J'y ai développé des compétences solides en géographie numérique, en cartographie et en géomatique (SIG), ainsi qu'une maîtrise des analyses statistiques bi et multivariées pour le traitement et l'interprétation des données spatiales.
 
                     <br><br>
 
@@ -431,9 +512,9 @@
             </div>
 
             <div class="experience-item">
-                <h3>Licence 2 Droit - Université Bordeaux Montesquieu</h3>
-                <p class="experience-date">2019 - 2022</p>
-                <p>Cette formation m'a permis d'acquérir une solide culture juridique et une compréhension approfondie du fonctionnement politique, économique et administratif de l'État. Elle m'a également apporté une rigueur méthodologique essentielle, tant dans la recherche et l'analyse de textes juridiques que dans la rédaction argumentée.
+                <h3 data-i18n="form_droit_title">Licence 2 Droit - Université Bordeaux Montesquieu</h3>
+                <p class="experience-date" data-i18n="form_droit_date">2019 - 2022</p>
+                <p data-i18n="form_droit_text">Cette formation m'a permis d'acquérir une solide culture juridique et une compréhension approfondie du fonctionnement politique, économique et administratif de l'État. Elle m'a également apporté une rigueur méthodologique essentielle, tant dans la recherche et l'analyse de textes juridiques que dans la rédaction argumentée.
 
                     <br><br>
 
@@ -441,9 +522,9 @@
             </div>
 
             <div class="experience-item">
-                <h3>Baccalauréat économique et social - Lycée Français Charles Lepierre - Lisbonne</h3>
-                <p class="experience-date">2010 - 2019</p>
-                <p>Mention Bien. Spécialité science politique, option DNL.
+                <h3 data-i18n="form_bac_title">Baccalauréat économique et social - Lycée Français Charles Lepierre - Lisbonne</h3>
+                <p class="experience-date" data-i18n="form_bac_date">2010 - 2019</p>
+                <p data-i18n="form_bac_text">Mention Bien. Spécialité science politique, option DNL.
 
                     <br><br>
 
@@ -456,67 +537,67 @@
     <!-- Page Compétences -->
     <div id="competences" class="page">
         <div class="page-header">
-            <h1>Mes Compétences</h1>
+            <h1 data-i18n="competences_title">Mes Compétences</h1>
         </div>
         <div class="section">
-            <h2>Compétences linguistiques</h2>
+            <h2 data-i18n="comp_lang_title">Compétences linguistiques</h2>
             <div class="languages-container">
                 <div class="languages-globe">
                     <div id="languages-globe-container"></div>
-                    <div class="languages-globe-title"><h3>Zones linguistiques maîtrisées</h3></div>
+                    <div class="languages-globe-title"><h3 data-i18n="comp_lang_globe_title">Zones linguistiques maîtrisées</h3></div>
                 </div>
                 <div class="skills-grid">
                     <div class="language-item">
-                        <div class="language-name">Français</div>
-                        <div class="language-level">Langue maternelle</div>
+                        <div class="language-name" data-i18n="comp_lang_fr">Français</div>
+                        <div class="language-level" data-i18n="comp_lang_fr_level">Langue maternelle</div>
                     </div>
                     <div class="language-item">
-                        <div class="language-name">Portugais</div>
-                        <div class="language-level">Langue maternelle</div>
+                        <div class="language-name" data-i18n="comp_lang_pt">Portugais</div>
+                        <div class="language-level" data-i18n="comp_lang_pt_level">Langue maternelle</div>
                     </div>
                     <div class="language-item">
-                        <div class="language-name">Anglais</div>
-                        <div class="language-level">Bilingue</div>
+                        <div class="language-name" data-i18n="comp_lang_en">Anglais</div>
+                        <div class="language-level" data-i18n="comp_lang_en_level">Bilingue</div>
                     </div>
                     <div class="language-item">
-                        <div class="language-name">Espagnol</div>
-                        <div class="language-level">Courant</div>
+                        <div class="language-name" data-i18n="comp_lang_es">Espagnol</div>
+                        <div class="language-level" data-i18n="comp_lang_es_level">Courant</div>
                     </div>
                 </div>
             </div>
         </div>
         <div class="section">
-            <h2>Compétences techniques</h2>
+            <h2 data-i18n="comp_tech_title">Compétences techniques</h2>
             <div class="skills-grid">
-                <div class="skill-item">HTML/CSS</div>
-                <div class="skill-item">SQL</div>
-                <div class="skill-item">Python</div>
-                <div class="skill-item">QGIS</div>
-                <div class="skill-item">SGBD</div>
-                <div class="skill-item">PgAdim4</div>
-                <div class="skill-item">Magrit</div>
-                <div class="skill-item">Webmapping</div>
-                <div class="skill-item">ArcGis Online / Pro</div>
-                <div class="skill-item">Adobe Illustrator</div>
-                <div class="skill-item">Affinity</div>
-                <div class="skill-item">Rstudio</div>
-                <div class="skill-item">Télédétection</div>
-                <div class="skill-item">OTB</div>
-                <div class="skill-item">Analyse statistique</div>
-                <div class="skill-item">Diagnostics de risques</div>
+                <div class="skill-item" data-i18n="skill_html_css">HTML/CSS</div>
+                <div class="skill-item" data-i18n="skill_sql">SQL</div>
+                <div class="skill-item" data-i18n="skill_python">Python</div>
+                <div class="skill-item" data-i18n="skill_qgis">QGIS</div>
+                <div class="skill-item" data-i18n="skill_sgbd">SGBD</div>
+                <div class="skill-item" data-i18n="skill_pgadmin">PgAdim4</div>
+                <div class="skill-item" data-i18n="skill_magrit">Magrit</div>
+                <div class="skill-item" data-i18n="skill_webmapping">Webmapping</div>
+                <div class="skill-item" data-i18n="skill_arcgis">ArcGis Online / Pro</div>
+                <div class="skill-item" data-i18n="skill_illustrator">Adobe Illustrator</div>
+                <div class="skill-item" data-i18n="skill_affinity">Affinity</div>
+                <div class="skill-item" data-i18n="skill_rstudio">Rstudio</div>
+                <div class="skill-item" data-i18n="skill_remote">Télédétection</div>
+                <div class="skill-item" data-i18n="skill_otb">OTB</div>
+                <div class="skill-item" data-i18n="skill_stats">Analyse statistique</div>
+                <div class="skill-item" data-i18n="skill_diagnostics">Diagnostics de risques</div>
             </div>
         </div>
         <div class="section">
-            <h2>Compétences humaines</h2>
+            <h2 data-i18n="comp_human_title">Compétences humaines</h2>
             <div class="skills-grid">
-                <div class="skill-item">Polyvalent</div>
-                <div class="skill-item">Autonome</div>
-                <div class="skill-item">Organisé</div>
-                <div class="skill-item">Travail en équipe</div>
-                <div class="skill-item">Adaptation</div>
-                <div class="skill-item">Esprit d'équipe</div>
-                <div class="skill-item">Rigueur</div>
-                <div class="skill-item">Volonté d'apprendre</div>
+                <div class="skill-item" data-i18n="skill_polyvalent">Polyvalent</div>
+                <div class="skill-item" data-i18n="skill_autonome">Autonome</div>
+                <div class="skill-item" data-i18n="skill_organise">Organisé</div>
+                <div class="skill-item" data-i18n="skill_equipe">Travail en équipe</div>
+                <div class="skill-item" data-i18n="skill_adaptation">Adaptation</div>
+                <div class="skill-item" data-i18n="skill_esprit">Esprit d'équipe</div>
+                <div class="skill-item" data-i18n="skill_rigueur">Rigueur</div>
+                <div class="skill-item" data-i18n="skill_apprendre">Volonté d'apprendre</div>
             </div>
         </div>
     </div>
@@ -533,14 +614,14 @@
     <div class="pdf-lightbox-content" onclick="event.stopPropagation()">
         <span class="pdf-lightbox-close" onclick="closePDFLightbox()">&times;</span>
         <div class="pdf-controls">
-            <button class="pdf-control-btn" onclick="zoomOut()"> − Zoom </button>
-            <button class="pdf-control-btn" onclick="zoomIn()"> + Zoom </button>
-            <button class="pdf-control-btn" onclick="resetZoom()">↻ Réinitialiser</button>
+            <button class="pdf-control-btn" onclick="zoomOut()" data-i18n="pdf_zoom_out"> − Zoom </button>
+            <button class="pdf-control-btn" onclick="zoomIn()" data-i18n="pdf_zoom_in"> + Zoom </button>
+            <button class="pdf-control-btn" onclick="resetZoom()" data-i18n="pdf_reset">↻ Réinitialiser</button>
             <span class="pdf-page-info">
-                Page <span id="page-num">1</span> / <span id="page-count">1</span>
+                <span data-i18n="pdf_page">Page</span> <span id="page-num">1</span> / <span id="page-count">1</span>
             </span>
-            <button class="pdf-control-btn" id="prev-page" onclick="previousPage()">◀ Précédent</button>
-            <button class="pdf-control-btn" id="next-page" onclick="nextPage()">Suivant ▶</button>
+            <button class="pdf-control-btn" id="prev-page" onclick="previousPage()" data-i18n="pdf_prev">◀ Précédent</button>
+            <button class="pdf-control-btn" id="next-page" onclick="nextPage()" data-i18n="pdf_next">Suivant ▶</button>
         </div>
         <div class="pdf-canvas-container">
             <canvas id="pdf-canvas"></canvas>
@@ -550,13 +631,16 @@
 
 <!-- Footer -->
 <footer>
-    <p>&copy; 2026 Djouadi Pablo - Tous droits réservés</p>
+    <p>&copy; 2026 Djouadi Pablo - <span data-i18n="footer_text">Tous droits réservés</span></p>
 </footer>
 
 <!-- Scripts externes -->
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+<script src="//unpkg.com/globe.gl"></script>
+<script src="https://unpkg.com/topojson@3"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
-<script src="https://unpkg.com/globe.gl"></script>
-<script src="https://unpkg.com/topojson-client@3"></script>
 <script src="script.js"></script>
+<!-- Fichier de traductions -->
+<script src="translations.js"></script>
 </body>
 </html>
