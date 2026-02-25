@@ -183,6 +183,7 @@ nav ul li:hover {
     overflow: hidden;
 }
 
+.project-wrapper > h3, .project-card > h3,
 .project-text-section h3, .project-content h3 {
     color: #000;
     margin-bottom: 1rem;
@@ -400,33 +401,20 @@ nav ul li:hover {
     .languages-globe-title { padding: 0.3rem; margin-top: 0.3rem; border-top: none; }
     .languages-globe-title h3 { font-size: 0.82rem; }
     
-    /* Projets : titre en haut, image en bas, texte à la suite */
+    /* Projets : titre en haut, image après titre, texte, puis boutons */
     .project-wrapper, .project-card {
         padding: 1.5rem;
         display: flex;
         flex-direction: column;
     }
     
-    .project-text-section, .project-content {
+    .project-wrapper > h3, .project-card > h3 {
         order: 1;
-    }
-    
-    .project-text-section p::before, .project-content p::before {
-        display: none; /* Supprime l'espace flottant */
-    }
-    
-    .project-text-section h3, .project-content h3 {
         font-size: 1.2rem;
-        order: 1;
     }
-    
-    .project-text-section p, .project-content p {
-        font-size: 0.95rem;
-        order: 3;
-    }
-    
+
     .project-image-section, .project-image {
-        position: static; /* Plus de position absolue */
+        position: static;
         width: 100%;
         height: auto;
         max-width: 300px;
@@ -434,29 +422,37 @@ nav ul li:hover {
         margin: 1rem auto;
         order: 2;
     }
+
+    .project-text-section, .project-content {
+        order: 3;
+    }
     
+    .project-text-section p::before, .project-content p::before {
+        display: none;
+    }
+    
+    .project-text-section h3, .project-content h3 {
+        font-size: 1.2rem;
+    }
+    
+    .project-text-section p, .project-content p {
+        font-size: 0.95rem;
+    }
+
     .academic-level {
-        order: 1;
+        display: block;
+        margin-bottom: 0.5rem;
     }
     
     .pdf-button {
-        order: 4;
         margin-top: 1rem;
     }
 
-    /* Boutons côte à côte sur grand écran */
     .project-text-section .pdf-button {
-        margin-right: 0.5rem;
-    }
-
-    /* Sur mobile, boutons empilés */
-    @media (max-width: 768px) {
-        .project-text-section .pdf-button {
-            display: block;
-            width: 100%;
-            margin-right: 0;
-            margin-bottom: 0.5rem;
-        }
+        display: block;
+        width: 100%;
+        margin-right: 0;
+        margin-bottom: 0.5rem;
     }
     footer { padding: 0.8rem; font-size: 0.9rem; }
 }
