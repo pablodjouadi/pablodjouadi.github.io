@@ -20,6 +20,25 @@ function showPage(pageId) {
     const selectedPage = document.getElementById(pageId);
     if (selectedPage) selectedPage.classList.add('active');
     window.scrollTo({ top: 0, behavior: 'smooth' });
+
+    // Resize du globe linguistique quand la page compétences devient visible
+    if (pageId === 'competences') {
+        setTimeout(function() {
+            if (languagesGlobeInstance) {
+                const container = document.getElementById('languages-globe-container');
+                if (container) {
+                    const w = window.innerWidth;
+                    const h = w <= 480 ? 280 : (w <= 768 ? 300 : 500);
+                    container.style.height = h + 'px';
+                    container.style.maxHeight = h + 'px';
+                    languagesGlobeInstance.width(container.offsetWidth);
+                    languagesGlobeInstance.height(h);
+                }
+            } else {
+                initLanguagesGlobe();
+            }
+        }, 100);
+    }
 }
 
 // GLOBE ACCUEIL - VILLES
@@ -110,9 +129,17 @@ function initGlobe() {
     }
     
     setTimeout(playAnimation, 900);
+
+    // Resize sur changement de taille de fenêtre
+    window.addEventListener('resize', function() {
+        globe.width(container.offsetWidth).height(container.offsetHeight);
+    });
 }
 
-// GLOBE LINGUISTIQUE
+// GLOBE LINGUISTIQUE - référence globale pour le resize
+let languagesGlobeInstance = null;
+let languagesGlobeInitialized = false;
+
 function initLanguagesGlobe() {
     if (typeof Globe === 'undefined' || typeof topojson === 'undefined') { 
         setTimeout(initLanguagesGlobe, 100); 
@@ -121,6 +148,15 @@ function initLanguagesGlobe() {
     
     const container = document.getElementById('languages-globe-container');
     if (!container) return;
+
+    // Évite une double initialisation
+    if (languagesGlobeInitialized) {
+        if (languagesGlobeInstance) {
+            languagesGlobeInstance.width(container.offsetWidth).height(container.offsetHeight);
+        }
+        return;
+    }
+    languagesGlobeInitialized = true;
 
     const redCountries = new Set([
         // Francophonie
@@ -143,13 +179,28 @@ function initLanguagesGlobe() {
 
     const topoURL = "https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json";
 
-    // Détecter si on est sur mobile
     const isMobile = window.innerWidth <= 480;
-    const defaultAltitude = isMobile ? 2.2 : 1.7;
+    const isTablet = window.innerWidth <= 768;
+    const defaultAltitude = isMobile ? 2.0 : (isTablet ? 1.8 : 1.7);
 
-    const languagesGlobe = Globe()
-        .width(container.offsetWidth)
-        .height(container.offsetHeight)
+    // Forcer la hauteur selon le breakpoint CSS
+    let globeHeight;
+    if (isMobile) {
+        globeHeight = 280;
+    } else if (isTablet) {
+        globeHeight = 300;
+    } else {
+        globeHeight = 500;
+    }
+    const containerWidth = container.offsetWidth;
+
+    // Forcer la taille du container pour qu'il corresponde exactement au globe
+    container.style.height = globeHeight + 'px';
+    container.style.maxHeight = globeHeight + 'px';
+
+    const lg = Globe()
+        .width(containerWidth)
+        .height(globeHeight)
         .globeImageUrl('https://unpkg.com/three-globe/example/img/earth-dark.jpg')
         .backgroundColor('#ffffff')
         .arcsData([])
@@ -157,13 +208,14 @@ function initLanguagesGlobe() {
         .pointsData([])
         (container);
 
-    languagesGlobe.pointOfView({ lat: 20, lng: 0, altitude: defaultAltitude });
+    lg.pointOfView({ lat: 20, lng: 0, altitude: defaultAltitude });
+    languagesGlobeInstance = lg;
 
     fetch(topoURL)
         .then(r => r.json())
         .then(topo => {
             const countries = topojson.feature(topo, topo.objects.countries).features;
-            languagesGlobe
+            lg
                 .polygonsData(countries)
                 .polygonCapColor(f => redCountries.has(f.id) ? "rgba(200,0,0,0.85)" : "rgba(40,40,40,0.55)")
                 .polygonSideColor(() => "rgba(0,0,0,0.25)")
@@ -172,6 +224,15 @@ function initLanguagesGlobe() {
                 .polygonsTransitionDuration(0)
                 .polygonLabel(f => `${f.properties?.name || "Inconnu"} (ID: ${f.id})`);
         });
+
+    // Resize sur changement de taille de fenêtre
+    window.addEventListener('resize', function() {
+        const w = window.innerWidth;
+        const h = w <= 480 ? 280 : (w <= 768 ? 300 : 500);
+        container.style.height = h + 'px';
+        container.style.maxHeight = h + 'px';
+        lg.width(container.offsetWidth).height(h);
+    });
 }
 
 // ACCORDÉON CONTACT
@@ -203,13 +264,13 @@ function openLightbox(imageSrc) {
     const lightboxImg = document.getElementById('lightbox-img');
     lightboxImg.src = imageSrc;
     lightbox.classList.add('active');
-    document.body.style.overflow = 'hidden'; // Empêche le scroll
+    document.body.style.overflow = 'hidden';
 }
 
 function closeLightbox() {
     const lightbox = document.getElementById('lightbox');
     lightbox.classList.remove('active');
-    document.body.style.overflow = 'auto'; // Réactive le scroll
+    document.body.style.overflow = 'auto';
 }
 
 // Fermer la lightbox avec la touche Échap
@@ -225,16 +286,14 @@ let pdfDoc = null;
 let pageNum = 1;
 let pageRendering = false;
 let pageNumPending = null;
-let scale = 1.2; // Zoom réduit par défaut
+let scale = 1.2;
 const canvas = document.getElementById('pdf-canvas');
 const ctx = canvas ? canvas.getContext('2d') : null;
 
-// Configuration de PDF.js
 if (typeof pdfjsLib !== 'undefined') {
     pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
 }
 
-// Fonction pour rendre une page
 function renderPage(num) {
     pageRendering = true;
     pdfDoc.getPage(num).then(function(page) {
@@ -271,13 +330,11 @@ function renderPage(num) {
     updateNavigationButtons();
 }
 
-// Mettre à jour l'état des boutons de navigation
 function updateNavigationButtons() {
     document.getElementById('prev-page').disabled = (pageNum <= 1);
     document.getElementById('next-page').disabled = (pageNum >= pdfDoc.numPages);
 }
 
-// Fonction pour afficher la page suivante
 function queueRenderPage(num) {
     if (pageRendering) {
         pageNumPending = num;
@@ -286,40 +343,34 @@ function queueRenderPage(num) {
     }
 }
 
-// Page précédente
 function previousPage() {
     if (pageNum <= 1) return;
     pageNum--;
     queueRenderPage(pageNum);
 }
 
-// Page suivante
 function nextPage() {
     if (pageNum >= pdfDoc.numPages) return;
     pageNum++;
     queueRenderPage(pageNum);
 }
 
-// Zoom +
 function zoomIn() {
     scale += 0.25;
     queueRenderPage(pageNum);
 }
 
-// Zoom -
 function zoomOut() {
     if (scale <= 0.5) return;
     scale -= 0.25;
     queueRenderPage(pageNum);
 }
 
-// Réinitialiser le zoom
 function resetZoom() {
     scale = 1.2;
     queueRenderPage(pageNum);
 }
 
-// Ouvrir la lightbox PDF
 function openPDFLightbox(pdfPath) {
     const pdfLightbox = document.getElementById('pdf-lightbox');
     
@@ -333,11 +384,8 @@ function openPDFLightbox(pdfPath) {
     
     if (typeof pdfjsLib === 'undefined') {
         alert('Erreur : La bibliothèque PDF.js n\'est pas chargée.');
-        console.error('PDF.js n\'est pas disponible');
         return;
     }
-
-    console.log('Tentative de chargement du PDF:', pdfPath);
 
     const loadingTask = pdfjsLib.getDocument({
         url: pdfPath,
@@ -346,22 +394,19 @@ function openPDFLightbox(pdfPath) {
     });
 
     loadingTask.promise.then(function(pdfDoc_) {
-        console.log('PDF chargé avec succès, nombre de pages:', pdfDoc_.numPages);
         pdfDoc = pdfDoc_;
         document.getElementById('page-count').textContent = pdfDoc.numPages;
         pageNum = 1;
-        scale = 1.2; // Zoom réduit par défaut
+        scale = 1.2;
         renderPage(pageNum);
         pdfLightbox.classList.add('active');
         document.body.style.overflow = 'hidden';
     }).catch(function(error) {
-        console.error('Erreur détaillée lors du chargement du PDF:', error);
-        alert('Impossible de charger le PDF.\n\nChemin: ' + pdfPath + '\n\nErreur: ' + error.message + '\n\nVérifiez:\n1. Que le fichier existe\n2. Que le chemin est correct\n3. La console (F12) pour plus de détails\n\nOuverture dans un nouvel onglet...');
+        alert('Impossible de charger le PDF.\n\nOuverture dans un nouvel onglet...');
         window.open(pdfPath, '_blank');
     });
 }
 
-// Fermer la lightbox PDF
 function closePDFLightbox() {
     const pdfLightbox = document.getElementById('pdf-lightbox');
     pdfLightbox.classList.remove('active');
@@ -382,19 +427,4 @@ function closePDFLightbox() {
 document.addEventListener('DOMContentLoaded', function() {
     showPage('accueil');
     setTimeout(initGlobe, 500);
-    
-    const observer = new MutationObserver(function() {
-        const competencesPage = document.getElementById('competences');
-        if (competencesPage && competencesPage.classList.contains('active')) {
-            setTimeout(initLanguagesGlobe, 300);
-        }
-    });
-    
-    const competencesPage = document.getElementById('competences');
-    if (competencesPage) {
-        observer.observe(competencesPage, {
-            attributes: true,
-            attributeFilter: ['class']
-        });
-    }
 });
