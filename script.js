@@ -400,7 +400,7 @@ function zoomOut() {
 }
 
 function resetZoom() {
-    scale = 1.2;
+    scale = 0.75;
     queueRenderPage(pageNum);
 }
 
@@ -430,7 +430,7 @@ function openPDFLightbox(pdfPath) {
         pdfDoc = pdfDoc_;
         document.getElementById('page-count').textContent = pdfDoc.numPages;
         pageNum = 1;
-        scale = 1.2;
+        scale = 0.75;
         renderPage(pageNum);
         pdfLightbox.classList.add('active');
         document.body.style.overflow = 'hidden';
