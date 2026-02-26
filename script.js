@@ -21,7 +21,6 @@ function showPage(pageId) {
     if (selectedPage) selectedPage.classList.add('active');
     window.scrollTo({ top: 0, behavior: 'smooth' });
 
-    // Resize du globe linguistique quand la page compétences devient visible
     if (pageId === 'competences') {
         setTimeout(function() {
             if (languagesGlobeInstance) {
@@ -130,13 +129,12 @@ function initGlobe() {
     
     setTimeout(playAnimation, 900);
 
-    // Resize sur changement de taille de fenêtre
     window.addEventListener('resize', function() {
         globe.width(container.offsetWidth).height(container.offsetHeight);
     });
 }
 
-// GLOBE LINGUISTIQUE - référence globale pour le resize
+// GLOBE LINGUISTIQUE
 let languagesGlobeInstance = null;
 let languagesGlobeInitialized = false;
 
@@ -149,7 +147,6 @@ function initLanguagesGlobe() {
     const container = document.getElementById('languages-globe-container');
     if (!container) return;
 
-    // Évite une double initialisation
     if (languagesGlobeInitialized) {
         if (languagesGlobeInstance) {
             languagesGlobeInstance.width(container.offsetWidth).height(container.offsetHeight);
@@ -159,21 +156,16 @@ function initLanguagesGlobe() {
     languagesGlobeInitialized = true;
 
     const redCountries = new Set([
-        // Francophonie
         '056','204','854','108','120','124','174','178','180','384','262','250','266',
         '324','332','442','450','466','492','562','140','646','686','690','756','148',
         '768','548',
-        // Lusophonie
         '024','076','132','624','508','620','678','626',
-        // Commonwealth
         '710','028','036','044','052','084','072','212','748','242','270','288','308',
         '328','356','372','388','404','296','426','430','454','470','480','583','516',
         '520','554','566','800','586','585','598','608','662','659','670','090','882',
         '694','702','728','834','776','780','798','826','894','716','840',
-        // Hispanophonie
         '032','068','152','170','188','192','214','218','724','320','340','484','558',
         '591','600','604','222','858','862',
-        // Maghreb
         '504','012','788'
     ]);
 
@@ -183,7 +175,6 @@ function initLanguagesGlobe() {
     const isTablet = window.innerWidth <= 768;
     const defaultAltitude = isMobile ? 2.0 : (isTablet ? 1.8 : 1.7);
 
-    // Forcer la hauteur selon le breakpoint CSS
     let globeHeight;
     if (isMobile) {
         globeHeight = 280;
@@ -194,7 +185,6 @@ function initLanguagesGlobe() {
     }
     const containerWidth = container.offsetWidth;
 
-    // Forcer la taille du container pour qu'il corresponde exactement au globe
     container.style.height = globeHeight + 'px';
     container.style.maxHeight = globeHeight + 'px';
 
@@ -225,7 +215,6 @@ function initLanguagesGlobe() {
                 .polygonLabel(f => `${f.properties?.name || "Inconnu"} (ID: ${f.id})`);
         });
 
-    // Resize sur changement de taille de fenêtre
     window.addEventListener('resize', function() {
         const w = window.innerWidth;
         const h = w <= 480 ? 280 : (w <= 768 ? 300 : 500);
@@ -268,7 +257,6 @@ async function sendEmail() {
 
         if (response.ok) {
             btn.textContent = '✅ Message envoyé !';
-            // Vider les champs
             document.getElementById('name').value    = '';
             document.getElementById('email').value   = '';
             document.getElementById('subject').value = '';
@@ -291,7 +279,7 @@ async function sendEmail() {
 }
 // ─────────────────────────────────────────────────────────────
 
-// LIGHTBOX pour affichage en grand des images
+// LIGHTBOX IMAGES
 function openLightbox(imageSrc) {
     const lightbox = document.getElementById('lightbox');
     const lightboxImg = document.getElementById('lightbox-img');
@@ -306,7 +294,6 @@ function closeLightbox() {
     document.body.style.overflow = 'auto';
 }
 
-// Fermer la lightbox avec la touche Échap
 document.addEventListener('keydown', function(event) {
     if (event.key === 'Escape') {
         closeLightbox();
@@ -331,7 +318,6 @@ function renderPage(num) {
     pageRendering = true;
     pdfDoc.getPage(num).then(function(page) {
         const viewport = page.getViewport({ scale: scale });
-        
         const outputScale = window.devicePixelRatio || 1;
         
         canvas.width = Math.floor(viewport.width * outputScale);
@@ -430,7 +416,7 @@ function openPDFLightbox(pdfPath) {
         pdfDoc = pdfDoc_;
         document.getElementById('page-count').textContent = pdfDoc.numPages;
         pageNum = 1;
-        scale = 1.2;
+        scale = 1.2;  // ← zoom par défaut à l'ouverture
         renderPage(pageNum);
         pdfLightbox.classList.add('active');
         document.body.style.overflow = 'hidden';
