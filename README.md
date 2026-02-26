@@ -6,17 +6,17 @@ On y retrouve deux globes interactifs, une visionneuse de documents intégrée, 
 
 Site en ligne : [pablodjouadi.github.io](https://pablodjouadi.github.io)
 
-# Stack
+## Stack
 HTML · CSS · JavaScript · Globe.gl · PDF.js
 
-# Langues disponibles
+## Langues disponibles
 Français · Anglais · Portugais · Espagnol
 
-# Description
+### Description
 
 Site web statique conçu comme un CV interactif et un portfolio professionnel. Il s'adresse aux recruteurs, collaborateurs et partenaires souhaitant découvrir mon profil de géomaticien en formation.
 
-# Fonctionnalités
+### Fonctionnalités
 
 - Navigation par pages : — Accueil, Portfolio, Expériences, Formations, Compétences
 - Support multilingue : — Français 🇫🇷, Anglais 🇬🇧, Portugais 🇵🇹, Espagnol 🇪🇸
@@ -28,3 +28,60 @@ Site web statique conçu comme un CV interactif et un portfolio professionnel. I
 - Accordéon contact : — Section pliable/dépliable
 - Design responsive : — Adapté mobile, tablette et desktop
 - Menu déroulant : — Sous-menu CV avec fermeture automatique au clic extérieur
+
+### Structure du projet
+
+portfolio/
+│
+├── index.html              
+├── style.css               
+├── script.js               
+├── translations.js         
+│
+├── images/                 
+│
+└── pdfs/                   
+
+### Technologies utilisées
+
+| HTML5 / CSS3 | Structure et mise en page |
+| JavaScript (Vanilla) | Interactivité, navigation, traductions |
+| [Globe.gl](https://globe.gl/) | Globes 3D interactifs |
+| [TopoJSON](https://github.com/topojson/topojson) | Données géographiques du globe linguistique |
+| [PDF.js](https://mozilla.github.io/pdf.js/) v3.11 | Visionneuse PDF intégrée |
+| [flagcdn.com](https://flagcdn.com/) | Drapeaux du sélecteur de langue |
+
+# Pages du site :
+
+## Accueil
+Présentation avec photo de profil, texte de présentation, globe animé des villes du parcours, et section contact accordéon.
+
+### Portfolio
+
+Deux sections :
+- Projets de Recherche
+- Rendus Académiques
+
+Curriculum Vitae : 
+- Expériences 
+- Formations
+- Compétences
+
+### Déploiement
+
+Le site est déployé via **GitHub Pages** depuis la branche `main`.
+
+###  Système de traductions (i18n)
+
+Les traductions sont gérées dans `translations.js` via un objet JavaScript structuré par langue. Chaque élément HTML traduit porte un attribut `data-i18n` correspondant à une clé de traduction.
+
+La langue sélectionnée est persistée dans le `localStorage` du navigateur.
+
+##  Auteur
+
+Djouadi Pablo
+Master SIGMA — INP ENSAT / Université Toulouse Jean Jaurès  
+pablodjouadisoulard@gmail.com  
+[LinkedIn](https://www.linkedin.com/in/pablo-djouadi-399723352)
+
+*© 2026 Djouadi Pablo — Tous droits réservés*
