@@ -20,11 +20,11 @@ On y retrouve deux globes interactifs, une visionneuse de documents intégrée, 
 
 ## Fonctionnalités
 
-- 🌍 Deux globes 3D interactifs — parcours géographique et zones linguistiques
-- 📄 Visionneuse PDF intégrée — zoom et navigation par pages
-- 🖼️ Lightbox images — affichage plein écran des cartes et visuels
-- 📱 Design responsive — mobile, tablette et desktop
-- 🌐 Multilingue — contenu traduit en quatre langues
+-  Deux globes 3D interactifs — parcours géographique et zones linguistiques
+-  Visionneuse PDF intégrée — zoom et navigation par pages
+-  Lightbox images — affichage plein écran des cartes et visuels
+-  Design responsive — mobile, tablette et desktop
+-  Multilingue — contenu traduit en quatre langues
 
 ---
 
