@@ -10,7 +10,7 @@ On y retrouve deux globes interactifs, une visionneuse de documents intégrée, 
 
 ## Stack
 
-`HTML` `CSS` `JavaScript` `Globe.gl` `PDF.js`
+`HTML` `CSS` `JavaScript` `Globe.gl` `PDF.js` `Formspree`
 
 ## Langues disponibles
 
@@ -25,6 +25,7 @@ On y retrouve deux globes interactifs, une visionneuse de documents intégrée, 
 -  Lightbox images : affichage plein écran des cartes et visuels
 -  Design responsive : mobile, tablette et desktop
 -  Multilingue : contenu traduit en quatre langues
+-  Formulaire de contact : envoi direct par email via Formspree
 
 ---
 
@@ -51,6 +52,28 @@ portfolio/
 | [Globe.gl](https://globe.gl/) | Globes 3D interactifs |
 | [TopoJSON](https://github.com/topojson/topojson) | Données géographiques |
 | [PDF.js](https://mozilla.github.io/pdf.js/) v3.11 | Visionneuse PDF intégrée |
+| [Formspree](https://formspree.io/) | Envoi de formulaire de contact par email |
+
+---
+
+## Formulaire de contact
+
+Le formulaire de contact utilise [Formspree](https://formspree.io/) pour envoyer les messages directement par email, sans back-end ni serveur.
+
+L'envoi se fait via un appel `fetch` vers l'endpoint Formspree :
+
+```javascript
+await fetch('https://formspree.io/f/mlgwzodl', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+    body: JSON.stringify({ name, email, subject, message })
+});
+```
+
+Le bouton d'envoi fournit un retour visuel en temps réel :
+- `⏳ Envoi en cours…` pendant la requête
+- `✅ Message envoyé !` en cas de succès
+- `❌ Échec — réessayez` en cas d'erreur
 
 ---
 
