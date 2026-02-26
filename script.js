@@ -240,23 +240,56 @@ function toggleContact() {
     document.getElementById('contactAccordion').classList.toggle('active'); 
 }
 
-// EMAIL
-function sendEmail() {
-    const name = document.getElementById('name').value;
-    const email = document.getElementById('email').value;
-    const subject = document.getElementById('subject').value;
-    const message = document.getElementById('message').value;
-    
-    if (!name || !email || !subject || !message) { 
-        alert('Veuillez remplir tous les champs obligatoires.'); 
-        return; 
+// ─────────────────────────────────────────────────────────────
+// ENVOI D'EMAIL VIA FORMSPREE
+// ─────────────────────────────────────────────────────────────
+async function sendEmail() {
+    const name    = document.getElementById('name').value.trim();
+    const email   = document.getElementById('email').value.trim();
+    const subject = document.getElementById('subject').value.trim();
+    const message = document.getElementById('message').value.trim();
+
+    if (!name || !email || !subject || !message) {
+        alert('Veuillez remplir tous les champs obligatoires.');
+        return;
     }
-    
-    const body = `Nom: ${name}%0D%0AEmail: ${email}%0D%0A%0D%0AMessage:%0D%0A${message}`;
-    const mailtoLink = `mailto:pablodjouadisoulard@gmail.com?subject=${encodeURIComponent(subject)}&body=${body}`;
-    window.location.href = mailtoLink;
-    alert('Votre client mail va s\'ouvrir. Veuillez vérifier et envoyer le message.');
+
+    const btn = document.querySelector('.submit-btn');
+    const originalText = btn.textContent;
+    btn.disabled = true;
+    btn.textContent = '⏳ Envoi en cours…';
+
+    try {
+        const response = await fetch('https://formspree.io/f/mlgwzodl', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+            body: JSON.stringify({ name, email, subject, message })
+        });
+
+        if (response.ok) {
+            btn.textContent = '✅ Message envoyé !';
+            // Vider les champs
+            document.getElementById('name').value    = '';
+            document.getElementById('email').value   = '';
+            document.getElementById('subject').value = '';
+            document.getElementById('message').value = '';
+            setTimeout(() => {
+                btn.disabled = false;
+                btn.textContent = originalText;
+            }, 4000);
+        } else {
+            const data = await response.json();
+            throw new Error(data.error || 'Erreur lors de l\'envoi.');
+        }
+    } catch (err) {
+        btn.textContent = '❌ Échec — réessayez';
+        setTimeout(() => {
+            btn.disabled = false;
+            btn.textContent = originalText;
+        }, 4000);
+    }
 }
+// ─────────────────────────────────────────────────────────────
 
 // LIGHTBOX pour affichage en grand des images
 function openLightbox(imageSrc) {
