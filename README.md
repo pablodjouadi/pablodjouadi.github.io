@@ -68,7 +68,7 @@ portfolio/
 
 ## Auteur
 
-**Djouadi Pablo** — Master SIGMA, INP ENSAT / Université Toulouse Jean Jaurès
+**Djouadi Pablo** - Master SIGMA, INP ENSAT / Université Toulouse Jean Jaurès
 
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-Djouadi_Pablo-blue?logo=linkedin)](https://www.linkedin.com/in/pablo-djouadi-399723352)
 
