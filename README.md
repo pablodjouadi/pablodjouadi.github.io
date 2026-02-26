@@ -1,10 +1,10 @@
 # Portfolio — Djouadi Pablo
 
-Portfolio personnel présentant mon parcours, mes projets et mes compétences en géomatique. Le site propose plusieurs sections — Accueil, Portfolio, et CV — avec un design épuré en noir et blanc.
+Portfolio personnel présentant mon parcours, mes projets et mes compétences en géomatique. Le site propose plusieurs sections — Accueil, Portfolio, et CV - avec un design épuré en noir et blanc.
 
 On y retrouve deux globes interactifs, une visionneuse de documents intégrée, et l'ensemble du contenu est disponible en quatre langues : français, anglais, portugais et espagnol. Le site est conçu pour être consulté aussi bien sur ordinateur que sur mobile.
 
-🔗 **[pablodjouadi.github.io](https://pablodjouadi.github.io)**
+**[pablodjouadi.github.io](https://pablodjouadi.github.io)**
 
 ---
 
@@ -14,17 +14,17 @@ On y retrouve deux globes interactifs, une visionneuse de documents intégrée, 
 
 ## Langues disponibles
 
-🇫🇷 Français · 🇬🇧 Anglais · 🇵🇹 Portugais · 🇪🇸 Espagnol
+🇫🇷 Français - 🇬🇧 Anglais - 🇵🇹 Portugais - 🇪🇸 Espagnol
 
 ---
 
 ## Fonctionnalités
 
--  Deux globes 3D interactifs — parcours géographique et zones linguistiques
--  Visionneuse PDF intégrée — zoom et navigation par pages
--  Lightbox images — affichage plein écran des cartes et visuels
--  Design responsive — mobile, tablette et desktop
--  Multilingue — contenu traduit en quatre langues
+-  Deux globes 3D interactifs : parcours géographique et zones linguistiques
+-  Visionneuse PDF intégrée : zoom et navigation par pages
+-  Lightbox images : affichage plein écran des cartes et visuels
+-  Design responsive : mobile, tablette et desktop
+-  Multilingue : contenu traduit en quatre langues
 
 ---
 
