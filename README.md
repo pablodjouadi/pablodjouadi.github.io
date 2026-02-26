@@ -1,4 +1,4 @@
-# Portfolio — Djouadi Pablo
+# Portfolio - Djouadi Pablo
 
 Portfolio personnel présentant mon parcours, mes projets et mes compétences en géomatique. Le site propose plusieurs sections : Accueil, Portfolio, et CV, avec un design épuré en noir et blanc.
 
